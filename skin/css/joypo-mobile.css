@@ -288,8 +288,14 @@
 		justify-content: center;
 	}
 
-	.top_search em {
+	.top_search em,
+	.top_search .search_con::before {
 		display: none;
+	}
+
+	.top_search_btn {
+		width: 32px;
+		height: 32px;
 	}
 
 	.top_search .search_con {
