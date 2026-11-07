@@ -470,6 +470,7 @@
 	display: inline-flex;
 	align-items: center;
 	height: 36px;
+	line-height: 36px;
 	padding: 0 22px;
 	border: 0;
 	border-radius: 999px;
