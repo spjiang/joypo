@@ -62,7 +62,7 @@
         // 因此 swiper 内部一律只用 opacity 淡入
         ['#inews_banner .swiper-slide', 'fade', 0.08, 0],
         ['#w3 .title', 'up', 0, 0],
-        ['.absj ul li', 'zoom', 0.09, 0],
+        ['ul.absj > li', 'zoom', 0.09, 0],
         ['.gw-about-copy', 'up', 0, 0],
         ['.gw-news-head', 'up', 0, 0],
         ['.gw-news-item', 'up', 0.12, 0],
