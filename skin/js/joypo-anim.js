@@ -63,6 +63,9 @@
         ['#inews_banner .swiper-slide', 'fade', 0.08, 0],
         ['#w3 .title', 'up', 0, 0],
         ['.absj ul li', 'zoom', 0.09, 0],
+        ['.gw-about-copy', 'up', 0, 0],
+        ['.gw-news-head', 'up', 0, 0],
+        ['.gw-news-item', 'up', 0.12, 0],
         ['.abcont .more1', 'up', 0.2, 0],
 
         // 关于我们
@@ -173,56 +176,56 @@
             return;
         }
 
+        function armDone(el) {
+            if (el._jpTimer) clearTimeout(el._jpTimer);
+            var extra = 0;
+            var t = el.style.transitionDelay;
+            if (t) {
+                var d = parseFloat(t);
+                if (!isNaN(d)) extra = d * 1000;
+            }
+            el._jpTimer = setTimeout(function () {
+                if (!el.classList.contains('jp-in')) return;
+                var inSwiper = el.closest && el.closest('.swiper, .swiper-wrapper, .swiper-slide');
+                if (!inSwiper) el.classList.add('jp-done');
+            }, 1000 + extra + 80);
+        }
+
+        function play(el) {
+            if (el.classList.contains('jp-in')) return;
+            el.classList.remove('jp-done');
+            win.requestAnimationFrame(function () {
+                el.classList.add('jp-in');
+                armDone(el);
+            });
+        }
+
+        function reset(el) {
+            if (el._jpTimer) clearTimeout(el._jpTimer);
+            el.classList.remove('jp-in', 'jp-done');
+        }
+
         var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                var el = entry.target;
-                // 延迟一个帧，确保初始状态已绘制，避免闪烁
-                win.requestAnimationFrame(function () {
-                    el.classList.add('jp-in');
-                    // 入场动画结束后释放 transform，让 hover 动效可以接管
-                    var extra = 0;
-                    var t = el.style.transitionDelay;
-                    if (t) {
-                        var d = parseFloat(t);
-                        if (!isNaN(d)) extra = d * 1000;
-                    }
-                    setTimeout(function () {
-                        // swiper 内部元素不能清 transform（swiper 靠它定位）
-                        var inSwiper = el.closest && el.closest('.swiper, .swiper-wrapper, .swiper-slide');
-                        if (!inSwiper) {
-                            el.classList.add('jp-done');
-                        }
-                    }, 1000 + extra + 80);
-                });
-                io.unobserve(el);
+                if (entry.isIntersecting) play(entry.target);
+                else reset(entry.target);
             });
-        }, {
-            // 元素进入视口即触发（不再要求露出 12%，避免快速滚动时漏触发）
-            threshold: 0,
-            // 提前 60px 触发，滚动观感更跟手
-            rootMargin: '0px 0px 60px 0px'
-        });
+        }, { threshold: 0.2 });
 
         targets.forEach(function (el) { io.observe(el); });
 
-        // 补一次全量扫描：快速滚动可能让某些元素直接跳过观察器
-        win.addEventListener('scroll', function () {
-            var vh = win.innerHeight;
+        win.addEventListener('pageshow', function (e) {
+            if (!e.persisted) return;
+            targets.forEach(function (el) { reset(el); });
             targets.forEach(function (el) {
-                if (el.classList.contains('jp-in')) return;
                 var r = el.getBoundingClientRect();
-                // 已滚动过的位置（顶部在视口上方）也直接算入场
-                if (r.top < vh + 60 && r.bottom > -60) {
-                    el.classList.add('jp-in');
-                    // swiper 内部元素保留 transform
-                    if (!(el.closest && el.closest('.swiper, .swiper-wrapper, .swiper-slide'))) {
-                        el.classList.add('jp-done');
-                    }
-                    io.unobserve(el);
-                }
+                if (r.bottom > 80 && r.top < win.innerHeight - 80) play(el);
             });
-        }, { passive: true });
+            if (win.JoypoGW) {
+                win.JoypoGW.resume('hero');
+                win.JoypoGW.resume('biz');
+            }
+        });
     }
 
     /* ================================================================
@@ -358,14 +361,30 @@
         banner.appendChild(link);
     }
 
-    function releaseRise() {
-        setTimeout(function () {
-            $$('.mack h1, .mack h2, .banner_n .box .h1, .banner_n2 .h1, .banner_n2 .box .h1, .nbox .h2').forEach(function (el) {
-                el.style.animation = 'none';
-                el.style.opacity = '1';
-                el.style.transform = 'none';
+    function restartRise(root) {
+        $$('.gw-hero-title, .gw-biz-copy h2, .mack h1, .mack h2, .banner_n .box .h1, .banner_n2 .h1, .banner_n2 .box .h1, .nbox .h2', root).forEach(function (el) {
+            el.style.animation = 'none';
+            el.style.opacity = '';
+            el.style.transform = '';
+            void el.offsetWidth;
+            el.style.animation = '';
+        });
+    }
+
+    function watchStages() {
+        if (reduceMotion || !('IntersectionObserver' in win)) return;
+        var zones = $$('#gwHero, #gwBiz, .banner_n, .banner_n2');
+        if (!zones.length) return;
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                restartRise(entry.target);
+                if (!win.JoypoGW) return;
+                if (entry.target.id === 'gwHero') win.JoypoGW.resume('hero');
+                if (entry.target.id === 'gwBiz') win.JoypoGW.resume('biz');
             });
-        }, 1200);
+        }, { threshold: 0.45 });
+        zones.forEach(function (el) { io.observe(el); });
     }
 
     /* ================================================================
@@ -376,9 +395,10 @@
     function safetyNet() {
         setTimeout(function () {
             $$('.jp-anim').forEach(function (el) {
-                if (!el.classList.contains('jp-in')) {
-                    el.classList.add('jp-in', 'jp-done');
-                }
+                if (el.classList.contains('jp-in')) return;
+                var r = el.getBoundingClientRect();
+                var visible = r.bottom > 0 && r.top < win.innerHeight;
+                if (visible) el.classList.add('jp-in', 'jp-done');
             });
         }, 2400);
     }
@@ -395,7 +415,7 @@
             initSmoothScroll();
             initHeader();
             initMouse();
-            releaseRise();
+            watchStages();
         } catch (e) {
             // 任何异常都要保证内容可见
             $$('.jp-anim').forEach(function (el) {

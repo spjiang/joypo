@@ -28,108 +28,64 @@
 </head>
 <body>
 {include file=head.html}
-<!--banner-->
-<div class="inbanner">
-<video width="100%" preload="metadata" poster="{pboot:sitedomain}/skin/images/poster_index.jpg" playsinline webkit-playsinline x5-video-player-type="h5" autoplay muted loop>
-            <source src="{pboot:sitedomain}/skin/images/index.mp4" type="video/mp4">
-            {fun=joypo_t('video.unsupported')}
-        </video>
-        <div class="mack">
-        <div class="w">
-        <h1>{fun=joypo_t('hero.line1')}</h1>
-        <h2>{fun=joypo_t('hero.line2')}</h2>
-        </div>
-        </div>
-   </div>   
-    
-    <div class="cl blank6"></div>
- <!--关于我们-->   
+<section class="gw-hero swiper" id="gwHero">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+			<video preload="metadata" poster="{pboot:sitedomain}/skin/images/poster_index.jpg" playsinline webkit-playsinline autoplay muted loop>
+				<source src="{pboot:sitedomain}/skin/images/index.mp4" type="video/mp4">
+			</video>
+			<div class="gw-hero-copy">
+				<div class="gw-hero-title">{fun=joypo_t('hero.line1')}<br>{fun=joypo_t('hero.line2')}</div>
+				{pboot:sort scode=1}<a class="gw-btn" href="[sort:link]"><span>{fun=joypo_t('home.more')}</span><i></i></a>{/pboot:sort}
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<img class="gw-bg" src="{pboot:sitedomain}/skin/images/banner1.jpg" alt="">
+			<div class="gw-hero-copy">
+				<div class="gw-hero-title">{fun=joypo_t('home.solution_h')}</div>
+				{pboot:sort scode=2}<a class="gw-btn" href="[sort:link]"><span>{fun=joypo_t('home.more')}</span><i></i></a>{/pboot:sort}
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<img class="gw-bg" src="{pboot:sitedomain}/skin/images/ybg.jpg" alt="">
+			<div class="gw-hero-copy">
+				<div class="gw-hero-title">{fun=joypo_t('home.rd_h')}</div>
+				<a class="gw-btn" href="/?yfzz/"><span>{fun=joypo_t('home.more')}</span><i></i></a>
+			</div>
+		</div>
+	</div>
+	<div class="swiper-pagination"></div>
+	<a class="gw-mouse" href="#gwAbout"><i></i><span>{fun=joypo_t('home.scroll')}</span></a>
+</section>
+
 {pboot:sort scode=1}
- <div id="w1">
- <div class="w">
-<div class="cl blank2"></div>
-		<div class="title">
-			<div class="h1"><span>[sort:name]</span></div>
-            <h1>{fun=joypo_t('hero.trust')}</h1>
+<section class="gw-about" id="gwAbout">
+	<div class="gw-about-media"><img src="{pboot:sitedomain}/skin/images/abg.jpg" alt="[sort:name]"></div>
+	<div class="gw-about-copy">
+		<div class="gw-kicker">[sort:name]</div>
+		<p>{fun=joypo_t('hero.trust')}</p>
+		<p>{fun=joypo_t('mission.text')}</p>
+		<a class="gw-btn gw-btn--dark" href="[sort:link]"><span>{fun=joypo_t('home.more')}</span><i></i></a>
+	</div>
+</section>
+{/pboot:sort}
+<section class="gw-biz swiper" id="gwBiz">
+	<div class="swiper-wrapper">
+	{pboot:sort scode=2}
+	{pboot:nav parent={sort:tcode} parent=2 num=6}
+		<div class="swiper-slide" data-name="[nav:name]" style="background-image:url('[nav:ico]')">
+			<div class="gw-biz-copy">
+				<div class="gw-kicker">{fun=joypo_t('home.solution')}</div>
+				<h2>[nav:name]</h2>
+				<p>[nav:subname]</p>
+				<a class="gw-btn" href="[nav:link]"><span>{fun=joypo_t('home.more')}</span><i></i></a>
+			</div>
 		</div>
-        
-      <div class="inabout">
-      <dl>
-      <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
-      <dd><h1>{fun=joypo_t('mission.title')}</h1>
-    
-      <p>{fun=joypo_t('mission.text')}</p>
-      </dd>
-      
-      </dl>
-      
-      <dl>
-      <dt><img alt="{fun=joypo_t('vision.title')}" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
-      <dd>
-      <h1>{fun=joypo_t('vision.title')}</h1>
-      <p>{fun=joypo_t('vision.text')}</p>
-      </dd>
-      
-      </dl>
-      
-      <dl aos="fade-up">
-       <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
-      <dd>
-       <h1>{fun=joypo_t('values.title')}</h1>
-      <p>{fun=joypo_t('values.text')}</p>
-      </dd>
-      
-      </dl>
-      <div class="cl blank2"></div>
-      </div>
-        
-    
-        
- </div>
-   	<div class="cl blank6"></div>  
- </div>
- {/pboot:sort}
- <style>
-
-    
-
-   
-  </style>
-  
-
-  
-
-<div class="cl blank6"></div>
-		<div class="title" aos="fade-up">
-			<div class="h2">{fun=joypo_t('home.solution')}</div>
-            <h2>{fun=joypo_t('home.solution_h')}</h2>
-		</div>
-        <div class="cl blank2"></div>
-        <div class="w">
-     {pboot:sort scode=2}   
-        <div id="case_banner" >
-      
-     {pboot:nav parent={sort:tcode} parent=2 num=6}
-     <dl> 
-       <a href="[nav:link]">
-        <dt>      
-      <img src="[nav:ico]" alt="[nav:name]">
-      
-      <div class="ha1">[nav:subname]</div>
-      </dt>
-          
-        
-   
-        </a>
-     </dl>
-        {/pboot:nav}
-            
-       
-   </div>
-
-    {/pboot:sort}
-    
-    </div>
+	{/pboot:nav}
+	{/pboot:sort}
+	</div>
+	<div class="gw-biz-nav"></div>
+</section>
   
   
     <div class="cl blank2"></div>
@@ -175,86 +131,31 @@
   <div class="cl blank6"></div>
 <div class="cl blank2"></div>
 </div>-->
- <div class="cl blank3"></div>
-		<div class="title" aos="fade-up">
-			<div class="h2">{fun=joypo_t('home.news')}</div>
-           
+<section class="gw-news">
+	<div class="gw-news-head">
+		<div class="gw-kicker">{fun=joypo_t('home.news')}</div>
+		{pboot:sort scode=7}<a class="gw-btn gw-btn--dark" href="[sort:link]"><span>{fun=joypo_t('home.more')}</span><i></i></a>{/pboot:sort}
+	</div>
+	{pboot:list scode=7 num=4}
+	<a class="gw-news-item" href="[list:link]">
+		<div class="gw-news-copy">
+			<span class="gw-cat">{fun=joypo_t('home.news_cat')}</span>
+			<h3>[list:title]</h3>
+			<time>[list:date style=Y-m-d]</time>
 		</div>
-        
-        <div class="swiper mySwiper1" id="inews_banner">
-      <div class="swiper-wrapper"> 
- 	{pboot:list scode=7 num=6}
-			<div class="swiper-slide">
-			
-            <dl class="jp-news-card"
-    onMouseOver="this.classList.add('nhover1');this.classList.remove('nhover01');"
-    onMouseOut="this.classList.add('nhover01');this.classList.remove('nhover1');">
-            <dt class="jp-news-pic">
-              <a href="[list:link]" target="_blank">
-                <img src="[list:ico]" loading="lazy" alt="[list:title]" data-cursor-label="VIEW">
-              </a>
-              <span class="jp-news-badge">NEWS</span>
-            </dt>
-            <dd class="jp-news-body">
-              <div class="h1"><a href="[list:link]" target="_blank">[list:title]</a></div>
-              <div class="jp-news-meta">
-                <span class="jp-news-date"><i class="iconfont iconxinxi"></i>[list:date style=Y-m-d]</span>
-                <span class="jp-news-cat"><i class="iconfont icondizhi"></i>{fun=joypo_t('home.news_cat')}</span>
-              </div>
-              <div class="h2">[list:description lencn=50]</div>
-              <div class="more"><a href="[list:link]" target="_blank">{fun=joypo_t('home.detail')}<i class="iconfont icon-jiantou_you"></i></a></div>
-				 </dd>
-			
-              <div class="cl"></div>
-             </dl>       
-			
-			
-			</div>
-			{/pboot:list}
-			
-    
-            
-      
-   
-        
-        
-        </div>
-        <!--分页点：swiper 容器 overflow:hidden 会裁切，
-             所以给容器加 padding-bottom 预留出分页点的高度-->
-        <div class="swiper-pagination jp-news-pagination"></div>
-    </div> 
-
-    <div class="cl blank2"></div>
- <div id="w3" aos="fade-up">
- <div class="w">
- <div class="cl blank6"></div>
-  <div class="cl blank2"></div>
- <div class="title">
-			 <h1 style="font-size:60px;"> {fun=joypo_t('home.weight')}</h1>
-		</div>
-        <div class="cl blank6"></div>
-        <div class="abcont">
-<div class="absj">
-<ul>
-<li>
-<span class="timer" data-start="12">12</span><strong>+</strong><br/>{fun=joypo_t('stat.years')}
-</li>
-<li>
-<span class="timer" data-start="20">20</span><strong>%</strong><br/>{fun=joypo_t('stat.engineers')}
-</li>
-<li>
-<span class="timer" data-start="300">300</span><b>w</b><strong>+</strong><br/>{fun=joypo_t('stat.capacity')}
-</li>
-<li>
-<span class="timer" data-start="1000">1000</span><strong>+</strong><br/>{fun=joypo_t('stat.designs')}
-</li>
-</ul>
-
-</div>
- <div class="cl blank6"></div>
-  <div class="cl blank3"></div>
-<div class="more1"><a href="/?about/" target="_blank">{fun=joypo_t('home.more')}</a></div>
-</div>
+		<div class="gw-news-img"><img src="[list:ico]" alt="[list:title]"></div>
+	</a>
+	{/pboot:list}
+</section>
+<section class="gw-stats">
+	<ul class="absj">
+		<li><span class="timer" data-start="12">12</span><strong>+</strong><br>{fun=joypo_t('stat.years')}</li>
+		<li><span class="timer" data-start="20">20</span><strong>%</strong><br>{fun=joypo_t('stat.engineers')}</li>
+		<li><span class="timer" data-start="300">300</span><b>w</b><strong>+</strong><br>{fun=joypo_t('stat.capacity')}</li>
+		<li><span class="timer" data-start="1000">1000</span><strong>+</strong><br>{fun=joypo_t('stat.designs')}</li>
+	</ul>
+</section>
+<div class="abcont" hidden></div>
  <script type="text/javascript" src="{pboot:sitedomain}/skin/js/appear.js"></script> 
 
 <script type="text/javascript">
@@ -278,16 +179,7 @@
 			});
 		}
 	});
-</script>  
-
- 
- 
-    
-
-	
-		<div class="cl"></div>
-	</div>
-</div>
+</script>
 
 {include file=foot.html}
   <!--<script>

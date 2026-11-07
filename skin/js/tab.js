@@ -6,7 +6,7 @@ $(function() {
 
 
 
-    var swiper = new Swiper(".mySwiper1", {
+    if (document.querySelector('.mySwiper1')) var swiper = new Swiper(".mySwiper1", {
       slidesPerView: "auto",
       spaceBetween: 0,
 	  freeMode: true,
@@ -24,6 +24,7 @@ $(function() {
 
 
  $(document).ready(function(){
+    if (!$('#inews_banner').length) return;
     if($(window).width()>768){
       var galleryTop1 = new Swiper('#inews_banner', {
       /* freeMode 与 loop 不能同时使用（官方明确不支持），

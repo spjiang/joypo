@@ -1,8 +1,10 @@
 <!--Joypo 动效增强层：滚动载入 + 悬停动效（仅用 transform/opacity，不改布局）-->
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-anim.css?v=20261107n">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-fx.css?v=20261107n">
-<script src="{pboot:sitedomain}/skin/js/joypo-anim.js?v=20261107n" defer></script>
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-mobile.css?v=20261107f">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-fx.css?v=20261107r">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-gw.css?v=20261107r">
+<script src="{pboot:sitedomain}/skin/js/joypo-anim.js?v=20261107r" defer></script>
+<script src="{pboot:sitedomain}/skin/js/joypo-gw.js?v=20261107r" defer></script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-mobile.css?v=20261107r">
 <!--页头-->
 <!--导航-->
 <header class="cms-site-head" id="header">
@@ -54,10 +56,13 @@
                     <!-- </div> -->
                 </nav>
                  <div class="head_icon"> 
-                 <div class="top_search"><span class="icfont icon-sousuo"></span><em></em>
+                 <div class="top_search">
+      <button type="button" class="top_search_btn" aria-label="{fun=joypo_t('search.open')}">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.25" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M15.2 15.2L20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+      </button>
       <div class="search_con">
         <form action="{pboot:scaction}" method="get" id="form3">
-          <input class="input1" name="keyword" value="Search" onFocus="if(value=='Search'){value=''}" onBlur="if(value==''){value='Search'}">
+          <input class="input1" name="keyword" value="" placeholder="{fun=joypo_t('search.placeholder')}">
           <input type="submit" class="bnts" value="">
         </form>
         <script type="text/javascript">
