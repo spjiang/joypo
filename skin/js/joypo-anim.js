@@ -193,7 +193,7 @@
                         if (!inSwiper) {
                             el.classList.add('jp-done');
                         }
-                    }, 900 + extra + 60);
+                    }, 1000 + extra + 80);
                 });
                 io.unobserve(el);
             });
@@ -316,25 +316,56 @@
     }
 
     /* ================================================================
-       6c. 顶栏下方的扫描光 —— 固定定位，不推动任何内容
+       6c. 导航：滚动后变实，继续下滚收起，上滚再出现
        ================================================================ */
-    function initLaser() {
+    function initHeader() {
+        var header = $('.header-main') || $('.header-main01');
+        if (!header) return;
+
+        var last = win.scrollY || 0;
+
+        function update() {
+            var y = win.scrollY || 0;
+            var solid = y > 80;
+            var locked = doc.body.classList.contains('nav-locked');
+            var hovering = header.matches(':hover');
+            var hide = !locked && !hovering && y > last && y > 140;
+            doc.body.classList.toggle('jp-nav-solid', solid);
+            doc.body.classList.toggle('jp-nav-hide', hide);
+            last = y;
+        }
+
+        win.addEventListener('scroll', update, { passive: true });
+        header.addEventListener('mouseenter', function () {
+            doc.body.classList.remove('jp-nav-hide');
+        });
+        update();
+    }
+
+    /* ================================================================
+       6d. 首页底部的滚动提示，不占文档流
+       ================================================================ */
+    function initMouse() {
         if (reduceMotion) return;
-        var stage = doc.createElement('div');
-        stage.className = 'jp-stage';
-        stage.setAttribute('aria-hidden', 'true');
-        stage.innerHTML = '<div class="jp-grid"></div><div class="jp-aurora"></div><div class="jp-aurora jp-aurora--b"></div><div class="jp-sweep"></div><div class="jp-ring"></div>';
-        doc.body.appendChild(stage);
+        var banner = $('.inbanner');
+        if (!banner || $('.jp-mouse')) return;
 
-        var laser = doc.createElement('div');
-        laser.className = 'jp-laser';
-        laser.setAttribute('aria-hidden', 'true');
-        doc.body.appendChild(laser);
+        var en = doc.documentElement.lang === 'en' || /(?:^|;\s*)joypo_lang=en(?:;|$)/.test(doc.cookie) || /(?:\?|&)lang=en(?:&|$)/.test(location.search);
+        var link = doc.createElement('a');
+        link.className = 'jp-mouse';
+        link.href = '#w1';
+        link.innerHTML = '<i></i><span>' + (en ? 'Scroll' : '向下滚动') + '</span>';
+        banner.appendChild(link);
+    }
 
-        var laserB = doc.createElement('div');
-        laserB.className = 'jp-laser jp-laser--b';
-        laserB.setAttribute('aria-hidden', 'true');
-        doc.body.appendChild(laserB);
+    function releaseRise() {
+        setTimeout(function () {
+            $$('.mack h1, .mack h2, .banner_n .box .h1, .banner_n2 .h1, .banner_n2 .box .h1, .nbox .h2').forEach(function (el) {
+                el.style.animation = 'none';
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+            });
+        }, 1200);
     }
 
     /* ================================================================
@@ -362,8 +393,9 @@
             initCounters();
             initProgress();
             initSmoothScroll();
-            initGlow();
-            initLaser();
+            initHeader();
+            initMouse();
+            releaseRise();
         } catch (e) {
             // 任何异常都要保证内容可见
             $$('.jp-anim').forEach(function (el) {

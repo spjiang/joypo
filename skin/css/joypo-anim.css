@@ -20,15 +20,27 @@ html.no-js .jp-anim {
     transform: none;
 }
 
-/* 入场只改透明度，文字和区块停在原来的位置 */
+/* 入场：自下而上淡入，结束后回到原位。幅度只做位移，不改盒模型 */
 .jp-anim--up,
-.jp-anim--left,
-.jp-anim--right,
 .jp-anim--zoom,
-.jp-anim--pop,
+.jp-anim--pop {
+    transform: translate3d(0, 48px, 0);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.22, .61, .36, 1);
+}
+
+.jp-anim--left {
+    transform: translate3d(-36px, 0, 0);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.22, .61, .36, 1);
+}
+
+.jp-anim--right {
+    transform: translate3d(36px, 0, 0);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.22, .61, .36, 1);
+}
+
 .jp-anim--fade {
     transform: none;
-    transition: opacity .55s ease;
+    transition: opacity .9s ease;
 }
 
 /* 触发后归位 */

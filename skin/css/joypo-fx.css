@@ -1,121 +1,82 @@
 /*
- * 全站展示增强。只动颜色、阴影、透明度和 transform，不改栏目结构和盒模型。
+ * 对齐绿威站点的展示方式：
+ * 大图标题升起、导航随滚动变实并收起、图片悬停放大。
+ * 不改栏目结构和盒模型。
  */
 
-/* 首页主标题：品牌色流光 */
-.mack {
-	z-index: 4;
+html {
+	--jp-nav: .28;
 }
 
+.header-main,
+.header-main01 {
+	background-color: rgba(0, 0, 0, var(--jp-nav));
+	transition: top .45s ease, background-color .45s ease;
+}
+
+body.jp-nav-solid {
+	--jp-nav: .86;
+}
+
+body.jp-nav-hide .header-main,
+body.jp-nav-hide .header-main01 {
+	top: -80px;
+}
+
+/* 首页大标题：进入时自下而上 */
 .mack h1,
-.mack h2 {
-	background-image: linear-gradient(100deg, #14d7ee 0%, #14d7ee 22%, #ffffff 46%, #ffffff 54%, #14d7ee 78%, #14d7ee 100%);
-	background-size: 240% 100%;
-	-webkit-background-clip: text;
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
-	animation: jp-shine .75s linear infinite, jp-neon .85s ease-in-out infinite;
-}
-
-.header-logo {
-	animation: jp-neon 1.15s ease-in-out infinite;
-}
-
-/* 大图上的扫描线和四角准星，不占布局 */
-.inbanner,
-.banner_n,
-.banner_n2 {
-	position: relative;
-}
-
-.inbanner::before,
-.banner_n::before,
-.banner_n2::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 22%;
-	z-index: 3;
-	height: 140px;
-	pointer-events: none;
-	background: linear-gradient(180deg, transparent 0%, rgba(126, 246, 255, .18) 38%, #ffffff 50%, rgba(126, 246, 255, .18) 62%, transparent 100%);
-	box-shadow: 0 0 24px #7ef6ff, 0 0 70px rgba(93, 194, 208, .85);
-	animation: jp-scan 2.1s linear infinite;
-}
-
-.inbanner::after,
-.banner_n::after,
-.banner_n2::after {
-	content: "";
-	position: absolute;
-	z-index: 3;
-	inset: 7% 4%;
-	pointer-events: none;
-	background:
-		linear-gradient(#e8fdff, #e8fdff) left top / 78px 3px no-repeat,
-		linear-gradient(#e8fdff, #e8fdff) left top / 3px 78px no-repeat,
-		linear-gradient(#e8fdff, #e8fdff) right top / 78px 3px no-repeat,
-		linear-gradient(#e8fdff, #e8fdff) right top / 3px 78px no-repeat,
-		linear-gradient(#e8fdff, #e8fdff) left bottom / 78px 3px no-repeat,
-		linear-gradient(#e8fdff, #e8fdff) left bottom / 3px 78px no-repeat,
-		linear-gradient(#e8fdff, #e8fdff) right bottom / 78px 3px no-repeat,
-		linear-gradient(#e8fdff, #e8fdff) right bottom / 3px 78px no-repeat;
-	box-shadow: inset 0 0 80px rgba(126, 246, 255, .28);
-	filter: drop-shadow(0 0 10px #7ef6ff);
-	animation: jp-frame 1s ease-in-out infinite;
-}
-
-.banner_n .box,
-.banner_n2 .box,
-.nbox {
-	z-index: 4;
-}
-
+.mack h2,
 .banner_n .box .h1,
 .banner_n2 .h1,
 .banner_n2 .box .h1,
 .nbox .h2 {
-	animation: jp-glow-pulse 1.3s ease-in-out infinite;
+	animation: jp-rise 1s cubic-bezier(.22, .61, .36, 1) both;
 }
 
-/* 页脚顶上一道光 */
-.foot {
+.mack h2,
+.banner_n2 .box .h1 {
+	animation-delay: .12s;
+}
+
+.jp-mouse {
+	position: absolute;
+	left: 50%;
+	bottom: 28px;
+	z-index: 5;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	color: #fff;
+	font-size: 13px;
+	line-height: 1;
+	letter-spacing: 2px;
+	text-decoration: none;
+	transform: translateX(-50%);
+	animation: jp-mouse 1s ease-in-out infinite alternate;
+}
+
+.jp-mouse i {
 	position: relative;
+	display: block;
+	width: 22px;
+	height: 34px;
+	border: 2px solid #fff;
+	border-radius: 12px;
 }
 
-.foot::before {
+.jp-mouse i::after {
 	content: "";
 	position: absolute;
-	left: 8%;
-	right: 8%;
-	top: 0;
-	height: 1px;
-	background: linear-gradient(90deg, transparent, #5dc2d0, transparent);
-	box-shadow: 0 0 16px rgba(93, 194, 208, .85);
-	pointer-events: none;
+	left: 50%;
+	top: 7px;
+	width: 3px;
+	height: 7px;
+	margin-left: -1.5px;
+	border-radius: 2px;
+	background: #fff;
 }
 
-/* 鼠标跟随光斑，不拦截点击 */
-.jp-glow {
-	position: fixed;
-	z-index: 8;
-	width: 520px;
-	height: 520px;
-	margin: -260px 0 0 -260px;
-	border-radius: 50%;
-	pointer-events: none;
-	background: radial-gradient(circle, rgba(93, 194, 208, .22) 0%, rgba(93, 194, 208, .08) 36%, transparent 68%);
-	mix-blend-mode: screen;
-	opacity: 0;
-	transition: opacity .4s ease;
-}
-
-.jp-glow.is-on {
-	opacity: 1;
-}
-
-/* 图片扫光 */
 .incase .img,
 .service_list1 ul > li .img,
 .pbox .img,
@@ -123,306 +84,56 @@
 .about_box .about_box_img,
 .jp-prod-stage,
 .jp-prod-strip {
-	position: relative;
 	overflow: hidden;
 }
 
-.prductinfo img {
-	position: relative;
+.incase .img img,
+.service_list1 ul > li .img img,
+.pbox .img img,
+#case_banner dl dt img,
+.about_box .about_box_img img,
+.jp-prod-stage img,
+.jp-prod-strip img {
+	transition: transform .8s cubic-bezier(.22, .61, .36, 1);
 }
 
-.incase .img::after,
-.service_list1 ul > li .img::after,
-.pbox .img::after,
-#case_banner dl dt::after,
-.about_box .about_box_img::after,
-.jp-prod-stage::after,
-.jp-prod-strip::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	z-index: 2;
-	pointer-events: none;
-	background: linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, .92) 46%, rgba(126, 246, 255, .75) 54%, transparent 82%);
-	animation: jp-sheen 1.45s ease-in-out infinite;
+.incase .img:hover img,
+.service_list1 ul > li .img:hover img,
+.pbox .img:hover img,
+#case_banner dl:hover dt img,
+.about_box .about_box_img:hover img,
+.jp-prod-stage:hover img,
+.jp-prod-strip:hover img {
+	transform: scale(1.06);
 }
 
-.prductinfo img {
-	box-shadow: 0 0 0 rgba(93, 194, 208, 0);
-	animation: jp-card-glow 2s ease-in-out infinite;
-}
-
-/* 研发卡片只加光，不移动 */
-.inyfzz dl {
-	animation: jp-card-glow 2.2s ease-in-out infinite;
-}
-
-.inyfzz dl dt {
-	transition: color .35s ease, text-shadow .35s ease;
-}
-
-.inyfzz dl:hover dt {
-	color: #2b8fa0;
-	text-shadow: 0 0 16px rgba(93, 194, 208, .45);
-}
-
-/* 数据数字持续闪烁 */
-.absj ul li span,
-.absj ul li b,
-.absj1 ul li span,
-.absj1 ul li strong {
-	animation: jp-glow-pulse 1.3s ease-in-out infinite;
-}
-
-.inabout dl,
-#case_banner dl,
-.plcen dl {
-	animation: jp-card-glow 1.8s ease-in-out infinite;
-}
-
-/* 证书 / 荣誉 / 加入我们 卡片 */
-#honor_banner .swiper-slide,
-#join_banner .swiper-slide,
-#join_banner1 .swiper-slide {
-	transition: box-shadow .45s ease;
-}
-
-#honor_banner .swiper-slide:hover,
-#join_banner .swiper-slide:hover,
-#join_banner1 .swiper-slide:hover {
-	box-shadow: 0 16px 36px rgba(18, 36, 43, .16);
-}
-
-#zlgl_banner .swiper-slide .text {
-	box-shadow: 0 12px 28px rgba(43, 143, 160, .28);
-}
-
-/* 分组标题 */
-.hr2 {
-	animation: jp-card-glow 2s ease-in-out infinite;
-}
-
-/* 表单聚焦 */
-.wb:focus,
-.wb1:focus,
-.message .text:focus,
-.message textarea:focus,
-.nav_n .text:focus,
-input.text:focus,
-textarea:focus {
-	outline: none;
-	border-color: #5dc2d0 !important;
-	box-shadow: 0 0 0 3px rgba(93, 194, 208, .22), 0 10px 24px rgba(93, 194, 208, .16);
-}
-
-.message .submit,
-.feedback_submit2 {
-	transition: transform .35s ease, box-shadow .35s ease, background-color .35s ease, color .35s ease;
-}
-
-.message .submit:hover,
-.feedback_submit2:hover {
-	transform: translateY(-3px);
-	background: #5dc2d0;
-	color: #fff;
-	border-color: #5dc2d0;
-	box-shadow: 0 12px 28px rgba(93, 194, 208, .35);
-}
-
-/* 分页 */
-.pagination a,
-.pagination span {
-	transition: color .3s ease, border-color .3s ease, box-shadow .3s ease, transform .3s ease;
-}
-
-.pagination a:hover {
-	color: #2b8fa0;
-	border-color: #5dc2d0;
-	box-shadow: 0 0 16px rgba(93, 194, 208, .55);
-}
-
-/* 进度条加亮 */
 .jp-progress {
-	height: 3px;
-	box-shadow: 0 0 12px rgba(93, 194, 208, .9);
+	display: none;
 }
 
-.more a,
-.more1 a,
-.morec,
-.morec1 {
-	animation: jp-btn-pulse 1.4s ease-out infinite;
+@keyframes jp-rise {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 40px, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
 }
 
-.jp-stage {
-	position: fixed;
-	inset: 0;
-	z-index: 6;
-	overflow: hidden;
-	pointer-events: none;
-}
-
-.jp-grid {
-	position: absolute;
-	inset: -80px;
-	background-image:
-		linear-gradient(rgba(126, 246, 255, .22) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(126, 246, 255, .22) 1px, transparent 1px);
-	background-size: 64px 64px;
-	animation: jp-grid 4.5s linear infinite;
-	-webkit-mask-image: radial-gradient(ellipse at center, transparent 10%, #000 62%);
-	mask-image: radial-gradient(ellipse at center, transparent 10%, #000 62%);
-}
-
-.jp-aurora,
-.jp-aurora--b {
-	position: absolute;
-	width: 46vw;
-	height: 46vw;
-	left: -10vw;
-	top: -8vh;
-	border-radius: 50%;
-	background: radial-gradient(circle, rgba(126, 246, 255, .62), transparent 68%);
-	filter: blur(6px);
-	mix-blend-mode: screen;
-	animation: jp-float 5.5s ease-in-out infinite;
-}
-
-.jp-aurora--b {
-	left: auto;
-	right: -14vw;
-	top: 42vh;
-	width: 40vw;
-	height: 40vw;
-	background: radial-gradient(circle, rgba(70, 140, 255, .5), transparent 70%);
-	animation-duration: 7s;
-	animation-direction: alternate;
-}
-
-.jp-sweep {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: 24vw;
-	background: linear-gradient(90deg, transparent, rgba(126, 246, 255, .2) 36%, rgba(255, 255, 255, .82) 50%, rgba(126, 246, 255, .2) 64%, transparent);
-	mix-blend-mode: screen;
-	animation: jp-sweep 2.2s linear infinite;
-}
-
-.jp-ring {
-	position: absolute;
-	left: 50%;
-	top: 42%;
-	width: 62vmin;
-	height: 62vmin;
-	margin: -31vmin 0 0 -31vmin;
-	border-radius: 50%;
-	background: conic-gradient(from 0deg, transparent 0 62%, rgba(126, 246, 255, .15) 78%, #ffffff 100%);
-	-webkit-mask: radial-gradient(circle, transparent 61%, #000 62.2%, #000 64.2%, transparent 65.4%);
-	mask: radial-gradient(circle, transparent 61%, #000 62.2%, #000 64.2%, transparent 65.4%);
-	mix-blend-mode: screen;
-	opacity: .9;
-	animation: jp-spin 3.2s linear infinite;
-}
-
-.jp-laser {
-	position: fixed;
-	top: 78px;
-	left: 0;
-	z-index: 30;
-	width: 28vw;
-	height: 3px;
-	pointer-events: none;
-	background: linear-gradient(90deg, transparent, #ffffff, #7ef6ff, transparent);
-	box-shadow: 0 0 16px #7ef6ff, 0 0 40px #5dc2d0;
-	animation: jp-laser 1.7s linear infinite;
-}
-
-.jp-laser--b {
-	top: auto;
-	bottom: 0;
-	width: 34vw;
-	height: 3px;
-	animation-duration: 2.6s;
-	animation-direction: reverse;
-}
-
-@keyframes jp-shine {
-	0% { background-position: 0% 50%; }
-	100% { background-position: 240% 50%; }
-}
-
-@keyframes jp-neon {
-	0%, 100% { filter: drop-shadow(0 0 8px rgba(126, 246, 255, .85)) drop-shadow(0 0 2px #fff); }
-	50% { filter: drop-shadow(0 0 18px #fff) drop-shadow(0 0 42px #5dc2d0); }
-}
-
-@keyframes jp-scan {
-	0% { top: 16%; opacity: 0; }
-	12% { opacity: 1; }
-	88% { opacity: 1; }
-	100% { top: 82%; opacity: 0; }
-}
-
-@keyframes jp-frame {
-	0%, 100% { opacity: .72; }
-	50% { opacity: 1; }
-}
-
-@keyframes jp-glow-pulse {
-	0%, 100% { text-shadow: 0 0 12px rgba(126, 246, 255, .75); }
-	50% { text-shadow: 0 0 10px #fff, 0 0 28px #7ef6ff, 0 0 56px rgba(93, 194, 208, .95); }
-}
-
-@keyframes jp-sheen {
-	0%, 58% { transform: translateX(-130%); }
-	100% { transform: translateX(130%); }
-}
-
-@keyframes jp-card-glow {
-	0%, 100% { box-shadow: 0 0 0 1px rgba(93, 194, 208, .55), 0 0 16px rgba(93, 194, 208, .35); }
-	50% { box-shadow: 0 0 0 2px #e8fdff, 0 0 28px rgba(126, 246, 255, .95), 0 0 64px rgba(93, 194, 208, .45); }
-}
-
-@keyframes jp-btn-pulse {
-	0% { box-shadow: 0 0 0 0 rgba(126, 246, 255, .85), 0 0 18px rgba(93, 194, 208, .45); }
-	70% { box-shadow: 0 0 0 18px rgba(93, 194, 208, 0), 0 0 28px rgba(126, 246, 255, .2); }
-	100% { box-shadow: 0 0 0 0 rgba(93, 194, 208, 0), 0 0 18px rgba(93, 194, 208, .45); }
-}
-
-@keyframes jp-grid {
-	to { background-position: 0 64px; }
-}
-
-@keyframes jp-float {
-	0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-	50% { transform: translate3d(5vw, 4vh, 0) scale(1.14); }
-}
-
-@keyframes jp-sweep {
-	from { transform: translate3d(-32vw, 0, 0); }
-	to { transform: translate3d(120vw, 0, 0); }
-}
-
-@keyframes jp-spin {
-	to { transform: rotate(360deg); }
-}
-
-@keyframes jp-laser {
-	0% { transform: translate3d(-30vw, 0, 0); }
-	100% { transform: translate3d(110vw, 0, 0); }
+@keyframes jp-mouse {
+	from { transform: translateX(-50%) translateY(0); }
+	to { transform: translateX(-50%) translateY(10px); }
 }
 
 @media (max-width: 1199px) {
-	.jp-glow {
-		display: none;
+	body.jp-nav-hide .header-main,
+	body.jp-nav-hide .header-main01 {
+		top: 0;
 	}
 
-	.jp-stage,
-	.jp-laser,
-	.inbanner::before,
-	.banner_n::before,
-	.banner_n2::before {
+	.jp-mouse {
 		display: none;
 	}
 }
@@ -434,49 +145,11 @@ textarea:focus {
 	.banner_n2 .h1,
 	.banner_n2 .box .h1,
 	.nbox .h2,
-	.more a,
-	.more1 a,
-	.morec,
-	.morec1,
-	.inabout dl,
-	#case_banner dl,
-	.plcen dl,
-	.inyfzz dl,
-	.hr2,
-	.absj ul li span,
-	.absj ul li b,
-	.absj1 ul li span,
-	.absj1 ul li strong,
-	.jp-glow,
-	.jp-stage,
-	.jp-grid,
-	.jp-aurora,
-	.jp-aurora--b,
-	.jp-sweep,
-	.jp-ring,
-	.jp-laser,
-	.jp-laser--b,
-	.header-logo,
-	.inbanner::before,
-	.inbanner::after,
-	.banner_n::before,
-	.banner_n::after,
-	.banner_n2::before,
-	.banner_n2::after {
+	.jp-mouse {
 		animation: none;
 	}
 
-	.jp-glow,
-	.jp-stage,
-	.jp-laser {
+	.jp-mouse {
 		display: none;
-	}
-
-	.mack h1,
-	.mack h2 {
-		-webkit-text-fill-color: unset;
-		background: none;
-		color: #5dc2d0;
-		filter: none;
 	}
 }
