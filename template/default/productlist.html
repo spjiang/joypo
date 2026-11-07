@@ -1,0 +1,236 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>{pboot:if('{sort:title}'=='')}{pboot:pagetitle}{else}{sort:title}{/pboot:if}</title>
+<meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
+<meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link type="text/css" rel="stylesheet" href="{pboot:sitedomain}/skin/css/animate.min.css"/>
+<script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/main.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swipe.min.js"></script> 
+<script src="{pboot:sitedomain}/skin/js/idangerous.swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/tab.js"></script>
+<!--产品区交互增强：型号切换动效 + 弹窗参数-->
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-prod.css">
+<script src="{pboot:sitedomain}/skin/js/joypo-prod.js" defer></script>
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/wow.min.js"></script>
+  <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/idangerous.swiper.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/iconfont.css">
+<!--
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/jquery.lightbox.js"></script>
+-->
+ <script>
+
+$(document).ready(function() {
+	jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
+		/* 只针对 .jp-prod-shot 做切换。
+		   原实现用 $(tab_conbox).children().eq(index) 按子元素序号取，
+		   但产品区的 Modal（产品参数弹窗）也是 #content0N 的子元素，
+		   序号会错位，取到 Modal 上导致「所有型号都看不到图」。
+		   所以这里改为按 .jp-prod-shot 集合取，与标签序号一一对应。 */
+		var $shots = $(tab_conbox).find("> ul.jp-prod-shot");
+		$shots.hide();
+		$(tabtit).find("li:first").addClass("current").show();
+		$shots.eq(0).show();
+
+		$(tabtit).find("li").bind(shijian,function(){
+			$(this).addClass("current").siblings("li").removeClass("current");
+			var activeindex = $(tabtit).find("li").index(this);
+			$shots.eq(activeindex).show().siblings(".jp-prod-shot").hide();
+			return false;
+		});
+
+	};
+	/*调用方法如下：*/
+/*	$.jqtab("#tabs","#tab_conbox","click"); 鼠标经过显示*/
+    $.jqtab("#tab01","#content01","mouseenter");
+	$.jqtab("#tab02","#content02","mouseenter");
+	$.jqtab("#tab03","#content03","mouseenter");
+
+	/* 接管型号切换：为「单大图版式」加过渡动画。
+	   jqtab 用 jQuery .show()/.hide() 硬切换，图片是瞬间替换、没有过渡；
+	   这里在 jqtab 之后接管 mouseenter，做淡出→淡入的切换动画。
+	   注意：jqtab 绑的是 mouseenter，事件监听器按绑定顺序执行，
+	   所以这里用 setTimeout 延后到 jqtab 切换完成后再播放动画。 */
+	$("#tab01 li, #tab02 li, #tab03 li").each(function () {
+		var li = this;
+		/* 注意：jQuery 3 的 mouseenter 是用 mouseover 模拟的，
+		   原生 mouseenter 事件收不到 jQuery 派发的，
+		   所以这里监听 mouseover（mouseenter 一定伴随 mouseover）。 */
+		li.addEventListener("mouseover", function () {
+			setTimeout(function () {
+				JoypoProd.playSwitch(li);
+			}, 0);
+		});
+	});
+});
+
+</script>
+</head>
+<body>
+{include file=head.html}
+<!--banner-->
+<div class="banner_n2">
+	<img src="{sort:pic}" alt="{sort:name}" width="100%">
+    <div class="box1 wow zoomIn">
+<h1>{sort:def1}<span>{sort:def3}</span></h1>
+<p>{sort:def2}</p>
+</div>
+<div class="cl blank2"></div>
+    <div class="plcen">
+{pboot:nav num=40 parent={sort:scode}}
+					
+    <dl>
+    <dt><a href="[nav:link]">[nav:name]</a></dt>
+   
+    </dl>
+    {/pboot:nav}
+   
+</div>    
+</div>
+<div class="cl blank6"></div>
+<div class="cl blank6"></div>
+<!--内页导航-->
+
+<!--案例-->
+{pboot:nav parent={sort:scode}}
+ 
+<div class="banner_pn" id="p[nav:i]">
+	<img src="[nav:pic]" alt="[nav:subname]" width="100%">
+    <div class="pbox wow zoomIn">
+<h1>[nav:subname]</h1>
+<p>[nav:def1]</p>
+</div>
+</div>
+
+<div class="w">
+<div id="pro_banner">
+<div id="outer0[nav:i]">
+ 
+   
+    <div id="content0[nav:i]" class="jp-prod-stage">
+    {pboot:list scode=[nav:scode] num=9}
+
+            <ul class="jp-prod-shot">
+            
+           
+
+   <li class="jp-prod-shot-item">
+     <a href="#modal-one[list:id]" target="_self" class="jp-prod-shot-link">
+       <span class="jp-prod-shot-box"><img src="[list:ico]" alt="[list:title]"/></span>
+       <span class="jp-prod-shot-tip">查看产品参数</span>
+     </a>
+   </li>
+            
+            </ul>
+
+<!-- Modal：必须放在 ul 之外。
+     因为切换型号时，非当前型号的 ul 会被 display:none，
+     若 Modal 嵌在 ul 内，弹窗也会一起被隐藏，导致「点开看不到」。 -->
+<div class="modal" id="modal-one[list:id]" aria-hidden="true">
+  <div class="modal-dialog">
+       
+      <a href="" class="btn-close" aria-hidden="true">×</a>
+   
+<div class="modal_text">
+<img src="[list:ext_cpcs]" alt="[list:title]"/>
+</div>
+  
+  </div>
+</div>
+     
+            {/pboot:list}
+  <script>
+    $(function () {
+        $("#big_img").click(function(){
+            $("#big_img").hide();
+        });
+        $("#small_img").click(function(){
+            $("#big_img").show();
+        });
+     })
+</script>   
+
+
+</div>
+  <ul id="tab0[nav:i]" class="jp-prod-models">
+     {pboot:list scode=[nav:scode] num=9}
+       <li class="jp-prod-model">[list:title]<span></span></li>
+        {/pboot:list}
+     
+
+ </ul>
+</div>
+
+  </div>
+  </div>
+ <div class="cl blank6"></div> 
+      <div class="cl blank6"></div> 
+        {/pboot:nav}
+
+<div id="w10">
+<div class="cl blank2"></div>
+<div class="w">
+<div class="title wow zoomIn">
+			<div class="h3">研发优势</div>
+            <h1>我们的储能产品为何出众</h1>
+		</div>
+       <div class="yslist">
+       <ul>
+       <li class="wow flipInY"><span>6000+ 循环</span>
+       <p>磷酸铁锂 80% DOD 长寿命</p>
+       </li>
+       
+        <li class="wow flipInY"><span>智能BMS</span>
+       <p>多重保护与电芯均衡</p>
+       </li>
+        <li class="wow flipInY"><span>支持并联</span>
+       <p>2–3 倍扩容</p>
+       </li>
+        <li class="wow flipInY"><span>远程监控</span>
+       <p>App 与云端能源管理</p>
+       </li>
+       
+       </ul>
+       
+       
+       </div>
+</div>
+<div class="cl blank2"></div>
+</div>
+  
+<div id="w7">
+<div class="w">
+    <div class="cl blank2"></div>
+        <div class="cl blank2"></div>
+<div class="title wow zoomIn">
+		
+            <h4>需要定制储能方案？</h4>
+            <p>告诉我们您的应用场景、容量与预算——12 小时内获得定制化方案。</p>
+		</div>
+<div class="cona wow flipInY"><a href="{pboot:sitedomain}/?contact/" target="_blank" class="morec">联系我们<span class="icfont icon-left1"></span></a>
+<a href="mailto:info@joypo.cn" target="_blank" class="morec1">info@joypo.cn</a></div>
+</div>
+</div>
+{include file=foot.html}
+
+</body>
+</html>
+<script>
+	$(function () {
+		wow = new WOW({
+			boxClass: 'wow',
+			animateClass: 'animated',
+			offset: 0,
+			mobile: false,
+			live: true
+		})
+		wow.init();
+	});
+</script> 

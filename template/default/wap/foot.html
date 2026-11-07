@@ -1,0 +1,33 @@
+<a href="#">
+<div class="back_top width1004"> Top<img src="{pboot:sitedomain}/m/images/back_top_ico.png"> </div>
+</a>
+<div class="footer_c">
+  <p>{pboot:sitecopyright}<br/>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">{pboot:siteicp}</a> {pboot:sitestatistical}</p>
+</div>
+<div class="clear" style="height:50px;"> </div>
+<ul class="bottom_nav">
+  <li><a href="{pboot:sitedomain}/"><img src="{pboot:sitedomain}/m/images/bottom_nav1.png" height="20"><br>
+    首页</a></li>
+  <li><a href="tel:{pboot:companyphone}"><img src="{pboot:sitedomain}/m/images/bottom_nav2.png" height="20"><br>
+    电话咨询</a></li>
+    {pboot:sort scode=13}
+  <li><a href="[sort:link]"><img src="{pboot:sitedomain}/m/images/bottom_nav3.png" height="20"><br>
+    [sort:name]</a></li>
+    {/pboot:sort}
+    {pboot:sort scode=12}
+  <li><a href="[sort:link]"><img src="{pboot:sitedomain}/m/images/bottom_nav4.png" height="20"><br>
+    [sort:name]</a></li>
+    {/pboot:sort}
+</ul>
+<script type="text/javascript">
+$(document).ready(function(){
+ $(function () {
+ //当点击跳转链接后，回到页面顶部位置
+ $(".back_top").click(function(){
+  $('body,html').animate({scrollTop:0},500);
+   return false;
+  });
+ });
+});
+</script>

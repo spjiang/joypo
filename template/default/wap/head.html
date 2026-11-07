@@ -1,0 +1,51 @@
+<div class="indexcontent top"> <a href="{pboot:sitedomain}/"><img class="top_logo" src="{pboot:sitelogo}"></a>
+  <div id="dl-menu" class="dl-menuwrapper">
+    <button id="dl-menu-button">Open Menu</button>
+    <ul class="dl-menu">
+      <li><a href="{pboot:sitedomain}/">首页</a></li>
+      {pboot:nav}
+      <li> <a href="[nav:link]" class="uuu2">[nav:name]</a>
+        {pboot:if([nav:soncount]>0)}
+        <ul class="dl-submenu">
+          <li class="dl-back"><a href="#">返回上一级</a></li>
+          {pboot:2nav parent=[nav:scode]}
+          <li><a href="[2nav:link]">[2nav:name]</a></li>
+          {/pboot:2nav}
+        </ul>
+        {/pboot:if}
+      </li>
+      {/pboot:nav}
+    </ul>
+  </div>
+  <script type="text/javascript">
+        $(function(){
+            $( '#dl-menu' ).dlmenu();
+        });
+        </script>
+  <div class="clear"></div>
+</div>
+<!-- 本例主要代码 Start ================================ -->
+<div id="slideBox" class="slideBox">
+  <div class="bd">
+    <ul>
+      {pboot:slide gid=2 num=10}
+      <li><a class="pic" href="[slide:link]"><img src="[slide:src]"/></a></li>
+      {/pboot:slide}
+    </ul>
+  </div>
+  <div class="hd">
+    <ul>
+    </ul>
+  </div>
+</div>
+<script type="text/javascript">
+TouchSlide({
+	slideCell: "#slideBox",
+	titCell: ".hd ul",//开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+	mainCell: ".bd ul",
+	effect: "leftLoop",
+	autoPage: true,//自动分页
+	autoPlay: true //自动播放
+});
+</script> 
+<!-- 本例主要代码 End ================================ -->

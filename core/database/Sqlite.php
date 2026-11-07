@@ -1,0 +1,341 @@
+<?php
+/**
+ * @copyright (C)2016-2099 Hnaoyun Inc.
+ * @author XingMeng
+ * @email hnxsh@foxmail.com
+ * @date 2017年8月23日
+ *  数据库Sqlite驱动  ,写入数据时自动启用事务
+ */
+namespace core\database;
+
+use core\basic\Config;
+
+class Sqlite implements Builder
+{
+
+    protected static $sqlite;
+
+    /** @var bool 软失败：SQL 错误时回滚并返回 false，不终止请求（仅 VisitsCounter 刷盘等场景） */
+    protected static $failSoft = false;
+
+    /** @var bool 最近一次软失败是否发生过 SQL 错误 */
+    protected static $failSoftError = false;
+
+    /** @var int 软失败作用域嵌套深度；错误标记保留到最外层退出才清 */
+    protected static $failSoftDepth = 0;
+
+    protected $master;
+
+    protected $slave;
+
+    private $begin = false;
+    private function __construct()
+    {}
+
+    public function __destruct()
+    {
+        if ($this->begin) { // 存在待提交的事务时自动进行提交
+            @$this->master->exec('commit;');
+        }
+    }
+
+    // 开启显式事务
+    public function beginTransaction()
+    {
+        if (! $this->master) {
+            $cfg = ROOT_PATH . Config::get('database.dbname');
+            $conn = $this->conn($cfg);
+            $this->master = $conn;
+            $this->slave = $conn;
+        }
+        if (!$this->begin) {
+            @$this->master->exec('begin;');
+            $this->begin = true;
+        }
+    }
+
+    // 提交事务
+    public function commitTransaction()
+    {
+        if ($this->begin) {
+            $ok = @$this->master->exec('commit;');
+            $this->begin = false;
+            // 非 failSoft：保持历史行为，不因 commit 失败改返回值（调用方历来不检查）；
+            // 仅 failSoft 返回 false，供 VisitsCounter 等把增量退回本地待刷。
+            if ($ok === false && self::$failSoft) {
+                self::$failSoftError = true;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // 获取单一实例，使用单一实例数据库连接类
+    public static function getInstance()
+    {
+        if (! self::$sqlite) {
+            self::$sqlite = new self();
+        }
+        return self::$sqlite;
+    }
+
+    /**
+     * 开启/关闭软失败模式（支持嵌套引用计数）。
+     * 仅最外层开启时清错误标记；内层退出不关窗口、不清标记。
+     */
+    public static function setFailSoft($enabled)
+    {
+        if ($enabled) {
+            if (self::$failSoftDepth === 0) {
+                self::$failSoftError = false;
+            }
+            self::$failSoftDepth ++;
+            self::$failSoft = true;
+            return;
+        }
+        if (self::$failSoftDepth > 0) {
+            self::$failSoftDepth --;
+        }
+        if (self::$failSoftDepth === 0) {
+            self::$failSoft = false;
+            self::$failSoftError = false;
+        }
+    }
+
+    /** 软失败模式下是否发生过 SQL 错误（读后不清除，由最外层 setFailSoft(false) 重置） */
+    public static function hadFailSoftError()
+    {
+        return self::$failSoftError;
+    }
+
+    // 连接数据库，接受数据库连接参数，返回数据库连接对象
+    public function conn($cfg)
+    {
+        if (extension_loaded('SQLite3')) {
+            try {
+                $conn = new \SQLite3($cfg);
+                $conn->busyTimeout(15 * 1000); // 设置繁忙延迟时间
+            } catch (\Exception $e) {
+                error("读取数据库文件失败：" . iconv('gbk', 'utf-8', $e->getMessage()));
+            }
+        } else {
+            if (extension_loaded('pdo_sqlite')) {
+                error('未检测到您服务器环境的sqlite3数据库扩展，请检查php.ini中是否已经开启该扩展！<br>另外，检测到您服务器支持pdo_sqlite扩展，您也可以修改数据库配置连接驱动为pdo_sqlite试试！');
+            } else {
+                error('未检测到您服务器环境的sqlite3数据库扩展，请检查php.ini中是否已经开启该扩展！');
+            }
+        }
+        return $conn;
+    }
+
+    // 执行SQL语句,接受完整SQL语句，返回结果集对象
+    public function query($sql, $type = 'master', $params = array())
+    {
+        $time_s = microtime(true);
+        if (! $this->master || ! $this->slave) {
+            $cfg = ROOT_PATH . Config::get('database.dbname');
+            $conn = $this->conn($cfg);
+            $this->master = $conn;
+            $this->slave = $conn;
+        }
+        if (!empty($params)) {
+            $sql = $this->bindParams($sql, $params);
+        }
+        switch ($type) {
+            case 'master':
+                if (! $this->begin) { // 存在写入时自动开启显式事务，提高写入性能
+                    @$this->master->exec('begin;');
+                    $this->begin = true;
+                }
+                $result = @$this->master->exec($sql);
+                if ($result === false) {
+                    $this->error($sql, 'master');
+                    return false;
+                }
+                break;
+            case 'slave':
+                $result = @$this->slave->query($sql);
+                if ($result === false) {
+                    $this->error($sql, 'slave');
+                    return false;
+                }
+                break;
+        }
+        return $result;
+    }
+
+    // 安全替换参数占位符
+    private function bindParams($sql, $params)
+    {
+        $offset = 0;
+        foreach ($params as $param) {
+            $pos = strpos($sql, '?', $offset);
+            if ($pos !== false) {
+                if ($param === null) {
+                    $replacement = 'NULL';
+                } elseif (is_int($param) || is_float($param)) {
+                    $replacement = $param;
+                } else {
+                    $replacement = "'" . $this->master->escapeString($param) . "'";
+                }
+                $sql = substr_replace($sql, $replacement, $pos, 1);
+                $offset = $pos + strlen($replacement);
+            }
+        }
+        return $sql;
+    }
+
+    // 数据是否存在模型，接受完整SQL语句，返回boolean数据
+    public function isExist($sql)
+    {
+        $result = $this->query($sql, 'slave');
+        if ($result->fetchArray()) {
+            $result->finalize();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 获取记录总量模型，接受数据库表名，返回int数据
+    public function rows($table)
+    {
+        $sql = "SELECT count(*) FROM $table";
+        $result = $this->query($sql, 'slave');
+        if (! ! $row = $result->fetchArray(2)) {
+            $result->finalize();
+            return $row[0];
+        } else {
+            return 0;
+        }
+    }
+
+    // 读取字段数量模型，接受数据库表名，返回int数据
+    public function fields($table)
+    {
+        $sql = "SELECT * FROM $table LIMIT 1";
+        $result = $this->query($sql, 'slave');
+        if ($result) {
+            return $result->numColumns();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 获取表字段,接受数据库表名，返回表字段数组
+     *
+     * @param $table 表名
+     */
+    public function tableFields($table)
+    {
+        $sql = "pragma table_info($table)";
+        $result = $this->query($sql, 'slave');
+        $rows = array();
+        while (! ! $row = $result->fetchArray(SQLITE3_ASSOC)) {
+            $rows[] = $row['name'];
+        }
+        $result->finalize();
+        return $rows;
+    }
+
+    // 查询一条数据模型，接受完整SQL语句，有数据返回对象数组，否则空数组
+    public function one($sql, $type = null, $params = array())
+    {
+        if (! $type) {
+            $my_type = SQLITE3_ASSOC;
+        } else {
+            $my_type = $type;
+        }
+        $row = array();
+        $result = $this->query($sql, 'slave', $params);
+        if (! ! $row = $result->fetchArray($my_type)) {
+            if (! $type && $row) {
+                $out = new \stdClass();
+                foreach ($row as $key => $value) {
+                    $out->$key = $value;
+                }
+                $row = $out;
+            }
+            $result->finalize();
+        }
+        return $row;
+    }
+
+    // 查询多条数据模型，接受完整SQL语句，有数据返回二维对象数组，否则空数组
+    public function all($sql, $type = null, $params = array())
+    {
+        if (! $type) {
+            $my_type = SQLITE3_ASSOC;
+        } else {
+            $my_type = $type;
+        }
+        $result = $this->query($sql, 'slave', $params);
+        $rows = array();
+        while (! ! $row = $result->fetchArray($my_type)) {
+            if (! $type && $row) {
+                $out = new \stdClass();
+                foreach ($row as $key => $value) {
+                    $out->$key = $value;
+                }
+                $row = $out;
+            }
+            $rows[] = $row;
+        }
+        $result->finalize();
+        return $rows;
+    }
+
+    // 数据增、删、改模型，接受完整SQL语句，返回影响的行数的int数据
+    public function amd($sql, $params = array())
+    {
+        $result = $this->query($sql, 'master', $params);
+        if ($result) {
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+    // 最近一次插入数据的自增字段值，返回int数据
+    public function insertId()
+    {
+        return $this->master->lastInsertRowID();
+    }
+
+    // 执行多条SQL模型，成功返回true,否则false
+    public function multi($sql)
+    {
+        $sqls = explode(';', $sql);
+        foreach ($sqls as $key => $value) {
+            $result = $this->query($value, 'master');
+        }
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 显示执行错误
+    protected function error($sql, $conn)
+    {
+        $raw = $this->$conn->lastErrorMsg();
+        $err = '错误：' . $raw;
+        if ($this->begin) { // 存在显式开启事务时进行回滚
+            @$this->master->exec('rollback;');
+            $this->begin = false;
+        }
+        if (self::$failSoft) {
+            self::$failSoftError = true;
+            return;
+        }
+        // 详情只入日志；非调试模式对外仅给通用文案，避免暴露表名/列名/约束名
+        @error_log('[PbootCMS][sqlite] 执行SQL发生错误！错误：' . $raw . ' 语句：' . $sql);
+        if (Config::get('debug')) {
+            error('执行SQL发生错误！' . $err);
+        } else {
+            error('数据库执行错误，请稍后重试或联系管理员！');
+        }
+    }
+}

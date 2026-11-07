@@ -1,0 +1,73 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>{pboot:if('{sort:title}'=='')}{pboot:pagetitle}{else}{sort:title}{/pboot:if}</title>
+<meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
+<meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
+<script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/main.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swipe.min.js"></script> 
+
+<script src="{pboot:sitedomain}/skin/js/tab.js"></script>
+<script src="{pboot:sitedomain}/skin/js/aos.js"></script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/iconfont.css">
+<!--
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/jquery.lightbox.js"></script>
+-->
+</head>
+<body>
+{include file=head.html}
+<!--banner-->
+{pboot:sort scode={sort:tcode}}
+<div class="banner_n2">
+	<img src="[sort:pic]">
+	<div class="box">
+		<div class="h1">[sort:name]</div>
+         <div class="cl blank2"></div>
+       <span class="curbar">{pboot:position separator=' > '}</span>
+<!--		<div class="h2">[sort:def1]<br/>[sort:def2]</div>-->
+	</div>
+</div>
+{/pboot:sort}
+<!--内页导航-->
+
+<!--案例-->
+<div class="cl blank2"></div>
+<div class="w">
+{pboot:nav parent={sort:scode} }
+<div {pboot:if('[nav:scode]'=='27')}class="last"{/pboot:if}>
+<div class="hr2" id="[nav:i]">[nav:name]</div>
+<div class="hrp">[nav:def1]</div>
+<div class="cl ht30"></div>
+      <div class="case">
+        <ul>
+        {pboot:list scode=[nav:scode] num=9 istop=0}
+          <li> <a href="[list:link]" title="[list:title]">
+            <div class="pic"> <img src="[list:ico]" title=""> </div>
+                    </a> </li>
+          {/pboot:list}
+        </ul>
+                
+        
+   <div class="cl blank2"></div>     
+  
+  
+      </div>
+      </div>
+   {/pboot:nav}
+   
+ <div class="cl blank"></div>  
+   
+
+	
+</div>
+{include file=foot.html}
+</body>
+</html>

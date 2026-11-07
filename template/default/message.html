@@ -1,0 +1,96 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>{pboot:if('{sort:title}'=='')}{pboot:pagetitle}{else}{sort:title}{/pboot:if}</title>
+<meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
+<meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/photoswipe.css"> 
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/default-skin.css"> 
+<script src="{pboot:sitedomain}/skin/js/jquery-1.9.1.js"></script>
+<script src="{pboot:sitedomain}/skin/js/touchslide.1.1.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/jquery.superslide.2.1.1.js"></script>
+<script src="{pboot:sitedomain}/skin/js/imgready.js"></script>
+<script src="{pboot:sitedomain}/skin/js/photoswipe.min.js"></script> 
+<script src="{pboot:sitedomain}/skin/js/photoswipe-ui-default.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/photoswipe-4.0.8-run.js"></script>
+
+<script src="{pboot:sitedomain}/skin/js/aos.js"></script>
+<!--
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/jquery.lightbox.js"></script>
+-->
+</head>
+<body>
+{include file=head.html}
+<!--banner-->
+{pboot:sort scode={sort:tcode}}
+<div class="banner_n">
+	<img src="[sort:pic]">
+	<div class="box">
+		<div class="h1">[sort:name]</div>
+		<div class="h2">[sort:def1]<br/>[sort:def2]</div>
+	</div>
+</div>
+{/pboot:sort}
+<!--内页导航-->
+<div class="nav_n">
+	<div class="box">
+		<ul>
+			
+			{pboot:nav num=40 parent={sort:tcode}}
+			<li {pboot:if('[nav:scode]'=='{sort:scode}')}class="on"{/pboot:if}><a href="[nav:link]">[nav:name]</a></li>
+			{/pboot:nav}
+			<div class="clear"></div>
+		</ul>
+		<div class="search">
+			<form id="comment_form" name="formsearch" action="{pboot:scaction}"  method="get">
+				<input type="hidden" name="scode" value="2">
+				<input type="text" class="text" name="keyword" id="k" placeholder="请输入产品关键词">
+				<input type="submit" class="submit" value="">
+			</form>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="message">
+	<div class="box">
+		<form action="{pboot:msgaction}" method="post">
+		<div class="input">
+			<span class="h1">您的名字</span>
+			<input type="text" placeholder="请输入名字" class="text" name="contacts" id="name">
+		</div>
+		<div class="input">
+			<span class="h1">您的电话</span>
+			<input type="text" placeholder="请输入电话" class="text" name="mobile" id="tel">
+		</div>
+		<div class="input">
+			<span class="h1">您的邮箱</span>
+			<input type="text" placeholder="请输入微信" class="text" name="email" id="">
+		</div>
+		<div class="clear">
+		</div>
+		<textarea name="content" id="lx_content" placeholder="请输入留言内容"></textarea>
+		<input type="submit" value="提交留言" class="submit feedback_submit2" id="tj">
+		</form>
+	</div>
+</div>
+{include file=foot.html}
+<script>
+	$(function(){
+		$('#tj').click(function(){
+			//alert(1)
+			if($('#name').val()==''){alert('请输入您的姓名！'); $("#name").focus(); return false;}
+			if ($("#tel").val() == "") { alert("请输入你的手机！"); $("#tel").focus(); return false; } 
+			if (!$("#tel").val().match(/^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1})|(19[0-9]{1}))+\d{8})$/)) { alert("手机号码格式不正确！"); $("#tel").focus(); return false;} 
+		})
+	})
+</script>
+</body>
+</html>

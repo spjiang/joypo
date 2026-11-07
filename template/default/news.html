@@ -1,0 +1,63 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>{content:title}-{pboot:sitetitle}</title>
+<meta name="keywords" content="{content:keywords}">
+<meta name="description" content="{content:description}">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
+<script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/main.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swipe.min.js"></script> 
+
+<script src="{pboot:sitedomain}/skin/js/tab.js"></script>
+<script src="{pboot:sitedomain}/skin/js/aos.js"></script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/iconfont.css">
+<!--
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/jquery.lightbox.js"></script>
+-->
+</head>
+<body>
+{include file=head.html}
+<!--banner-->
+<div class="banner_n2">
+	<img src="{sort:pic}" alt="{sort:name}" width="100%">
+	<div class="nbox">
+
+ 
+		<div class="h2">{content:title}</div>
+        <span class="icfont icon-jiantou_xia"></span>
+      <span class="time">{content:date style=Y年m月d日}</span>
+        <div class="cl blank2"></div>
+ 
+	</div>
+</div>
+<!--产品详情页-->
+<div id="here"><div class="w"> {pboot:position separator=' > '}</div></div>
+<div class="prductinfo w">
+	<div class="new_conter">
+	<div class="cl"></div>
+		<div class="new_conter_p probody" >
+			{content:content}
+		</div>
+         <div class="cl blank2"></div>
+		<div class="p">
+			<div class="previous">
+				上一篇：{content:precontent}
+			</div>
+			<div class="next">
+				下一篇：{content:nextcontent}
+			</div>
+		</div>
+		<a href="javascript:window.history.back();" class="return">&#91; 返回 &#93;</a>
+        <div class="cl blank6"></div>
+	</div>
+</div>
+{include file=foot.html}
+</body>
+</html>

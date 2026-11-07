@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta name="MobileOptimized" content="240"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{pboot:sitetitle}</title>
+<meta name="keywords" content="{pboot:sitekeywords}">
+<meta name="description" content="{pboot:sitedescription}">
+<meta name="author" content="www.adminbuy.cn k387" />
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/m/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/m/css/style.css">
+<link href="{pboot:sitedomain}/m/css/component.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{pboot:sitedomain}/m/js/jquery.js"></script>
+<script type="text/javascript" src="{pboot:sitedomain}/m/js/modernizr.custom.js"></script>
+<script type="text/javascript" src="{pboot:sitedomain}/m/js/jquery.dlmenu.js"></script>
+<script src="{pboot:sitedomain}/m/js/touchslide.1.1.js"></script>
+<link href="{pboot:sitedomain}/m/css/swiper.min.css" rel="stylesheet" type="text/css"/>
+<script src="{pboot:sitedomain}/m/js/swiper.min.js"></script>
+<link rel="stylesheet" href="{pboot:sitedomain}/m/css/photoswipe.css">
+<link rel="stylesheet" href="{pboot:sitedomain}/m/css/default-skin.css">
+<script src="{pboot:sitedomain}/m/js/imgready.js"></script>
+<script src="{pboot:sitedomain}/m/js/photoswipe.min.js"></script>
+<script src="{pboot:sitedomain}/m/js/photoswipe-ui-default.min.js"></script>
+<script src="{pboot:sitedomain}/m/js/photoswipe-4.0.8-run.js"></script>
+</head>
+<body>
+{include file=head.html}
+<div class="clear" style="height:20px;"></div>
+<ul class="i_nav">
+  <li><a href="{pboot:sitedomain}/"><img src="{pboot:sitedomain}/m/images/i_nav1.png"><br>
+    首页</a></li>
+  {pboot:nav}
+  <li><a href="[nav:link]"><img src="{pboot:sitedomain}/m/images/i_nav[nav:i operate=+1].png"><br>
+    [nav:name]</a></li>
+  {/pboot:nav}
+</ul>
+<div class="clear" style="height:20px;"></div>
+{pboot:sort scode=2}
+<div class="i_title1"> <span class="txt"><img src="{pboot:sitedomain}/m/picture/i_title1_ico.jpg" style=" margin-right:10px;" height="3"><span class="txt1">[sort:subname]</span><span class="txt3">[sort:name]</span><img src="{pboot:sitedomain}/m/picture/i_title1_ico.jpg" style=" margin-left:10px;" height="3"></span> </div>
+<div class="clear" style="height:20px;"></div>
+<ul class="i_nav2 i_p_title">
+  {pboot:nav parent={sort:tcode} parent=2 num=12}
+  <li class="sl {pboot:if([nav:i]==1)}on{/pboot:if}" lang="[nav:link]"><a>[nav:name]</a></li>
+  {/pboot:nav}
+</ul>
+<div class="clear" style="height:10px;"></div>
+<div class="indexcontent">
+  {pboot:nav parent=2 num=12}
+  <ul class="i_p_list" {pboot:if([nav:i]==1)}{else}style='display:none;'{/pboot:if}>
+    {pboot:list scode=[nav:scode] num=4 order=sorting}
+    <li> <a href="[list:link]"> <img class="news_2" src="[list:ico]">
+      <div class="txt sl">[list:title]</div>
+      </a> </li>
+    {/pboot:list}
+  </ul>
+  {/pboot:nav}
+  <div class="clear" style="height:10px;"></div>
+  <div class="i_p_more i_p_url"> <a href="[sort:link]">more<br>
+    <img src="{pboot:sitedomain}/m/images/i_more_ico1.png"></a> </div>
+  <div class="clear" style="height:10px;"></div>
+  <script language="javascript">
+	  $(".i_p_url a").attr("href",$(".i_p_title li").eq(0).attr('lang'));
+	  $(".i_p_title li").click(function(){
+		$(this).parent().find("li").removeClass("on");
+		$(this).addClass("on");
+		$(".i_p_list").css("display","none");
+		$(".i_p_list:eq("+$(this).index()+")").css("display","block");
+		$(".i_p_url a").attr("href",$(this).attr('lang'));
+	  });
+	</script> 
+</div>
+{/pboot:sort}
+<div class="clear" style="height:10px;"></div>
+{pboot:sort scode=10}
+<div class="width1004" style="background:#fff; box-shadow:0px 0px 10px #333333;">
+  <div class="indexcontent">
+    <div class="clear" style="height:20px;"></div>
+    <div class="i_title1"> <span class="txt"><img src="{pboot:sitedomain}/m/images/i_title1_ico.jpg" style=" margin-right:10px;" height="3"><span class="txt1">[sort:subname]</span><span class="txt3">[sort:name]</span><img src="{pboot:sitedomain}/m/images/i_title1_ico.jpg" style=" margin-left:10px;" height="3"></span> </div>
+    <div class="clear" style="height:20px;"></div>
+    <!-- Swiper -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        {pboot:list scode=[sort:scode] num=10 order=sorting}
+        <div class="swiper-slide">
+          <div class="i_case_d"> <a href="[list:link]"><img src="[list:ico]" width="100%"></a>
+            <div class="txt1">[list:title]</div>
+          </div>
+        </div>
+        {/pboot:list}
+      </div>
+      <!-- Add Arrows -->
+      <div class="swiper-button-next" style="right:0; top:30%;"></div>
+      <div class="swiper-button-prev" style="left:0; top:30%;"></div>
+      <div class="clear" style="height:20px;"></div>
+    </div>
+    <!-- Swiper JS --> 
+    <script src="{pboot:sitedomain}/m/js/swiper.min.js"></script> 
+    <!-- Initialize Swiper --> 
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script> 
+  </div>
+</div>
+{/pboot:sort}
+{pboot:sort scode=1}
+<div class="indexcontent">
+  <div class="clear" style="height:20px;"></div>
+  <div class="i_title1"> <span class="txt"><img src="{pboot:sitedomain}/m/images/i_title1_ico.jpg" style=" margin-right:10px;" height="3"><span class="txt1">[sort:subname]</span><span class="txt3">[sort:name]</span><img src="{pboot:sitedomain}/m/images/i_title1_ico.jpg" style=" margin-left:10px;" height="3"></span> </div>
+  <div class="clear" style="height:10px;"></div>
+  {pboot:content id=18}
+  <div style="background:#fff;"> <img style="display:block;" src="[content:ico]" width="100%">
+    <div class="clear" style="height:10px;"></div>
+    <div class="i_about_c"> [content:content drophtml=1 dropblank=1 len=300 more='...'] </div>
+  </div>
+  {/pboot:content}
+  <div class="clear" style="height:20px;"></div>
+</div>
+{/pboot:sort}
+{pboot:sort scode=7}
+<div class="i_title1"> <span class="txt"><img src="{pboot:sitedomain}/m/images/i_title1_ico.jpg" style=" margin-right:10px;" height="3"><span class="txt1">[sort:subname]</span><span class="txt3">[sort:name]</span><img src="{pboot:sitedomain}/m/images/i_title1_ico.jpg" style=" margin-left:10px;" height="3"></span> </div>
+<div class="clear" style="height:10px;"></div>
+<div class="indexcontent">
+  <div class="clear" style="height:10px;"></div>
+  <ul class="i_news_title">
+    {pboot:nav parent={sort:tcode} parent=7 num=9}
+    <li {pboot:if([nav:i]==1)}class="on"{/pboot:if}><a>[nav:name]</a></li>
+    {/pboot:nav}
+  </ul>
+</div>
+<div class="clear" style="height:20px;"></div>
+<div class="width1004 i_news_d">
+  <div class="indexcontent">
+    {pboot:nav parent=7 num=9}
+    <ul class="i_news_list" {pboot:if([nav:i]==1)}{else}style="display:none"{/pboot:if}>
+      <div class="clear" style="height:10px;"></div>
+      {pboot:list scode=[nav:scode] num=1 order=sorting isico=1}
+      <a href="[list:link]"> <img class="i_news_t_l" src="[list:ico]">
+      <div class="i_news_t_r">
+        <div class="txt1 sl">[list:title]</div>
+        <div class="txt2">[list:description lencn=30]</div>
+      </div>
+      </a>
+      {/pboot:list}
+      <div class="clear" style="height:10px;"></div>
+      {pboot:list scode=[nav:scode] num=5 order=sorting}
+      <li class="border_top"> <a href="[list:link]">
+        <div class="txt sl">[list:title]</div>
+        </a> </li>
+      {/pboot:list}
+    </ul>
+    {/pboot:nav}
+    <script language="javascript">
+                      $(".i_news_title li").click(function(){
+                        $(this).parent().find("li").removeClass("on");
+                        $(this).addClass("on");
+                        $(".i_news_list").css("display","none");
+                        $(".i_news_list:eq("+$(this).index()+")").css("display","block");
+                      });
+    </script> 
+  </div>
+</div>
+{/pboot:sort}
+<div class="clear"></div>
+{include file=foot.html}
+</body>
+</html>

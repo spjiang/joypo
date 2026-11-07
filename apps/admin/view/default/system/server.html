@@ -1,0 +1,157 @@
+{include file='common/head.html'}
+
+<div class="layui-body">
+	<div class="layui-tab layui-tab-brief" lay-filter="tab">
+	  <ul class="layui-tab-title">
+	    <li class="layui-this" lay-id="t1">服务器基本信息</li>
+	  </ul>
+	  <div class="layui-tab-content">
+	  	   <div class="layui-tab-item layui-show">
+				<table class="layui-table table-two">
+				   <thead>
+					    <tr>
+			               <th colspan=2>服务器基本信息</th>
+					    </tr> 
+				   </thead>
+				   <tbody>
+						<tr>
+							<th>应用版本</th>
+							<td>{CMSNAME} V{APP_VERSION}-{RELEASE_TIME}</td>
+						</tr>
+	
+						<tr>
+							<th>主机系统</th>
+							<td>{$server->php_os}</td>
+						</tr>
+						<tr>
+						      <th>访问地址</th>
+						      <td>{$server->http_host}</td>
+						  </tr>
+						  <tr>
+						      <th>主机名称</th>
+						      <td>{$server->server_name}</td>
+						  </tr>
+						
+						  <tr>
+						       <th>主机地址</th>
+						       <td>{$server->server_addr}</td>
+						  </tr>
+						  <tr>
+						      <th>主机端口</th>
+						      <td>{$server->server_port}</td>
+						  </tr>
+						
+						 <tr>
+						      <th>WEB软件</th>
+						      <td>{$server->server_software}</td>
+						  </tr>	  
+						  
+						  <tr>
+						     <th>PHP版本</th>
+						     <td>{$server->php_version}
+						     	{if([$server->php_version_low])}
+						     	<span class="layui-badge layui-bg-orange">建议升级到 {$server->php_min_version}+</span>
+						     	{/if}
+						     </td>
+						 </tr>
+						
+						<tr>
+						     <th>数据库驱动</th>
+						     <td>{$server->db_driver}</td>
+						 </tr>
+						
+						
+						<tr>
+						     <th>文件上传限制</th>
+						     <td>{$server->upload_max_filesize}</td>
+						</tr>
+						   
+						<tr>
+						    <th>表单提交限制</th>
+						    <td>{$server->post_max_size}</td>
+						</tr>
+						
+						<tr>
+						     <th>最大提交数量</th>
+						     <td>{$server->max_file_uploads}</td>
+						</tr>
+						
+						<tr>
+						     <th>分配内存限制</th>
+						     <td>{$server->memory_limit}</td>
+						</tr>
+						
+						<tr>
+						     <th>GD库支持</th>
+						     <td>{$server->gd}</td>
+						</tr>
+
+						<tr>
+						     <th>图像后端配置</th>
+						     <td>配置：{$server->image_backend_config}；主路径：{$server->image_backend_effective}（JPEG/PNG 等走 GD；AVIF 见下方能力矩阵，按可用后端择优）</td>
+						</tr>
+
+						<tr>
+						     <th>Imagick支持</th>
+						     <td>已加载：{$server->imagick}（{$server->imagick_version}）；安全可用：{$server->imagick_usable}{if($server->imagick_unusable_reason!='-')}（{$server->imagick_unusable_reason}）{/if}</td>
+						</tr>
+
+						<tr>
+						     <th>Imagick policy 状态</th>
+						     <td>{$server->imagick_policy_status}</td>
+						</tr>
+
+						<tr>
+						     <th>Imagick 深度检测</th>
+						     <td>
+						          {$server->imagick_deep_probe}
+						          <form action="{url./admin/Site/imagickProbe}" method="post" style="display:inline;margin-left:8px;">
+						               <input type="hidden" name="formcheck" value="{$formcheck}">
+						               <button type="submit" class="layui-btn layui-btn-xs layui-btn-normal">重新检测</button>
+						          </form>
+						          <span style="color:#999;margin-left:6px;">（仅 file 类 coder，不发起网络请求）</span>
+						     </td>
+						</tr>
+
+						<tr>
+						     <th>图像能力矩阵</th>
+						     <td>
+						          (仅探测，不代表已接管处理)
+						          AVIF：{$server->image_cap_avif}；
+						          HEIC：{$server->image_cap_heic}；
+						          动图GIF：{$server->image_cap_animated_gif}；
+						          WebP：{$server->image_cap_webp}；
+						     </td>
+						</tr>
+						   
+						<tr>
+						    <th>Curl支持</th>
+						    <td>{$server->curl}</td>
+						</tr>
+						
+						<tr>
+						   <th>加速模块支持</th>
+						    <td>
+						          pthreads：{$server->pthreads}；
+						          XCache：{$server->xcache}；
+						          APC：{$server->apc}； 
+						          eAccelerator：{$server->eaccelerator}； 
+						          WinCache：{$server->wincache}； 
+						          ZendOPcache：{$server->zendopcache}；
+						          Memcache：{$server->memcache}； 
+						          Memcached：{$server->memcached}；
+						    </td>
+						</tr>
+						
+						<tr>
+						    <th>已加载模块</th>
+						    <td>{$server->extensions}</td>
+						</tr>               
+					</tbody>
+				</table>
+		    </div>
+	  </div>
+	</div>
+</div>
+
+{include file='common/foot.html'}

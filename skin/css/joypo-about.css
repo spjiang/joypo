@@ -1,0 +1,305 @@
+/*!
+ * Joypo 「关于久普」栏目动效样式
+ * 约束：只用 transform / opacity / 颜色 / 阴影 / 描边
+ *       不改字体族、字号、图标、排版布局
+ *
+ * 安全原则：所有区块默认可见（opacity:1），
+ *          入场效果用 animation 在触发那一刻播放。
+ *          若 IntersectionObserver 未触发（异常/被拦截），
+ *          内容依然正常显示，不会出现空白区块。
+ */
+
+/* ---------------------------------------------------------------------------
+   1. 入场动画
+
+   类名分工：
+   - jp-about-in     已入场标记（状态）
+   - jp-about-anim  播放入场动画（动作），播完由 JS 移除
+   - jp-about-pre   语义标记（不再用于隐藏）
+
+   为什么动画要用独立类：
+   CSS animation 带 fill-mode:both 时，结束后会把终态 transform/opacity
+   写进元素，而 animation 的优先级高于普通样式声明，
+   会把 :hover 的 transform 覆盖掉（悬停效果失效）。
+   用独立类 + 播完移除，就能彻底避免这个问题。 */
+.jp-about-pre{
+	opacity:1;
+}
+
+.jp-about-in{
+	opacity:1 !important;
+}
+
+/* ---------------------------------------------------------------------------
+   2. 公司介绍（文字面板）
+   --------------------------------------------------------------------------- */
+.jp-about-intro{
+	opacity:1;
+}
+.jp-about-intro.jp-about-anim{
+	animation:jp-about-rise .85s cubic-bezier(.22, .61, .36, 1) both;
+}
+@keyframes jp-about-rise{
+	from{opacity:0;transform:translate3d(0, 34px, 0);}
+	to{opacity:1;transform:translate3d(0, 0, 0);}
+}
+
+/* ---------------------------------------------------------------------------
+   3. 数据统计（四项）
+   --------------------------------------------------------------------------- */
+.jp-about-stats ul li{
+	opacity:1;
+}
+.jp-about-stats ul li.jp-about-anim{
+	animation:jp-about-pop .8s cubic-bezier(.18, 1.25, .4, 1) both;
+}
+@keyframes jp-about-pop{
+	from{opacity:0;transform:translate3d(0, 40px, 0) scale(.9);}
+	to{opacity:1;transform:translate3d(0, 0, 0) scale(1);}
+}
+
+/* 悬停：数字发光 + 整体抬升 */
+.jp-about-stats ul li{
+	transition:transform .8s cubic-bezier(.18, 1.25, .4, 1),
+	           filter .4s ease;
+}
+.jp-about-stats ul li:hover{
+	transform:translate3d(0, -8px, 0) scale(1.03);
+	filter:drop-shadow(0 10px 20px rgba(93, 194, 208, .35));
+}
+
+.jp-about-stats ul li .timer,
+.jp-about-stats ul li strong{
+	transition:color .4s ease, text-shadow .4s ease;
+}
+.jp-about-stats ul li:hover .timer,
+.jp-about-stats ul li:hover strong{
+	color:#2b8fa0;
+	text-shadow:0 0 24px rgba(93, 194, 208, .55);
+}
+
+/* ---------------------------------------------------------------------------
+   4. 公司荣誉（证书轮播）
+   --------------------------------------------------------------------------- */
+.jp-about-honor{
+	opacity:1;
+}
+.jp-about-honor.jp-about-anim{
+	animation:jp-about-rise .85s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+/* 证书卡片：悬停时抬起 + 放大。
+   注意：.swiper-slide 的 transform 被 Swiper 占用（用于轮播定位），
+   动效必须挂在内部的 a 上，否则会被 Swiper 覆盖。 */
+#honor_banner .swiper-slide{
+	position:relative;
+	transition:opacity .4s ease;
+}
+#honor_banner .swiper-slide a{
+	position:relative;
+	display:block;
+	overflow:hidden;
+	border-radius:6px;
+	transition:transform .5s cubic-bezier(.18, 1.25, .4, 1),
+	           box-shadow .5s cubic-bezier(.22, .61, .36, 1);
+}
+#honor_banner .swiper-slide img{
+	display:block;
+	width:100%;
+	transition:transform .6s cubic-bezier(.22, .61, .36, 1);
+}
+#honor_banner .swiper-slide:hover{
+	z-index:5;
+}
+#honor_banner .swiper-slide:hover a{
+	transform:translateY(-10px);
+	box-shadow:0 18px 36px rgba(18, 36, 43, .18);
+}
+#honor_banner .swiper-slide:hover img{
+	transform:scale(1.07);
+}
+
+/* 证书名称：悬停时变色 */
+#honor_banner .swiper-slide > span{
+	transition:color .35s ease, transform .4s cubic-bezier(.22, .61, .36, 1);
+	display:inline-block;
+}
+#honor_banner .swiper-slide:hover > span{
+	color:#2b8fa0;
+	transform:translateY(-2px);
+}
+
+/* 左右切换按钮：悬停时放大并显形 */
+#honor_banner .swiper-button-prev.hl,
+#honor_banner .swiper-button-next.hr{
+	transition:transform .4s cubic-bezier(.18, 1.25, .4, 1),
+	           opacity .35s ease, background-color .35s ease;
+	border-radius:50%;
+}
+#honor_banner .swiper-button-prev.hl:hover{
+	transform:scale(1.16);
+	background-color:rgba(93, 194, 208, .28);
+}
+#honor_banner .swiper-button-next.hr:hover{
+	transform:scale(1.16);
+	background-color:rgba(93, 194, 208, .28);
+}
+
+/* ---------------------------------------------------------------------------
+   5. 发展历程（年份标签 + 大图）
+   --------------------------------------------------------------------------- */
+.jp-about-years{
+	opacity:1;
+}
+.jp-about-years li{
+	opacity:1;
+	transition:transform .7s cubic-bezier(.18, 1.25, .4, 1),
+	           color .35s ease, text-shadow .35s ease;
+}
+.jp-about-years li.jp-about-anim{
+	animation:jp-about-rise-s .7s cubic-bezier(.18, 1.25, .4, 1) both;
+}
+@keyframes jp-about-rise-s{
+	from{opacity:0;transform:translate3d(0, 22px, 0);}
+	to{opacity:1;transform:translate3d(0, 0, 0);}
+}
+
+/* 悬停：年份放大 + 发光（不改字号，只用 transform）。
+   注意：这条必须放在 .jp-about-in 之后，
+   否则会被上面的入场终态 transform 覆盖。 */
+.jp-about-years li:hover{
+	transform:translate3d(0, -6px, 0) scale(1.16);
+	text-shadow:0 6px 18px rgba(0, 0, 0, .28);
+}
+
+/* 年份圆点：悬停时放大并填充 */
+.jp-about-years li i{
+	transition:transform .4s cubic-bezier(.18, 1.25, .4, 1),
+	           background-color .35s ease, border-color .35s ease;
+}
+.jp-about-years li:hover i{
+	transform:translate(-50%, -3px) scale(1.35);
+	background-color:#5dc2d0;
+	border-color:#5dc2d0;
+}
+
+/* 大图容器：默认可见（保证 JS 未执行时 2026 的图照常显示） */
+.jp-about-history{
+	opacity:1;
+	transform:none;
+}
+
+/* 切换动画：jqtab 完成 .show() 后，给新显示的那张加 jp-his-in 播放淡入。
+   注意：这里绝不能用 opacity:0 静态隐藏所有 ul ——
+   jqtab 初始化时只显示第一个（2026），静态隐藏会让「首屏加载时没有图片」，
+   必须等鼠标悬停触发 jp-his-in 才显现。
+   所以默认保持可见（opacity:1），靠 animation 做「刚显示出来」的那一下淡入。 */
+.jp-about-history > ul{
+	opacity:1;
+}
+.jp-about-history > ul.jp-his-anim{
+	animation:jp-his-zoom .55s cubic-bezier(.22, .61, .36, 1) both;
+}
+@keyframes jp-his-zoom{
+	from{opacity:0;transform:scale(1.05);}
+	to{opacity:1;transform:scale(1);}
+}
+
+/* 大图悬停：轻微放大 */
+.jp-about-history > ul img.imgs{
+	transition:transform .6s cubic-bezier(.22, .61, .36, 1);
+}
+#outer1:hover .jp-about-history > ul img.imgs{
+	transform:scale(1.02);
+}
+
+/* ---------------------------------------------------------------------------
+   6. 企业文化（三张卡）
+   --------------------------------------------------------------------------- */
+.inabout dl{
+	opacity:1;
+	transition:transform .85s cubic-bezier(.18, 1.25, .4, 1),
+	           box-shadow .55s cubic-bezier(.22, .61, .36, 1),
+	           background-color .45s ease;
+}
+.inabout dl.jp-about-anim{
+	animation:jp-about-pop .85s cubic-bezier(.18, 1.25, .4, 1) both;
+}
+
+/* 悬停：抬升 + 投影加深。
+   同样必须放在 .jp-about-in 之后，避免被入场终态覆盖。 */
+.inabout dl:hover{
+	transform:translate3d(0, -14px, 0) scale(1.02);
+	box-shadow:0 20px 44px rgba(18, 36, 43, .16);
+	z-index:5;
+}
+
+/* 图标：放大 + 轻微旋转 */
+.inabout dl dt img{
+	transition:transform .6s cubic-bezier(.34, 1.4, .64, 1),
+	           filter .45s ease;
+}
+.inabout dl:hover dt img{
+	transform:scale(1.22) rotate(-6deg);
+	filter:drop-shadow(0 8px 16px rgba(93, 194, 208, .5));
+}
+
+/* 标题：变品牌色 + 右移 */
+.inabout dl dd h1{
+	transition:color .4s ease, transform .45s cubic-bezier(.22, .61, .36, 1);
+}
+.inabout dl:hover dd h1{
+	color:#2b8fa0;
+	transform:translateX(6px);
+}
+
+/* ---------------------------------------------------------------------------
+   7. 联系我们
+   --------------------------------------------------------------------------- */
+#w7 .title,
+#w7 .cona{
+	opacity:1;
+}
+#w7 .title.jp-about-anim,
+#w7 .cona.jp-about-anim{
+	animation:jp-about-rise .8s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+/* 按钮：悬停时箭头右移 */
+#w7 .cona a.morec span.icfont{
+	display:inline-block;
+	transition:transform .4s cubic-bezier(.22, .61, .36, 1);
+}
+#w7 .cona a.morec:hover span.icfont{
+	transform:translateX(6px);
+}
+
+/* 邮箱链接：悬停时变色 */
+#w7 .cona a.morec1{
+	transition:color .35s ease;
+}
+#w7 .cona a.morec1:hover{
+	color:#2b8fa0;
+}
+
+/* ---------------------------------------------------------------------------
+   8. 无障碍：偏好减少动效时全部直接显示
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+	.jp-about-pre,
+	.jp-about-in,
+	.jp-about-intro,
+	.jp-about-stats ul li,
+	.jp-about-honor,
+	.jp-about-years,
+	.jp-about-years li,
+	.jp-about-history,
+	.jp-about-history > ul,
+	.inabout dl,
+	#w7 .title,
+	#w7 .cona{
+		opacity:1 !important;
+		transform:none !important;
+		animation:none !important;
+	}
+}

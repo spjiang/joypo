@@ -1,0 +1,200 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>{pboot:if('{sort:title}'=='')}{pboot:pagetitle}{else}{sort:title}{/pboot:if}</title>
+<meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
+<meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link type="text/css" rel="stylesheet" href="{pboot:sitedomain}/skin/css/animate.min.css"/>
+<script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/main.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swipe.min.js"></script> 
+<script src="{pboot:sitedomain}/skin/js/idangerous.swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/tab.js"></script>
+<!--产品区交互增强：缩略图入场 + 型号联动 + 弹窗-->
+<script src="{pboot:sitedomain}/skin/js/joypo-prod.js" defer></script>
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/wow.min.js"></script>
+  <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/idangerous.swiper.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/iconfont.css">
+<!--
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/jquery.lightbox.js"></script>
+-->
+ <script>
+
+$(document).ready(function() {
+	jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
+		$(tab_conbox).find("ul").hide();
+		$(tabtit).find("li:first").addClass("current").show(); 
+		$(tab_conbox).find("ul:first").show();
+	
+		$(tabtit).find("li").bind(shijian,function(){
+		  $(this).addClass("current").siblings("li").removeClass("current"); 
+			var activeindex = $(tabtit).find("li").index(this);
+			$(tab_conbox).children().eq(activeindex).show().siblings().hide();
+			return false;
+		});
+	
+	};
+	/*调用方法如下：*/
+/*	$.jqtab("#tabs","#tab_conbox","click"); 鼠标经过显示*/
+    $.jqtab("#tab01","#content01","mouseenter");
+	$.jqtab("#tab02","#content02","mouseenter");
+	$.jqtab("#tab03","#content03","mouseenter");
+});
+
+</script>
+</head>
+<body>
+{include file=head.html}
+<!--banner-->
+<div class="banner_n2">
+	<img src="{sort:pic}" alt="{sort:name}" width="100%">
+    <div class="box1 wow zoomIn" style="color:#fff;">
+<h1>{sort:def1}<span>{sort:def3}</span></h1>
+<p>{sort:def2}</p>
+</div>
+<div class="cl blank2"></div>
+    <div class="plcen">
+{pboot:nav num=40 parent={sort:scode}}
+					
+    <dl>
+    <dt><a href="[nav:link]">[nav:name]</a></dt>
+   
+    </dl>
+    {/pboot:nav}
+   
+</div>    
+</div>
+<div class="cl blank6"></div>
+<div class="cl blank6"></div>
+<!--内页导航-->
+
+<!--案例-->
+{pboot:nav parent={sort:scode}}
+ 
+<div class="banner_pn" id="p[nav:i]">
+	<img src="[nav:pic]" alt="[nav:subname]" width="100%">
+    <div class="pbox wow zoomIn" style="top:10%;">
+<h1>[nav:subname]</h1>
+<p>[nav:def1]</p>
+</div>
+</div>
+
+<div class="w">
+<div id="pro_banner">
+<div id="outer0[nav:i]">
+ 
+   
+    <div id="content0[nav:i]" class="jp-prod-strip">
+    {pboot:list scode=[nav:scode] num=9}
+
+            <ul class="jp-prod-thumbs">
+            
+           
+
+   <li class="jp-prod-thumb">
+     <a href="#modal-one[list:id]" class="jp-prod-thumb-link">
+       <span class="jp-prod-thumb-box"><img src="[list:ico]" alt="[list:title]" loading="lazy"></span>
+       <span class="jp-prod-thumb-name">[list:title]</span>
+     </a>
+   </li>
+            </ul>
+            
+            <!-- Modal -->
+<div class="modal" id="modal-one[list:id]" aria-hidden="true">
+  <div class="modal-dialog">
+       
+      <a href="#" class="btn-close" aria-hidden="true">×</a>
+   
+<div class="modal_text">
+<img src="[list:ext_cpcs]" alt="[list:title]"/>
+</div>
+  
+  </div>
+</div>
+     
+            {/pboot:list}
+     
+
+
+</div>
+  <ul id="tab0[nav:i]" class="jp-prod-tabs">
+     {pboot:list scode=[nav:scode] num=9}
+       <li>[list:title]<span></span></li>
+        {/pboot:list}
+     
+
+ </ul>
+</div>
+
+  </div>
+  </div>
+ <div class="cl blank6"></div> 
+      <div class="cl blank6"></div> 
+        {/pboot:nav}
+
+<div id="w10">
+<div class="cl blank2"></div>
+<div class="w">
+<div class="title wow zoomIn">
+			<div class="h3">研发优势</div>
+            <h1>为道路而生</h1>
+		</div>
+       <div class="yslist">
+       <ul>
+       <li class="wow flipInY"><span>高倍率放电</span>
+       <p>1–3C 持续，峰值 5C</p>
+       </li>
+       
+        <li class="wow flipInY"><span>抗振与抗冲击</span>
+       <p>MIL-STD 级测试</p>
+       </li>
+        <li class="wow flipInY"><span>IP65–IP67</span>
+       <p>防水防尘保护</p>
+       </li>
+        <li class="wow flipInY"><span>宽温域</span>
+       <p>充电 -20°C，放电 -35°C</p>
+       </li>
+       
+       </ul>
+       
+       
+       </div>
+</div>
+<div class="cl blank2"></div>
+</div>
+  
+<div id="w7">
+<div class="w">
+    <div class="cl blank2"></div>
+        <div class="cl blank2"></div>
+<div class="title wow zoomIn">
+		
+            <h4>用久普动力驱动您的车辆</h4>
+            <p>告诉我们您的车辆类型、电压与续航需求——12 小时内获得定制化电池方案。</p>
+		</div>
+<div class="cona wow flipInY"><a href="{pboot:sitedomain}/?contact/" target="_blank" class="morec">联系我们<span class="icfont icon-left1"></span></a>
+<a href="mailto:info@joypo.cn" target="_blank" class="morec1">info@joypo.cn</a></div>
+</div>
+</div>
+{include file=foot.html}
+
+</body>
+</html>
+<script>
+	$(function () {
+		wow = new WOW({
+			boxClass: 'wow',
+			animateClass: 'animated',
+			offset: 0,
+			mobile: false,
+			live: true
+		})
+		wow.init();
+	});
+</script> 

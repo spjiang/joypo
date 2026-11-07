@@ -1,0 +1,127 @@
+<script src="{pboot:sitedomain}/skin/js/translate.js"></script> 
+<!--Joypo 动效增强层：滚动载入 + 悬停动效（仅用 transform/opacity，不改布局）-->
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-anim.css">
+<script src="{pboot:sitedomain}/skin/js/joypo-anim.js" defer></script>
+<script>
+    /* 移动端视口：本项目未做独立移动端模板，PC 模板靠整体缩放适配手机，
+       因此保留 initial-scale=screen.width/1200 的缩放版 viewport。
+       注意：缩放后浏览器视口逻辑宽度恒为 1200px，
+       所以 max-width 媒体查询要按 1200px 断点来写，不能用 768px。 */
+    (function () {
+        var scale = Math.min(parseInt(window.screen.width, 10) / 1200, 1);
+        var vp = document.createElement('meta');
+        vp.name = 'viewport';
+        vp.content = 'width=device-width, initial-scale=' + scale +
+                     ', minimum-scale=' + scale + ', maximum-scale=' + scale + ', user-scalable=no';
+        document.getElementsByTagName('head')[0].appendChild(vp);
+    })();
+</script>
+<!--页头-->
+<!--导航-->
+<header class="cms-site-head" id="header">
+    <div class="header-main">
+        <div class="cms-site-inner limit-width wrapper">
+            <div class="cms-site-logo header-logo">
+                <a href="{pboot:sitedomain}/">
+                    <img class="onlogo" src="{pboot:sitedomain}/skin/images/logo1.webp" >
+                    <img class="mouseLogo" src="{pboot:sitedomain}/skin/images/logo1.webp" >
+                </a>
+            </div>
+            <div class="header-nav cms-site-menu">
+                <nav class="header">
+                     <!-- <div class="header-right"> -->
+                        <ul class="nav-lv1">
+                     {pboot:nav num=5}
+		<li><a href="[nav:link]">[nav:name]</a>
+          {pboot:if([nav:soncount]>0)}
+        <ul class="cms-site-submenu">
+      
+           {pboot:2nav parent=[nav:scode]}
+        <li class="nav-list-lv2">
+        
+            <a class="nav-item-lv2" href="[2nav:link]">[2nav:name]</a><span></span>
+            
+            {pboot:3nav parent=[2nav:scode]}
+              <a class="nav-lv3" href="[3nav:link]" target="_self">[3nav:name]</a>
+              {/pboot:3nav}
+                          </li>
+                           {/pboot:2nav}
+        </ul>
+          {/pboot:if}
+        </li>
+		{/pboot:nav}
+        
+                           
+                           
+                            
+                        
+                        </ul>
+                        
+                    <!-- </div> -->
+                </nav>
+                 <div class="head_icon"> 
+                 <div class="top_search"><span class="icfont icon-sousuo"></span><em></em>
+      <div class="search_con">
+        <form action="{pboot:scaction}" method="get" id="form3">
+          <input class="input1" name="keyword" value="Search" onFocus="if(value=='Search'){value=''}" onBlur="if(value==''){value='Search'}">
+          <input type="submit" class="bnts" value="">
+        </form>
+        <script type="text/javascript">
+   function checktop(nForm){
+   if(nForm.title.value=="Search")
+   { alert("请填写搜索关键字!");
+    nForm.title.focus();
+    return false;
+   }
+   }
+   function checktop_en(nForm){
+   if(nForm.title.value=="Search")
+   { alert("Please fill in the search keywords");
+    nForm.title.focus();
+    return false;
+   }
+   }
+  </script> 
+      </div>
+    </div>
+    
+<div class="header_top_lan">
+	<a class="on" href="javascript:translate.changeLanguage('chinese_simplified');">中</a>
+    <a href="javascript:translate.changeLanguage('english');">EN</a>
+    
+        </div>
+<script type="text/javascript">         
+translate.ignore.class.push('header_top_lan');
+translate.nomenclature.append('chinese_simplified','english',`
+久普=Joypo
+`);
+</script>
+        </div>
+            </div>
+        </div>
+    </div>
+    </header>
+   <script>
+        window.addEventListener('scroll',function(){
+         tou = document.querySelector('.header-main');
+            /*  tou.classList.toggle("bian",window.scrollY>0); */
+           if(window.scrollY>80)
+            {
+                tou.classList.add("header-main01");
+            }else{
+                tou.classList.remove("header-main01");
+            }
+        })
+
+        $(".nav-lv1 li").mouseover(function(){
+            $(".cms-site-submenu").stop().fadeOut(100);
+            $(this).find(".cms-site-submenu").stop().fadeIn(300);
+        });
+        $(".nav-lv1 li").mouseout(function(){
+            $(".cms-site-submenu").stop().fadeOut(100);
+        })
+    </script>
+    
+
+
+<!--banner-->

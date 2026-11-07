@@ -1,0 +1,224 @@
+/*!
+ * Joypo 产品区（单大图切换版）动效样式
+ * 配合 skin/js/joypo-prod.js 的 initStage()
+ */
+
+/* ---------------------------------------------------------------------------
+   1. 产品舞台（#content0N）
+   --------------------------------------------------------------------------- */
+.jp-prod-stage{
+	position:relative;
+}
+
+/* 每个产品一个 ul，同一时刻只显示一个。
+   注意：显示/隐藏由模板内联的 jqtab（jQuery .show/.hide）通过内联
+   style 控制，这里绝不能用 !important 覆盖 display，
+   否则三个型号会同时显示、切换功能失效。 */
+.jp-prod-shot{
+	position:relative;
+	text-align:center;
+	margin-bottom:0 !important;
+	padding:0 !important;
+	width:100% !important;
+	max-width:100% !important;
+}
+
+/* 缩略图项：去掉列表符号，撑满 */
+.jp-prod-shot-item{
+	list-style:none;
+	display:block;
+	width:100%;
+	padding:0;
+	margin:0;
+}
+
+/* 切换时的淡入动画 */
+.jp-prod-shot.jp-shot-in{
+	animation:jp-shot-in .5s cubic-bezier(.22, .61, .36, 1) both;
+}
+@keyframes jp-shot-in{
+	from{
+		opacity:0;
+		transform:translate3d(0, 26px, 0) scale(.965);
+	}
+	to{
+		opacity:1;
+		transform:translate3d(0, 0, 0) scale(1);
+	}
+}
+
+/* 淡出动画 */
+.jp-prod-shot.jp-shot-out{
+	animation:jp-shot-out .22s ease both;
+}
+@keyframes jp-shot-out{
+	from{opacity:1;transform:translate3d(0,0,0) scale(1);}
+	to{opacity:0;transform:translate3d(0,-14px,0) scale(.985);}
+}
+
+/* ---------------------------------------------------------------------------
+   2. 主图
+   --------------------------------------------------------------------------- */
+.jp-prod-shot-link{
+	position:relative;
+	display:inline-block;
+	max-width:100%;
+	text-decoration:none;
+	outline:none;
+}
+
+/* 产品图本身是带白底的 PNG，这里不做卡片化处理，
+   只保留圆角裁切与悬浮动效，避免多出一圈白色边框。 */
+.jp-prod-shot-box{
+	position:relative;
+	display:block;
+	overflow:hidden;
+	border-radius:12px;
+	transition:transform .55s cubic-bezier(.18, 1.25, .4, 1),
+	           filter .55s cubic-bezier(.22, .61, .36, 1);
+}
+
+.jp-prod-shot-box img{
+	display:block;
+	width:100%;
+	max-width:100%;
+	height:auto;
+	transition:transform .75s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* 悬停：整体上浮 + 图片轻微放大 */
+.jp-prod-shot-link:hover .jp-prod-shot-box{
+	transform:translateY(-10px);
+	filter:drop-shadow(0 18px 30px rgba(18, 36, 43, .18));
+}
+.jp-prod-shot-link:hover .jp-prod-shot-box img{
+	transform:scale(1.035);
+}
+
+/* 「查看产品参数」提示条 */
+.jp-prod-shot-tip{
+	position:absolute;
+	left:50%;
+	bottom:26px;
+	transform:translate(-50%, 14px);
+	display:inline-flex;
+	align-items:center;
+	padding:9px 22px;
+	border-radius:24px;
+	background:rgba(43, 143, 160, .92);
+	color:#fff;
+	font-size:15px;
+	letter-spacing:1px;
+	line-height:1;
+	white-space:nowrap;
+	opacity:0;
+	pointer-events:none;
+	transition:opacity .35s ease, transform .45s cubic-bezier(.18, 1.25, .4, 1);
+	box-shadow:0 8px 22px rgba(43, 143, 160, .38);
+}
+
+.jp-prod-shot-link:hover .jp-prod-shot-tip,
+.jp-prod-shot-link:focus-visible .jp-prod-shot-tip{
+	opacity:1;
+	transform:translate(-50%, 0);
+}
+
+/* 键盘聚焦时给个可见焦点框 */
+.jp-prod-shot-link:focus-visible .jp-prod-shot-box{
+	filter:drop-shadow(0 0 0 rgba(93, 194, 208, .9));
+	outline:3px solid rgba(93, 194, 208, .55);
+	outline-offset:4px;
+}
+
+/* ---------------------------------------------------------------------------
+   3. 型号标签栏（#tab0N）
+   --------------------------------------------------------------------------- */
+.jp-prod-models{
+	position:relative;
+}
+
+/* 标签本体 */
+.jp-prod-models li{
+	position:relative;
+	cursor:pointer;
+	color:#fff;
+	opacity:0;
+	transform:translateY(14px);
+	transition:color .35s ease, transform .4s cubic-bezier(.18, 1.25, .4, 1),
+	           text-shadow .35s ease, opacity .55s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* 错峰入场（JS 按序加 is-in） */
+.jp-prod-models li.is-in{
+	opacity:1;
+	transform:translateY(0);
+}
+
+/* 悬停：上浮 + 提亮 */
+.jp-prod-models li:hover{
+	transform:translateY(-3px);
+	color:#fff;
+	text-shadow:0 4px 14px rgba(0, 0, 0, .25);
+}
+
+/* 当前选中：加粗 + 常驻下划线 */
+.jp-prod-models li.is-current{
+	font-weight:700;
+	color:#fff;
+}
+
+/* 下划线：默认收起且透明，选中/悬停时才展开显形。
+   注意：原 style.css 里 span 默认无背景色，只有 .current 时才给白色，
+   这里必须保持一致，否则所有型号都会显示白线。 */
+.jp-prod-models li span{
+	position:absolute;
+	left:50%;
+	bottom:-8px;
+	width:0;
+	height:2px;
+	background:#fff;
+	border-radius:2px;
+	transform:translateX(-50%) scaleX(0);
+	transform-origin:center;
+	transition:transform .42s cubic-bezier(.22, .61, .36, 1),
+	           width .42s cubic-bezier(.22, .61, .36, 1),
+	           opacity .3s ease;
+	opacity:0;
+}
+
+.jp-prod-models li:hover span{
+	width:100%;
+	transform:translateX(-50%) scaleX(1);
+	opacity:1;
+}
+
+.jp-prod-models li.is-current span,
+.jp-prod-models li.current span{
+	width:100%;
+	transform:translateX(-50%) scaleX(1);
+	opacity:1;
+}
+
+/* ---------------------------------------------------------------------------
+   4. 标签栏载入动效（错峰）
+   --------------------------------------------------------------------------- */
+.jp-prod-models{
+	opacity:0;
+	transform:translateY(18px);
+	transition:opacity .7s cubic-bezier(.22, .61, .36, 1),
+	           transform .7s cubic-bezier(.22, .61, .36, 1);
+}
+.jp-prod-models.jp-in{
+	opacity:1;
+	transform:translateY(0);
+}
+
+/* ---------------------------------------------------------------------------
+   5. 载入动效（由 joypo-anim.js 挂载）
+   --------------------------------------------------------------------------- */
+.jp-prod-stage.jp-anim{
+	opacity:0;
+}
+.jp-prod-stage.jp-anim.jp-in{
+	opacity:1;
+}

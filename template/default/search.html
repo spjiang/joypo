@@ -1,0 +1,96 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>{pboot:if('{sort:title}'=='')}{pboot:pagetitle}{else}{sort:title}{/pboot:if}</title>
+<meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
+<meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/photoswipe.css"> 
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/default-skin.css"> 
+<script src="{pboot:sitedomain}/skin/js/jquery-1.9.1.js"></script>
+<script src="{pboot:sitedomain}/skin/js/touchslide.1.1.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/jquery.superslide.2.1.1.js"></script>
+<script src="{pboot:sitedomain}/skin/js/imgready.js"></script>
+<script src="{pboot:sitedomain}/skin/js/photoswipe.min.js"></script> 
+<script src="{pboot:sitedomain}/skin/js/photoswipe-ui-default.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/photoswipe-4.0.8-run.js"></script>
+
+<script src="{pboot:sitedomain}/skin/js/aos.js"></script>
+<!--
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/jquery.lightbox.js"></script>
+-->
+</head>
+<body>
+{include file=head.html}
+<!--banner-->
+{pboot:sort scode=2}
+<div class="banner_n">
+	<img src="[sort:pic]">
+	<div class="box">
+		<div class="h1">[sort:name]</div>
+		<div class="h2">[sort:def1]<br/>[sort:def2]</div>
+	</div>
+</div>
+{/pboot:sort}
+<!--内页导航-->
+<div class="nav_n">
+	<div class="box">
+		<ul>
+			{pboot:nav num=40 parent={sort:tcode}}
+			<li {pboot:if('[nav:scode]'=='{sort:scode}')}class="on"{/pboot:if}><a href="[nav:link]">[nav:name]</a></li>
+			{/pboot:nav}
+			<div class="clear"></div>
+		</ul>
+		<div class="search">
+			<form id="comment_form" name="formsearch" action="{pboot:scaction}"  method="get">
+				<input type="hidden" name="scode" value="2">
+				<input type="text" class="text" name="keyword" id="k" placeholder="请输入产品关键词">
+				<input type="submit" class="submit" value="">
+			</form>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<!--案例-->
+<div class="product">
+	<ul>
+		
+		{pboot:search num=8 order=sorting}
+		
+		<li>
+			<a href="[search:link]">
+				<div class='img'><img src="[search:ico]" alt="[search:title]"/></div>
+			</a>
+			<p class="sl">[search:title]</p>
+		</li>
+		
+		{/pboot:search}
+		
+	</ul>
+	<div class="clear"></div>
+	{pboot:if({page:rows}>0)}
+<div class="pagebar">
+<div class="pagination">
+<a class="page-item page-link hidden-sm" href="{page:index}" title="首页">首页</a>
+<a class="page-item page-link st" href="{page:pre}" title="上一页"><<</a>
+{page:numbar}
+<a class="page-item page-link" href="javascript:;" title="当前页/总页数">{page:current}/{page:count}</a>
+<a class="page-item page-link st" href="{page:next}" title="下一页">>></a>
+<a class="page-item page-link hidden-sm" href="{page:last}" title="尾页">尾页</a>
+</div>
+</div>	
+{else}
+<div class="tac text-secondary">本分类下无任何数据！</div>
+{/pboot:if}
+
+</div>
+{include file=foot.html}
+</body>
+</html>

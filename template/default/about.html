@@ -1,0 +1,304 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>{pboot:if('{sort:title}'=='')}{pboot:pagetitle}{else}{sort:title}{/pboot:if}</title>
+<meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
+<meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
+<script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/main.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swipe.min.js"></script> 
+
+<script src="{pboot:sitedomain}/skin/js/tab.js"></script>
+<script src="{pboot:sitedomain}/skin/js/aos.js"></script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/iconfont.css">
+<!--
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/jquery.lightbox.js"></script>
+-->
+<script>
+
+$(document).ready(function() {
+	jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
+		$(tab_conbox).find("ul").hide();
+		$(tabtit).find("li:first").addClass("current").show(); 
+		$(tab_conbox).find("ul:first").show();
+	
+		$(tabtit).find("li").bind(shijian,function(){
+		  $(this).addClass("current").siblings("li").removeClass("current"); 
+			var activeindex = $(tabtit).find("li").index(this);
+			$(tab_conbox).children().eq(activeindex).show().siblings().hide();
+			return false;
+		});
+	
+	};
+	/*调用方法如下：*/
+/*	$.jqtab("#tabs","#tab_conbox","click"); 鼠标经过显示*/
+    $.jqtab("#tab1","#content1","mouseenter");
+
+	/* 接管发展历程切换：jqtab 用 jQuery .show()/.hide() 硬切换，
+	   大图瞬间替换、没有过渡。这里在 jqtab 之后补一层淡入缩放动画。
+	   注意 jQuery 3 的 mouseenter 是用 mouseover 模拟的，
+	   原生 mouseenter 收不到，所以监听 mouseover。 */
+	$("#tab1 li").each(function () {
+		var li = this;
+		li.addEventListener("mouseover", function () {
+			setTimeout(function () {
+				if (window.JoypoProd && window.JoypoProd.playHistory) {
+					window.JoypoProd.playHistory(li);
+				}
+			}, 0);
+		});
+	});
+});
+
+</script>
+</head>
+<body>
+<!--关于久普栏目动效增强-->
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-about.css">
+<script src="{pboot:sitedomain}/skin/js/joypo-about.js" defer></script>
+{include file=head.html}
+<!--banner-->
+<div class="banner_n2">
+	<img src="{sort:pic}" alt="{sort:name}" width="100%">
+	<div class="box">
+ 
+		<div class="h1">{sort:def1}</div>
+      
+        <div class="cl blank2"></div>
+       <span class="curbar">{pboot:position separator=' > '}</span>
+	</div>
+</div>
+
+<!--产品详情页-->
+<div class="about1">
+<div class="w">
+<div class="title1">
+			<div class="h3"><span>公司介绍</span></div>
+            
+		</div>
+	{pboot:content id=18}
+	<div class="about_box jp-about-intro">
+	
+			[content:content]
+	
+		<div class="cl blank2"></div>
+      <div class="absj1 jp-about-stats">
+<ul>
+<li>
+<span class="timer" data-start="12">12</span><strong>+</strong><br/>行业经验
+</li>
+<li>
+<span class="timer" data-start="20">20</span><strong>%</strong><br/>技术人员占比
+</li>
+<li>
+<span class="timer" data-start="300">300</span><strong>w+</strong><br/>年生产力
+</li>
+<li>
+<span class="timer" data-start="1000">1000</span><strong>+</strong><br/>成熟产品设计方案
+</li>
+</ul>
+
+</div>
+
+<div class="cl blank2"></div>
+ <script type="text/javascript" src="{pboot:sitedomain}/skin/js/appear.js"></script> 
+
+<script type="text/javascript">
+	var c = true;
+	$(window).scroll(function () {
+		var oft = $(".about_box").offset().top - 300;
+		var sct = $(document).scrollTop();
+		if (sct >= oft && c) {
+			c = false;
+			//Animated Counters
+			$('.absj1').each(function () {
+				$(".timer").appear(function () {
+					var counter = $(this).attr('data-start') * 1;
+					$(this).countTo({
+						from: 1,
+						to: counter,
+						speed: 2000,
+						refreshInterval: 60,
+					});
+				});
+			});
+		}
+	});
+</script>  
+        
+	</div>
+	{/pboot:content}
+    
+</div>
+<div class="cl blank6"></div>
+<div class="cl blank6"></div>
+</div>
+{pboot:sort scode=14}
+    <div class="cl"></div>
+    <div class="abvod">
+    <div class="w">
+    <video width="100%" preload="metadata" playsinline webkit-playsinline x5-video-player-type="h5" autoplay muted loop>
+            <source src="{pboot:sitedomain}/skin/images/abanner.mp4" type="video/mp4">
+            您的浏览器不支持 HTML5 视频播放。
+        </video>
+      
+        <div class="cl blank2"></div>
+         <div class="title1">
+			<div class="h3"><span>公司荣誉</span></div>
+         
+</div>
+
+            <div class="about_box">
+            <p>久普能源致力于为客户提供安全可靠的锂电产品，全生产环节严格遵循各项技术标准，产品已取得 CE、CB、UL、UN38.3、RoHS 等多项国际认证，并通过多家权威机构质量检测。公司坚持技术深耕，持续迭代创新，高效解决客户各类产品问题。</p>
+<p>我们的品质管控贯穿产品全生命周期，不止于生产制造环节，在产品设计阶段即开展严苛验证。通过快速迭代验证，持续优化设计细节，高效响应客户定制化需求，全方位保障电池产品安全稳定运行。</p>
+		</div>
+        <div class="cl blank2"></div>
+             <div class="swiper-container jp-about-honor" id="honor_banner" >
+      <div class="swiper-wrapper"> 
+ 
+			{pboot:list scode=[sort:scode] num=10 order=sorting}
+			<div class="swiper-slide"><a href="[list:link]"><img src="[list:ico]" alt="[list:title]"/></a>
+            <span>[list:title]</span></div>
+            {/pboot:list}
+		 
+          
+        
+        </div>
+       <div class="swiper-pagination"></div>
+			<div class="swiper-button-prev hl"><span class="icfont icon-youjiantou1"></span></div>
+			<div class="swiper-button-next hr"><span class="icfont icon-left1"></span></div>
+    </div> 
+  
+  <div class="cl blank2"></div>
+
+	</div>
+    
+    
+    <div class="cl blank2"></div>
+  </div>  
+        	{/pboot:sort}
+
+<div id="w6">
+<div class="cl blank2"></div>
+ <div id="outer1">
+ 
+    <ul id="tab1" class="jp-about-years">
+      <li><i></i>2026</li>
+<li><i></i>2025</li>
+<li><i></i>2024</li>
+<li><i></i>2023</li>
+<li><i></i>2022</li>
+<li><i></i>2021</li>
+<li><i></i>2020</li>
+<li><i></i>2019</li>
+
+
+ </ul>
+    <div id="content1" class="jp-about-history">
+     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz1.png"/></ul>
+     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz2.png"/></ul>
+     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz3.png"/></ul>
+     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz4.png"/></ul>
+     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz5.png"/></ul>
+     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz6.png"/></ul>
+     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz7.png"/></ul>
+     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz8.png"/></ul>
+
+
+</div>
+ 
+</div>
+
+</div>
+
+
+ <div id="w1">
+ <div class="w">
+<div class="cl blank2"></div>
+		<div class="title">
+			<div class="h1"><span>企业文化</span></div>
+            <h1>成为全球最值得信赖的电池解决方案制造商</h1>
+		</div>
+        
+      <div class="inabout">
+      <dl>
+      <dt><img alt="企业使命" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
+      <dd><h1>企业使命</h1>
+    
+      <p>用可持续发展的方式，打造值得信赖的产品与服务，让每位成员在充满归属感和荣誉感的环境中，共创价值，共享成长。</p>
+      </dd>
+      
+      </dl>
+      
+      <dl>
+      <dt><img alt="企业愿景" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
+      <dd>
+      <h1>企业愿景</h1>
+      <p>成为一家以工匠精神和信赖为基础，让员工、合作伙伴和客户都感到幸福的现代企业。</p>
+      </dd>
+      
+      </dl>
+      
+      <dl>
+       <dt><img alt="企业使命" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
+      <dd>
+       <h1>企业核心价值观</h1>
+      <p>一切以正能量为中心，务实开放、诚信进取、简约高效、健康文明</p>
+      </dd>
+      
+      </dl>
+      <div class="cl blank2"></div>
+      </div>
+        
+    
+        
+ </div>
+   	<div class="cl blank6"></div>  
+ </div>
+
+
+<div class="cl blank2"></div>
+<div class="title">
+			<div class="h2">客户分布</div>
+            <h2>立足全球市场，专注客户需求——我们的锂电产品，驱动世界每个角落</h2>
+		</div>
+         <div class="w">
+         <video width="100%" preload="metadata" playsinline webkit-playsinline x5-video-player-type="h5" autoplay muted loop>
+            <source src="{pboot:sitedomain}/skin/images/dt.mp4" type="video/mp4">
+            您的浏览器不支持 HTML5 视频播放。
+        </video>
+        
+         </div>
+    <div class="cl blank"></div>
+<div id="w7">
+<div class="w">
+    <div class="cl blank6"></div>
+<div class="title">
+		
+            <h4>让我们共同构建能源的未来</h4>
+            <p>选择一家把您的电池项目当作自己事业的制造商。今天就联系我们</p>
+		</div>
+<div class="cona"><a href="{pboot:sitedomain}/?contact/" target="_blank" class="morec">联系我们<span class="icfont icon-left1"></span></a>
+<a href="mailto:info@joypo.cn" target="_blank" class="morec1">info@joypo.cn</a></div>
+</div>
+</div>
+   
+{include file=foot.html}
+</body>
+</html>
+<script>
+		AOS.init({
+	  offset: 200,
+	  duration: 600,
+	  easing: 'ease-in-sine',
+	  delay: 100,
+		once:true
+	});
+</script>

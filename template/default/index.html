@@ -1,0 +1,323 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>{pboot:sitetitle}</title>
+<meta name="keywords" content="{pboot:sitekeywords}">
+<meta name="description" content="{pboot:sitedescription}">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+<!--<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">-->
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper-bundle.min.css">
+<script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/main.js"></script>
+<!--<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swipe.min.js"></script> -->
+<script src="{pboot:sitedomain}/skin/css/swiper-bundle.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/tab.js"></script>
+<script src="{pboot:sitedomain}/skin/js/aos.js"></script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/iconfont.css">
+
+
+<!--
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/jquery.lightbox.js"></script>
+-->
+</head>
+<body>
+{include file=head.html}
+<!--banner-->
+<div class="inbanner">
+<video width="100%" preload="metadata" poster="{pboot:sitedomain}/skin/images/poster_index.jpg" playsinline webkit-playsinline x5-video-player-type="h5" autoplay muted loop>
+            <source src="{pboot:sitedomain}/skin/images/index.mp4" type="video/mp4">
+            您的浏览器不支持 HTML5 视频播放。
+        </video>
+        <div class="mack">
+        <div class="w">
+        <h1>以工匠精神打造</h1>
+        <h2>安全可靠的电池解决方案</h2>
+        </div>
+        </div>
+   </div>   
+    
+    <div class="cl blank6"></div>
+ <!--关于我们-->   
+{pboot:sort scode=1}
+ <div id="w1">
+ <div class="w">
+<div class="cl blank2"></div>
+		<div class="title">
+			<div class="h1"><span>[sort:name]</span></div>
+            <h1>成为全球最值得信赖的电池解决方案制造商</h1>
+		</div>
+        
+      <div class="inabout">
+      <dl>
+      <dt><img alt="企业使命" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
+      <dd><h1>企业使命</h1>
+    
+      <p>用可持续发展的方式，打造值得信赖的产品与服务，让每位成员在充满归属感和荣誉感的环境中，共创价值，共享成长。</p>
+      </dd>
+      
+      </dl>
+      
+      <dl>
+      <dt><img alt="企业愿景" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
+      <dd>
+      <h1>企业愿景</h1>
+      <p>成为一家以工匠精神和信赖为基础，让员工、合作伙伴和客户都感到幸福的现代企业。</p>
+      </dd>
+      
+      </dl>
+      
+      <dl aos="fade-up">
+       <dt><img alt="企业使命" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
+      <dd>
+       <h1>企业核心价值观</h1>
+      <p>一切以正能量为中心，务实开放、诚信进取、简约高效、健康文明</p>
+      </dd>
+      
+      </dl>
+      <div class="cl blank2"></div>
+      </div>
+        
+    
+        
+ </div>
+   	<div class="cl blank6"></div>  
+ </div>
+ {/pboot:sort}
+ <style>
+
+    
+
+   
+  </style>
+  
+
+  
+
+<div class="cl blank6"></div>
+		<div class="title" aos="fade-up">
+			<div class="h2">解决方案</div>
+            <h2>以工匠精神打造安全可靠的电池解决方案</h2>
+		</div>
+        <div class="cl blank2"></div>
+        <div class="w">
+     {pboot:sort scode=2}   
+        <div id="case_banner" >
+      
+     {pboot:nav parent={sort:tcode} parent=2 num=6}
+     <dl> 
+       <a href="[nav:link]">
+        <dt>      
+      <img src="[nav:ico]" alt="[nav:name]">
+      
+      <div class="ha1">[nav:subname]</div>
+      </dt>
+          
+        
+   
+        </a>
+     </dl>
+        {/pboot:nav}
+            
+       
+   </div>
+
+    {/pboot:sort}
+    
+    </div>
+  
+  
+    <div class="cl blank2"></div>
+<!--<div id="w2">    
+  <div class="w">
+  <div class="cl blank2"></div>
+		<div class="title" aos="fade-up">
+			<div class="h2">研发制造</div>
+            <h2>从电芯、BMS、产品及全生命周期管理系统的全栈式研发</h2>
+		</div>
+          <div class="cl blank6"></div>
+  <div class="inyfzz" aos="fade-up">
+  <dl>
+  <dt>软硬件协同安全架构</dt>
+  <dd>BMS 软硬件多重防护设计，搭配防护结构设计，实现 IP67 防水防尘，降低电池各类安全风险。</dd>
+  </dl>  
+  <dl>
+  <dt>BMS 算法开发</dt>
+  <dd>高精度 电量、健康度估算算法，真实反馈电池 SOC/SOH 状态，减少电量显示偏差。</dd>
+  </dl>
+  
+  
+  <dl>
+  <dt>定制化 PACK 集成能力</dt>
+  <dd>支持结构、接口、方案定制开发，灵活适配各类产品应用。</dd>
+  </dl>
+  <dl>
+  <dt>电池数字化运维平台</dt>
+  <dd>电池全周期监控，实时状态监控、故障预警，大数据统计与提升运维效率。</dd>
+  </dl>
+  
+    <dl>
+  <dt>严苛工况可靠性设计</dt>
+  <dd>采用车规级元器件，模块化结构，适配户外多场景复杂使用环境。</dd>
+  </dl>
+  <dl>
+  <dt>多维度仿真验证体系</dt>
+  <dd>开展电气、热、结构仿真分析，提前规避设计风险，保障产品落地质量。</dd>
+  </dl>
+  </div>
+  
+  </div>
+  <div class="cl blank6"></div>
+<div class="cl blank2"></div>
+</div>-->
+ <div class="cl blank3"></div>
+		<div class="title" aos="fade-up">
+			<div class="h2">新闻中心</div>
+           
+		</div>
+        
+        <div class="swiper mySwiper1" id="inews_banner">
+      <div class="swiper-wrapper"> 
+ 	{pboot:list scode=7 num=6}
+			<div class="swiper-slide">
+			
+            <dl class="jp-news-card"
+    onMouseOver="this.classList.add('nhover1');this.classList.remove('nhover01');"
+    onMouseOut="this.classList.add('nhover01');this.classList.remove('nhover1');">
+            <dt class="jp-news-pic">
+              <a href="[list:link]" target="_blank">
+                <img src="[list:ico]" loading="lazy" alt="[list:title]" data-cursor-label="VIEW">
+              </a>
+              <span class="jp-news-badge">NEWS</span>
+            </dt>
+            <dd class="jp-news-body">
+              <div class="h1"><a href="[list:link]" target="_blank">[list:title]</a></div>
+              <div class="jp-news-meta">
+                <span class="jp-news-date"><i class="iconfont iconxinxi"></i>[list:date style=Y-m-d]</span>
+                <span class="jp-news-cat"><i class="iconfont icondizhi"></i>公司新闻</span>
+              </div>
+              <div class="h2">[list:description lencn=50]</div>
+              <div class="more"><a href="[list:link]" target="_blank">查看详情<i class="iconfont icon-jiantou_you"></i></a></div>
+				 </dd>
+			
+              <div class="cl"></div>
+             </dl>       
+			
+			
+			</div>
+			{/pboot:list}
+			
+    
+            
+      
+   
+        
+        
+        </div>
+        <!--分页点：swiper 容器 overflow:hidden 会裁切，
+             所以给容器加 padding-bottom 预留出分页点的高度-->
+        <div class="swiper-pagination jp-news-pagination"></div>
+    </div> 
+
+    <div class="cl blank2"></div>
+ <div id="w3" aos="fade-up">
+ <div class="w">
+ <div class="cl blank6"></div>
+  <div class="cl blank2"></div>
+ <div class="title">
+			 <h1 style="font-size:60px;"> 以全流程之稳   承每一度之重</h1>
+		</div>
+        <div class="cl blank6"></div>
+        <div class="abcont">
+<div class="absj">
+<ul>
+<li>
+<span class="timer" data-start="12">12</span><strong>+</strong><br/>行业经验
+</li>
+<li>
+<span class="timer" data-start="20">20</span><strong>%</strong><br/>技术人员占比
+</li>
+<li>
+<span class="timer" data-start="300">300</span><b>w</b><strong>+</strong><br/>年生产力
+</li>
+<li>
+<span class="timer" data-start="1000">1000</span><strong>+</strong><br/>成熟产品设计方案
+</li>
+</ul>
+
+</div>
+ <div class="cl blank6"></div>
+  <div class="cl blank3"></div>
+<div class="more1"><a href="/?about/" target="_blank">查看更多</a></div>
+</div>
+ <script type="text/javascript" src="{pboot:sitedomain}/skin/js/appear.js"></script> 
+
+<script type="text/javascript">
+	var c = true;
+	$(window).scroll(function () {
+		var oft = $(".abcont").offset().top - 300;
+		var sct = $(document).scrollTop();
+		if (sct >= oft && c) {
+			c = false;
+			//Animated Counters
+			$('.absj').each(function () {
+				$(".timer").appear(function () {
+					var counter = $(this).attr('data-start') * 1;
+					$(this).countTo({
+						from: 1,
+						to: counter,
+						speed: 2000,
+						refreshInterval: 60,
+					});
+				});
+			});
+		}
+	});
+</script>  
+
+ 
+ 
+    
+
+	
+		<div class="cl"></div>
+	</div>
+</div>
+
+{include file=foot.html}
+  <!--<script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: "auto",
+      spaceBetween: 30,
+	  freeMode: true,
+  initialSlide :1,//默认第二个
+  	  centeredSlides: true,
+	  loop: true, 
+	  autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+     },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+  </script>-->
+</body>
+
+</html>
+
+<script>
+		AOS.init({
+	  offset: 200,
+	  duration: 600,
+	  easing: 'ease-in-sine',
+	  delay: 100,
+		once:true
+	});
+</script>

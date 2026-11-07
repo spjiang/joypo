@@ -1,0 +1,554 @@
+/* ==========================================================================
+   Joypo 动效增强层 v1.0
+   原则：只改变 transform / opacity / 颜色 / 阴影
+        绝不改变元素尺寸、位置、盒模型 —— 页面布局零变化
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 滚动载入动效 —— 由 joypo.js 挂载 .jp-in 类触发
+   -------------------------------------------------------------------------- */
+.jp-anim {
+    opacity: 0;
+    will-change: opacity, transform;
+}
+
+/* 安全兜底：若脚本未执行或报错，2.4 秒后强制显示全部内容，
+   绝不让访客看到空白页面 */
+.no-js .jp-anim,
+html.no-js .jp-anim {
+    opacity: 1;
+    transform: none;
+}
+
+/* 上移淡入 */
+.jp-anim--up {
+    transform: translate3d(0, 42px, 0);
+    transition: opacity .75s cubic-bezier(.22, .61, .36, 1),
+                transform .75s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* 左侧滑入 */
+.jp-anim--left {
+    transform: translate3d(-46px, 0, 0);
+    transition: opacity .75s cubic-bezier(.22, .61, .36, 1),
+                transform .75s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* 右侧滑入 */
+.jp-anim--right {
+    transform: translate3d(46px, 0, 0);
+    transition: opacity .75s cubic-bezier(.22, .61, .36, 1),
+                transform .75s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* 缩放淡入 */
+.jp-anim--zoom {
+    transform: scale(.9);
+    transition: opacity .8s cubic-bezier(.22, .61, .36, 1),
+                transform .8s cubic-bezier(.34, 1.3, .64, 1);
+}
+
+/* 弹性弹入 —— 幅度最大，用于重点卡片（如首页「关于我们」三张卡）
+   位移 + 缩放 + 轻微旋转三重叠加，视觉冲击更强 */
+.jp-anim--pop {
+    transform: translate3d(0, 90px, 0) scale(.78) rotate(-4deg);
+    transition: opacity .85s cubic-bezier(.22, .61, .36, 1),
+                transform 1s cubic-bezier(.18, 1.25, .4, 1);
+}
+
+/* 纯淡入 */
+.jp-anim--fade {
+    transform: none;
+    transition: opacity .9s ease-out;
+}
+
+/* 触发后归位 */
+.jp-anim.jp-in {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+}
+
+/* 入场动画结束后释放 transform 控制权，交还给 hover 动效
+   —— 否则 hover 的 translateY 会被入场态的 transform 覆盖而失效 */
+.jp-anim.jp-done {
+    transform: none;
+}
+
+/* swiper 内部元素保护
+   swiper 依靠 transform 定位 slide，若这里清掉 transform 会导致轮播错乱。
+   所以 swiper 内部的元素永远不设 transform，只做透明度淡入。 */
+.swiper .jp-anim,
+.swiper-wrapper .jp-anim,
+.swiper-slide .jp-anim {
+    transform: none !important;
+    transition: opacity .8s ease-out;
+}
+
+.swiper .jp-anim.jp-in,
+.swiper-wrapper .jp-anim.jp-in,
+.swiper-slide .jp-anim.jp-in {
+    opacity: 1;
+    transform: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. 鼠标悬停动效
+   -------------------------------------------------------------------------- */
+
+/* 2.1 标题胶囊标签 —— 品牌色描边填充 */
+.title .h1,
+.title .h2,
+.title .h3,
+.title1 .h3 {
+    position: relative;
+    overflow: hidden;
+    transition: color .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+
+.title .h1::after,
+.title .h2::after,
+.title .h3::after,
+.title1 .h3::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, .96);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform .45s cubic-bezier(.22, .61, .36, 1);
+    z-index: -1;
+}
+
+.title .h1:hover,
+.title .h2:hover,
+.title .h3:hover,
+.title1 .h3:hover {
+    color: #2b8fa0;
+    border-color: rgba(93, 194, 208, .35);
+    box-shadow: 0 10px 28px rgba(93, 194, 208, .22);
+}
+
+.title .h1:hover::after,
+.title .h2:hover::after,
+.title .h3:hover::after,
+.title1 .h3:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+}
+
+/* 2.2 解决方案卡片 —— 轻微抬升 + 图片缩放
+   注意：style.css 里原有 `#case_banner dl a:hover dt img{transform:scale(1.3)}`，
+   特异性比 `dl:hover dt img` 高，这里必须带上 a:hover 才能覆盖它，
+   同时把放大倍率从 1.3 降到 1.07（1.3 过于夸张，且会溢出圆角） */
+#case_banner dl {
+    transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+}
+
+#case_banner dl:hover {
+    transform: translateY(-8px);
+}
+
+#case_banner dl dt {
+    transition: box-shadow .5s ease;
+}
+
+#case_banner dl:hover dt {
+    box-shadow: 0 16px 34px rgba(18, 36, 43, .16);
+}
+
+#case_banner dl dt img {
+    transition: transform .7s cubic-bezier(.22, .61, .36, 1);
+}
+
+#case_banner dl a:hover dt img,
+#case_banner dl:hover dt img {
+    transform: scale(1.07);
+}
+
+/* 新闻中心卡片 —— 悬停时图片微缩放
+   （文字面板会滑出让位，此时图片是主体，需要缩放强调） */
+#inews_banner .swiper-slide dl a:hover dt img,
+#inews_banner .swiper-slide dl:hover dt img {
+    transform: scale(1.06);
+}
+
+/* 卡片下方标题色变化 */
+#case_banner dl .ha1 {
+    transition: color .35s ease;
+}
+
+#case_banner dl:hover .ha1 {
+    color: #2b8fa0;
+}
+
+/* 2.3 关于我们三张卡片 —— 悬停效果加强
+   卡片上浮 + 图标放大旋转 + 背景提亮 + 标题变品牌色 + 阴影加深 */
+.inabout dl {
+    position: relative;
+    transition: transform .55s cubic-bezier(.18, 1.25, .4, 1),
+                background-color .45s ease,
+                box-shadow .55s cubic-bezier(.22, .61, .36, 1);
+    will-change: transform;
+}
+
+.inabout dl:hover {
+    transform: translateY(-18px) scale(1.03);
+    background: #fff;
+    box-shadow: 0 22px 50px rgba(18, 36, 43, .2);
+}
+
+/* 悬停时卡片前置，避免被相邻卡片压住 */
+.inabout dl:hover {
+    z-index: 20;
+}
+
+/* 图标：放大并轻微旋转 */
+.inabout dl dt img {
+    transition: transform .6s cubic-bezier(.34, 1.4, .64, 1),
+                filter .5s ease;
+    will-change: transform;
+}
+
+.inabout dl:hover dt img {
+    transform: scale(1.25) rotate(-8deg);
+    /* 悬停时图标加青色光晕，与标题呼应 */
+    filter: drop-shadow(0 6px 14px rgba(93, 194, 208, .55));
+}
+
+/* 标题：变品牌色并轻微右移 */
+.inabout dl dd h1 {
+    transition: color .4s ease, transform .45s cubic-bezier(.22, .61, .36, 1);
+}
+
+.inabout dl:hover dd h1 {
+    color: #2b8fa0;
+    transform: translateX(6px);
+}
+
+/* 描述文字：悬停时略微加深 */
+.inabout dl dd p {
+    transition: color .4s ease;
+}
+
+.inabout dl:hover dd p {
+    color: #1b2733;
+}
+
+/* 2.3b 产品页分类导航按钮（.plcen）—— 悬停效果加强
+   按钮抬起 + 底色加深 + 外发光 + 标题位移 + 下划线生长 */
+/* 注意：.plcen dl 在 style.css 里的规则特异性与本文件相同但加载更早，
+   它的 transition 会覆盖 .jp-anim--pop 的入场过渡。
+   这里把选择器提升一级（#inews_banner 同级不存在，改用重复类名提高特异性），
+   确保 pop 的载入动画与 hover 过渡都能生效 */
+#inews_banner .plcen dl,
+.plcen dl.plcen {
+    position: relative;
+    overflow: hidden;
+    background: rgba(93, 194, 208, .8);
+    will-change: transform;
+}
+
+/* 非 hover 状态：载入动画用 pop 的过渡（与 .jp-anim--pop 保持一致） */
+.plcen dl.jp-anim {
+    transition: opacity .85s cubic-bezier(.22, .61, .36, 1),
+                transform 1s cubic-bezier(.18, 1.25, .4, 1);
+}
+
+/* 入场完成后：切换为 hover 用的过渡 */
+.plcen dl.jp-anim.jp-done {
+    transition: transform .55s cubic-bezier(.18, 1.25, .4, 1),
+                background-color .45s ease,
+                box-shadow .55s cubic-bezier(.22, .61, .36, 1);
+}
+
+.plcen dl:hover,
+.plcen dl.plcen:hover {
+    transform: translateY(-14px) scale(1.03);
+    background: #2b8fa0;
+    box-shadow: 0 20px 44px rgba(43, 143, 160, .42);
+    z-index: 20;
+}
+
+/* 顶部高光扫过 */
+.plcen dl::after {
+    content: "";
+    position: absolute;
+    left: -60%;
+    top: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .32), transparent);
+    transform: skewX(-18deg);
+    transition: left .75s cubic-bezier(.22, .61, .36, 1);
+    pointer-events: none;
+}
+
+.plcen dl:hover::after {
+    left: 120%;
+}
+
+/* 标题：悬停时放大并上移 */
+.plcen dl dt a {
+    position: relative;
+    display: inline-block;
+    transition: transform .45s cubic-bezier(.18, 1.25, .4, 1),
+                text-shadow .4s ease;
+}
+
+.plcen dl:hover dt a {
+    transform: translateY(-4px) scale(1.06);
+    text-shadow: 0 6px 18px rgba(0, 0, 0, .28);
+}
+
+/* 标题下划线：从中间向两侧展开 */
+.plcen dl dt a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transform: translateX(-50%);
+    transition: width .45s cubic-bezier(.22, .61, .36, 1);
+}
+
+.plcen dl:hover dt a::after {
+    width: 46%;
+}
+
+/* 当前页高亮态（productlist2 的 .on） */
+.plcen dl.on {
+    background: #2b8fa0;
+    box-shadow: 0 12px 30px rgba(43, 143, 160, .32);
+}
+
+/* 2.4 数据统计数字 */
+.absj ul li,
+.absj1 ul li {
+    transition: transform .45s cubic-bezier(.22, .61, .36, 1);
+}
+
+.absj ul li:hover,
+.absj1 ul li:hover {
+    transform: translateY(-6px);
+}
+
+.absj ul li span,
+.absj ul li b,
+.absj1 ul li span,
+.absj1 ul li strong {
+    transition: color .4s ease, text-shadow .4s ease;
+}
+
+.absj ul li:hover span,
+.absj ul li:hover b,
+.absj1 ul li:hover span,
+.absj1 ul li:hover strong {
+    color: #5dc2d0;
+    text-shadow: 0 0 22px rgba(93, 194, 208, .55);
+}
+
+/* 2.4b 关于我们文字面板 —— 悬停轻微右移（不改变布局） */
+.about_box {
+    transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+}
+
+.about_box:hover {
+    transform: translateX(10px);
+}
+
+/* 2.5 按钮 —— 底部填充 + 轻微放大 */
+.more a,
+.more1 a,
+.morec,
+.morec1 {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    transition: color .35s ease, border-color .35s ease, transform .35s cubic-bezier(.22, .61, .36, 1),
+                box-shadow .35s ease;
+}
+
+.more a::after,
+.more1 a::after,
+.morec::after,
+.morec1::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #5dc2d0;
+    transform: scaleY(0);
+    transform-origin: bottom center;
+    transition: transform .4s cubic-bezier(.22, .61, .36, 1);
+    z-index: -1;
+}
+
+.more a:hover,
+.more1 a:hover,
+.morec:hover,
+.morec1:hover {
+    color: #fff;
+    border-color: #5dc2d0;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(93, 194, 208, .32);
+}
+
+.more a:hover::after,
+.more1 a:hover::after,
+.morec:hover::after,
+.morec1:hover::after {
+    transform: scaleY(1);
+}
+
+/* 2.6 导航链接 —— 下划线从左展开
+   用 width 而非 transform 过渡：transform 的 scaleX(0) 会让元素仍占位，
+   width 过渡兼容性更稳，且此处元素绝对定位不影响布局 */
+.header-nav .nav-lv1 > li > a {
+    position: relative;
+    transition: color .3s ease;
+}
+
+.header-nav .nav-lv1 > li > a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: #5dc2d0;
+    transition: width .35s cubic-bezier(.22, .61, .36, 1);
+}
+
+.header-nav .nav-lv1 > li > a:hover::after {
+    width: 100%;
+}
+
+/* 2.7 新闻列表项 —— 图片微缩放
+   注意：.fl / .fr 这些 span 已被入场动效接管 transform，
+   悬停时只改颜色，避免与入场 transform 冲突 */
+.incase .fl,
+.incase .fr,
+.service_list1 ul > li .fl,
+.service_list1 ul > li .fr {
+    transition: color .4s ease;
+}
+
+.incase .fl:hover,
+.service_list1 ul > li:hover .fl {
+    color: #2b8fa0;
+}
+
+/* 列表项内的箭头：悬停变色 */
+.service_list1 ul > li:hover .fr,
+.incase .fr:hover {
+    color: #5dc2d0;
+}
+
+.incase .img {
+    overflow: hidden;
+    transition: box-shadow .45s ease;
+}
+
+.incase .img:hover {
+    box-shadow: 0 14px 30px rgba(18, 36, 43, .15);
+}
+
+.incase .img img {
+    transition: transform .6s cubic-bezier(.22, .61, .36, 1);
+}
+
+.incase .img:hover img {
+    transform: scale(1.06);
+}
+
+/* 2.8 通用列表项 */
+.imageslist ul li,
+.service_list1 ul > li {
+    transition: transform .45s cubic-bezier(.22, .61, .36, 1), box-shadow .45s ease;
+}
+
+.imageslist ul li:hover,
+.service_list1 ul > li:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(18, 36, 43, .14);
+}
+
+/* 新闻列表项内的图片微缩放 */
+.service_list1 ul > li .img {
+    overflow: hidden;
+}
+
+.service_list1 ul > li .img img {
+    transition: transform .6s cubic-bezier(.22, .61, .36, 1);
+}
+
+.service_list1 ul > li:hover .img img {
+    transform: scale(1.06);
+}
+
+/* 2.8 通用链接图标微动 */
+.icfont {
+    transition: transform .35s cubic-bezier(.22, .61, .36, 1), color .35s ease;
+}
+
+a:hover .icfont {
+    transform: translateX(4px);
+}
+
+/* 2.9 返回顶部 / 侧边固定条 */
+.full li a {
+    transition: background-color .3s ease, color .3s ease, transform .3s cubic-bezier(.22, .61, .36, 1);
+}
+
+.full li a:hover {
+    background: #5dc2d0;
+    color: #fff;
+    transform: translateX(-4px);
+}
+
+/* --------------------------------------------------------------------------
+   3. 滚动进度条（顶部 2px，不占布局）
+   -------------------------------------------------------------------------- */
+.jp-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, #2b8fa0, #5dc2d0);
+    box-shadow: 0 0 8px rgba(93, 194, 208, .6);
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. 减少动效偏好 —— 全部关闭
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    .jp-anim {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .jp-progress {
+        display: none;
+    }
+
+    #case_banner dl:hover,
+    .inabout dl:hover,
+    .absj ul li:hover,
+    .absj1 ul li:hover,
+    .imageslist ul li:hover,
+    .incase ul li:hover {
+        transform: none;
+    }
+
+    .more a:hover,
+    .more1 a:hover,
+    .morec:hover,
+    .morec1:hover {
+        transform: none;
+    }
+}

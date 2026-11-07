@@ -1,0 +1,128 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>{pboot:sitetitle}</title>
+<meta name="keywords" content="{pboot:sitekeywords}">
+<meta name="description" content="{pboot:sitedescription}">
+<meta name="renderer" content="webkit">
+<!--<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">-->
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper-bundle.min.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
+
+<script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/main.js"></script>
+<!--<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/swipe.min.js"></script> -->
+<script src="{pboot:sitedomain}/skin/css/swiper-bundle.min.js"></script>
+<script src="{pboot:sitedomain}/skin/js/tab.js"></script>
+<script src="{pboot:sitedomain}/skin/js/aos.js"></script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/iconfont.css">
+<!--
+<link rel="stylesheet" href="{pboot:sitedomain}/skin/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="{pboot:sitedomain}/skin/js/jquery.lightbox.js"></script>
+-->
+</head>
+<body>
+{include file=head.html}
+<!--banner-->
+{pboot:sort scode={sort:tcode}}
+<div class="banner_n">
+	<img src="[sort:pic]">
+	
+</div>
+{/pboot:sort}
+<!--内页导航-->
+
+<!--案例-->
+<div class="w">
+
+   <div class="incase">
+  <div class="swiper mySwiper" id="newlist_banner">
+   <div class="swiper-wrapper"> 
+    {pboot:list num=3 istop=1 page=0}  
+
+<dl class="swiper-slide">
+<dd>
+            <div class="h1">[list:title lencn=10]</div>
+			<div class="h2">[list:description lencn=20]</div>
+            <div class="date">[list:date style=Y-m-d]</div>
+            <div class="more"><a href="[list:link]" target="_blank">查看更多</a><span class="icfont icon-left1"></span></div>
+				 </dd>
+            <dt><a href="[list:link]" target="_blank"><img src="[list:ico]"></a></dt>
+            
+			
+              <div class="cl"></div>  	
+             </dl>   
+              {/pboot:list}    
+              
+</div>
+ <div class="swiper-pagination"></div>
+
+ </div>
+ </div>
+ </div>
+ 
+ <div class="cl blank2"></div>
+ <div class="service_list1">
+         <ul>
+            {pboot:list num=9 istop=0 order=sorting}
+            <li> <a href="[list:link]">
+              <h3>[list:title]</h3>
+         
+
+              <div class="date">
+              <p>[list:content len=50 drophtml=1]</p>             
+                <span class="fl">[list:date style=Y-m-d]</span><span class="fr"><i class="icfont icon-jiantou_you"></i></span>
+               
+              </div>  
+              <div class="cl ht15"></div>   
+            <div class="img"><img src="[list:ico]" style="max-width:100%;"/></div>
+            
+              
+                       
+              </a> </li>
+            {/pboot:list}
+          </ul>
+        </div>
+        
+
+ 
+	
+	<div class="clear"></div>
+	{pboot:if({page:rows}>0)}
+<div class="pagebar">
+<div class="pagination">
+<!--<a class="page-item page-link hidden-sm" href="{page:index}" title="首页">首页</a>-->
+<a class="page-item page-link st" href="{page:pre}" title="上一页"><span class="icfont icon-youjiantou1"></span></a>
+{page:numbar}
+<!--<a class="page-item page-link" href="javascript:;" title="当前页/总页数">{page:current}/{page:count}</a>-->
+<a class="page-item page-link st" href="{page:next}" title="下一页"><span class="icfont icon-left1"></span></a>
+<!--<a class="page-item page-link hidden-sm" href="{page:last}" title="尾页">尾页</a>-->
+</div>
+</div>	
+{else}
+<div class="tac text-secondary">本分类下无任何数据！</div>
+{/pboot:if}
+<div class="cl blank2"></div>
+{include file=foot.html}
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: "auto",
+      spaceBetween: 0,
+	  freeMode: true,
+
+      autoplay: {
+        delay: 2500,
+       disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+  </script>
+</body>
+</html>
