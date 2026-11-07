@@ -1,0 +1,45 @@
+services:
+  web:
+    build: .
+    image: joypo-cms:local
+    container_name: joypo-cms
+    ports:
+      - "8088:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      JOYPO_DB_TYPE: mysqli
+      JOYPO_DB_HOST: db
+      JOYPO_DB_PORT: "3306"
+      JOYPO_DB_NAME: joypo
+      JOYPO_DB_USER: joypo
+      JOYPO_DB_PASSWORD: joypo
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: joypo-db
+    environment:
+      MYSQL_DATABASE: joypo
+      MYSQL_USER: joypo
+      MYSQL_PASSWORD: joypo
+      MYSQL_ROOT_PASSWORD: joypo_root
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --sql-mode=NO_ENGINE_SUBSTITUTION
+    volumes:
+      - joypo-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pjoypo_root", "--silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    restart: unless-stopped
+
+volumes:
+  joypo-db:

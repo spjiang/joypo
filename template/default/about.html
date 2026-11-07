@@ -5,9 +5,10 @@
 <meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
 <meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
 <meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -80,7 +81,7 @@ $(document).ready(function() {
 <div class="about1">
 <div class="w">
 <div class="title1">
-			<div class="h3"><span>公司介绍</span></div>
+			<div class="h3"><span>{fun=joypo_t('about.intro')}</span></div>
             
 		</div>
 	{pboot:content id=18}
@@ -92,16 +93,16 @@ $(document).ready(function() {
       <div class="absj1 jp-about-stats">
 <ul>
 <li>
-<span class="timer" data-start="12">12</span><strong>+</strong><br/>行业经验
+<span class="timer" data-start="12">12</span><strong>+</strong><br/>{fun=joypo_t('stat.years')}
 </li>
 <li>
-<span class="timer" data-start="20">20</span><strong>%</strong><br/>技术人员占比
+<span class="timer" data-start="20">20</span><strong>%</strong><br/>{fun=joypo_t('stat.engineers')}
 </li>
 <li>
-<span class="timer" data-start="300">300</span><strong>w+</strong><br/>年生产力
+<span class="timer" data-start="300">300</span><strong>w+</strong><br/>{fun=joypo_t('stat.capacity')}
 </li>
 <li>
-<span class="timer" data-start="1000">1000</span><strong>+</strong><br/>成熟产品设计方案
+<span class="timer" data-start="1000">1000</span><strong>+</strong><br/>{fun=joypo_t('stat.designs')}
 </li>
 </ul>
 
@@ -146,18 +147,18 @@ $(document).ready(function() {
     <div class="w">
     <video width="100%" preload="metadata" playsinline webkit-playsinline x5-video-player-type="h5" autoplay muted loop>
             <source src="{pboot:sitedomain}/skin/images/abanner.mp4" type="video/mp4">
-            您的浏览器不支持 HTML5 视频播放。
+            {fun=joypo_t('video.unsupported')}
         </video>
       
         <div class="cl blank2"></div>
          <div class="title1">
-			<div class="h3"><span>公司荣誉</span></div>
+			<div class="h3"><span>{fun=joypo_t('about.honor')}</span></div>
          
 </div>
 
             <div class="about_box">
-            <p>久普能源致力于为客户提供安全可靠的锂电产品，全生产环节严格遵循各项技术标准，产品已取得 CE、CB、UL、UN38.3、RoHS 等多项国际认证，并通过多家权威机构质量检测。公司坚持技术深耕，持续迭代创新，高效解决客户各类产品问题。</p>
-<p>我们的品质管控贯穿产品全生命周期，不止于生产制造环节，在产品设计阶段即开展严苛验证。通过快速迭代验证，持续优化设计细节，高效响应客户定制化需求，全方位保障电池产品安全稳定运行。</p>
+            <p>{fun=joypo_t('about.honor_p1')}</p>
+<p>{fun=joypo_t('about.honor_p2')}</p>
 		</div>
         <div class="cl blank2"></div>
              <div class="swiper-container jp-about-honor" id="honor_banner" >
@@ -223,34 +224,34 @@ $(document).ready(function() {
  <div class="w">
 <div class="cl blank2"></div>
 		<div class="title">
-			<div class="h1"><span>企业文化</span></div>
-            <h1>成为全球最值得信赖的电池解决方案制造商</h1>
+			<div class="h1"><span>{fun=joypo_t('about.culture')}</span></div>
+            <h1>{fun=joypo_t('hero.trust')}</h1>
 		</div>
         
       <div class="inabout">
       <dl>
-      <dt><img alt="企业使命" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
-      <dd><h1>企业使命</h1>
+      <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
+      <dd><h1>{fun=joypo_t('mission.title')}</h1>
     
-      <p>用可持续发展的方式，打造值得信赖的产品与服务，让每位成员在充满归属感和荣誉感的环境中，共创价值，共享成长。</p>
+      <p>{fun=joypo_t('mission.text')}</p>
       </dd>
       
       </dl>
       
       <dl>
-      <dt><img alt="企业愿景" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
+      <dt><img alt="{fun=joypo_t('vision.title')}" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
       <dd>
-      <h1>企业愿景</h1>
-      <p>成为一家以工匠精神和信赖为基础，让员工、合作伙伴和客户都感到幸福的现代企业。</p>
+      <h1>{fun=joypo_t('vision.title')}</h1>
+      <p>{fun=joypo_t('vision.text')}</p>
       </dd>
       
       </dl>
       
       <dl>
-       <dt><img alt="企业使命" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
+       <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
       <dd>
-       <h1>企业核心价值观</h1>
-      <p>一切以正能量为中心，务实开放、诚信进取、简约高效、健康文明</p>
+       <h1>{fun=joypo_t('values.title')}</h1>
+      <p>{fun=joypo_t('values.text')}</p>
       </dd>
       
       </dl>
@@ -266,13 +267,13 @@ $(document).ready(function() {
 
 <div class="cl blank2"></div>
 <div class="title">
-			<div class="h2">客户分布</div>
-            <h2>立足全球市场，专注客户需求——我们的锂电产品，驱动世界每个角落</h2>
+			<div class="h2">{fun=joypo_t('about.global')}</div>
+            <h2>{fun=joypo_t('about.global_h')}</h2>
 		</div>
          <div class="w">
          <video width="100%" preload="metadata" playsinline webkit-playsinline x5-video-player-type="h5" autoplay muted loop>
             <source src="{pboot:sitedomain}/skin/images/dt.mp4" type="video/mp4">
-            您的浏览器不支持 HTML5 视频播放。
+            {fun=joypo_t('video.unsupported')}
         </video>
         
          </div>
@@ -282,10 +283,10 @@ $(document).ready(function() {
     <div class="cl blank6"></div>
 <div class="title">
 		
-            <h4>让我们共同构建能源的未来</h4>
-            <p>选择一家把您的电池项目当作自己事业的制造商。今天就联系我们</p>
+            <h4>{fun=joypo_t('about.future_h')}</h4>
+            <p>{fun=joypo_t('about.future_p')}</p>
 		</div>
-<div class="cona"><a href="{pboot:sitedomain}/?contact/" target="_blank" class="morec">联系我们<span class="icfont icon-left1"></span></a>
+<div class="cona"><a href="{pboot:sitedomain}/?contact/" target="_blank" class="morec">{fun=joypo_t('cta.contact')}<span class="icfont icon-left1"></span></a>
 <a href="mailto:info@joypo.cn" target="_blank" class="morec1">info@joypo.cn</a></div>
 </div>
 </div>

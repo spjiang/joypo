@@ -92,6 +92,11 @@ $(document).ready(function (e) {
 			maximumWords: 30000
 		});
 	}
+	if (document.getElementById('editor_en')) {
+		UE.getEditor('editor_en', {
+			maximumWords: 30000
+		});
+	}
 	// 兜底：页面内先创建的实例
 	if (typeof UE !== 'undefined' && UE.instants) {
 		for (var key in UE.instants) {

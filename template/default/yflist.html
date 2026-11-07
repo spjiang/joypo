@@ -5,9 +5,10 @@
 <meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
 <meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
 <meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper-bundle.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link type="text/css" rel="stylesheet" href="{pboot:sitedomain}/skin/css/animate.min.css"/>
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -41,42 +42,42 @@
   <div class="w">
   <div class="cl blank2"></div>
 		<div class="title wow zoomIn">
-			<div class="h2">研发制造</div>
-            <h2>从电芯、BMS、产品及全生命周期管理系统的全栈式研发</h2>
+			<div class="h2">{fun=joypo_t('home.rd')}</div>
+            <h2>{fun=joypo_t('home.rd_h')}</h2>
 		</div>
           <div class="cl blank6"></div>
   <div class="inyfzz">
   <dl class="wow flipInY">
-  <dt>研发团队优势</dt>
-  <dd>核心研发骨干均深耕行业多年，拥有扎实的技术积淀与丰富的项目落地经验。团队熟悉全流程产品开发，可高效承接定制化研发需求，具备从方案设计、技术攻关到产品量产落地的完整研发能力，为产品迭代与技术创新提供坚实支撑。</dd>
+  <dt>{fun=joypo_t('yf.team_t')}</dt>
+  <dd>{fun=joypo_t('yf.team_d')}</dd>
   </dl>  
   <dl class="wow flipInY">
-  <dt>多维度仿真验证体系</dt>
-  <dd>开展电气、热、结构仿真分析，提前规避设计风险、减少实物试错，保障产品落地质量。</dd>
+  <dt>{fun=joypo_t('rd.sim_t')}</dt>
+  <dd>{fun=joypo_t('rd.sim_d2')}</dd>
   </dl>
   
   
   <dl class="wow flipInY">
-  <dt>严苛工况可靠性设计</dt>
-  <dd>采用车规级元器件与模块化结构，适配高温、低温、潮湿、振动等户外复杂工况。</dd>
+  <dt>{fun=joypo_t('rd.harsh_t')}</dt>
+  <dd>{fun=joypo_t('rd.harsh_d2')}</dd>
   </dl>
   <dl class="wow flipInY">
-  <dt>软硬件协同安全架构</dt>
-  <dd>硬件多重防护与软件策略保护协同设计，结构上实现 IP67 防水防尘，降低电池各类安全风险。</dd>
+  <dt>{fun=joypo_t('rd.safe_t')}</dt>
+  <dd>{fun=joypo_t('rd.safe_d2')}</dd>
   </dl>
   
     <dl class="wow flipInY">
-  <dt>定制化 PACK 集成能力</dt>
-  <dd>支持结构、接口、方案定制开发，动力侧覆盖 48V～400V 平台，适配两轮车、工程机械、叉车、游艇、轨道交通等场景。</dd>
+  <dt>{fun=joypo_t('rd.pack_t')}</dt>
+  <dd>{fun=joypo_t('rd.pack_d2')}</dd>
   </dl>
   <dl class="wow flipInY">
-  <dt>BMS 算法开发</dt>
-  <dd>高精度电量、健康度估算算法，真实反馈电池 SOC/SOH 状态，减少电量显示偏差。</dd>
+  <dt>{fun=joypo_t('rd.algo_t')}</dt>
+  <dd>{fun=joypo_t('rd.algo_d2')}</dd>
   </dl>
   
     <dl class="wow flipInY">
-  <dt>全生命周期管理系统</dt>
-  <dd>从设计输入到批量出货，按七大节点开展评审，全程留痕；量产后电池运行数据回流研发，用于下一代产品迭代。</dd>
+  <dt>{fun=joypo_t('yf.life_t')}</dt>
+  <dd>{fun=joypo_t('yf.life_d')}</dd>
   </dl>
   </div>
   
@@ -87,8 +88,8 @@
 
 <div class="cl blank2" id="fz"></div>
 		<div class="title wow zoomIn">
-			<div class="h3">体系优势</div>
-            <h3>PACK全流程设计·质量追溯·可靠性测试<span>全链路闭环</span></h3>
+			<div class="h3">{fun=joypo_t('yf.system')}</div>
+            <h3>{fun=joypo_t('yf.system_h')}<span>{fun=joypo_t('yf.loop')}</span></h3>
 		</div>
     
     <div class="swiper mySwiper" id="case_banner2" dir="rtl" >
@@ -165,18 +166,18 @@
     <div id="w9">
     <div class="hxcen">
     <dl class="wow flipInY">
-    <dt>深度智能化管控</dt>
-    <dd>通过实时分析需求，动态调整排产计划。</dd>
+    <dt>{fun=joypo_t('yf.smart_t')}</dt>
+    <dd>{fun=joypo_t('yf.smart_d')}</dd>
     </dl>
     
     <dl class="wow flipInY">
-    <dt>卓越的柔性生产能力</dt>
-    <dd>采用模块化设计与快速换型技术，快速响应市场变化。</dd>
+    <dt>{fun=joypo_t('yf.flex_t')}</dt>
+    <dd>{fun=joypo_t('yf.flex_d')}</dd>
     </dl>
     
     <dl class="wow flipInY">
-    <dt>全流程质量追溯体系</dt>
-    <dd>建立从投料到出货的全制程质量追溯系统</dd>
+    <dt>{fun=joypo_t('yf.trace_t')}</dt>
+    <dd>{fun=joypo_t('yf.trace_d')}</dd>
     </dl>
 </div>    
     
@@ -194,10 +195,10 @@
     <div class="cl blank6"></div>
 <div class="title wow zoomIn">
 		
-            <h4>让我们共同构建能源的未来</h4>
-            <p>选择一家把您的电池项目当作自己事业的制造商。今天就联系我们</p>
+            <h4>{fun=joypo_t('about.future_h')}</h4>
+            <p>{fun=joypo_t('about.future_p')}</p>
 		</div>
-<div class="cona wow flipInY"><a href="" class="morec">联系我们<span class="icfont icon-left1"></span></a><a href="" class="morec1">info@joypo.cn</a></div>
+<div class="cona wow flipInY"><a href="" class="morec">{fun=joypo_t('cta.contact')}<span class="icfont icon-left1"></span></a><a href="" class="morec1">info@joypo.cn</a></div>
 </div>
 </div>
    

@@ -128,6 +128,12 @@
 			                     	<input type="text" name="name" required lay-verify="required" placeholder="请输入栏目名称" class="layui-input">
 			                     </div>
 			                </div>
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文名称</label>
+			                     <div class="layui-input-block">
+			                     	<input type="text" name="name_en" placeholder="留空则英文页面仍显示中文名称" class="layui-input">
+			                     </div>
+			                </div>
 			                
 			                <div class="layui-form-item">
 			                     <label class="layui-form-label">URL名称 </label>
@@ -215,11 +221,23 @@
 			                     	<input type="text" name="subname" placeholder="请输入栏目副名称" class="layui-input">
 			                     </div>
 			                </div>
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文副名称</label>
+			                     <div class="layui-input-block">
+			                     	<input type="text" name="subname_en" placeholder="留空则英文页面仍显示中文副名称" class="layui-input">
+			                     </div>
+			                </div>
 			                
 			                <div class="layui-form-item">
 			                     <label class="layui-form-label">栏目描述1</label>
 			                     <div class="layui-input-block">
 			                     	<input type="text" name="def1"  placeholder="请输入栏目描述1内容"  class="layui-input">
+			                     </div>
+			                </div>
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文描述1</label>
+			                     <div class="layui-input-block">
+			                     	<input type="text" name="def1_en" placeholder="留空则英文页面仍显示中文" class="layui-input">
 			                     </div>
 			                </div>
 			                
@@ -229,11 +247,23 @@
 			                     	<input type="text" name="def2" placeholder="请输入栏目描述2内容"  class="layui-input">
 			                     </div>
 			                </div>
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文描述2</label>
+			                     <div class="layui-input-block">
+			                     	<input type="text" name="def2_en" placeholder="留空则英文页面仍显示中文" class="layui-input">
+			                     </div>
+			                </div>
 			                
 			                <div class="layui-form-item">
 			                     <label class="layui-form-label">栏目描述3</label>
 			                     <div class="layui-input-block">
 			                     	<input type="text" name="def3" placeholder="请输入栏目描述3内容"  class="layui-input">
+			                     </div>
+			                </div>
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文描述3</label>
+			                     <div class="layui-input-block">
+			                     	<input type="text" name="def3_en" placeholder="留空则英文页面仍显示中文" class="layui-input">
 			                     </div>
 			                </div>
 			                
@@ -279,6 +309,12 @@
 			                     	<input type="text" name="title" placeholder="请输入栏目SEO标题，需前端调用" class="layui-input">
 			                     </div>
 			                </div>
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文SEO标题</label>
+			                     <div class="layui-input-block">
+			                     	<input type="text" name="title_en" placeholder="留空则英文页面仍显示中文" class="layui-input">
+			                     </div>
+			                </div>
 			                
 			                <div class="layui-form-item">
 			                     <label class="layui-form-label">SEO关键字</label>
@@ -286,11 +322,23 @@
 			                     	<input type="text" name="keywords" placeholder="请输入栏目SEO关键字，需前端调用" class="layui-input">
 			                     </div>
 			                </div>
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文SEO关键字</label>
+			                     <div class="layui-input-block">
+			                     	<input type="text" name="keywords_en" placeholder="留空则英文页面仍显示中文" class="layui-input">
+			                     </div>
+			                </div>
 			                
 			                <div class="layui-form-item">
 			                     <label class="layui-form-label">SEO描述</label>
 			                     <div class="layui-input-block">
 			                     	<textarea name="description" placeholder="请输入栏目SEO描述，需前端调用" class="layui-textarea"></textarea>
+			                     </div>
+			                </div>
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文SEO描述</label>
+			                     <div class="layui-input-block">
+			                     	<textarea name="description_en" placeholder="留空则英文页面仍显示中文" class="layui-textarea"></textarea>
 			                     </div>
 			                </div>
 					    </div>
@@ -415,6 +463,12 @@
 		                     	<input type="text" name="name" required lay-verify="required" value="{$sort->name}" placeholder="请输入栏目名称" class="layui-input">
 		                     </div>
 		                </div>
+		                <div class="layui-form-item">
+		                     <label class="layui-form-label">英文名称</label>
+		                     <div class="layui-input-block">
+		                     	<input type="text" name="name_en" value="{$sort->name_en}" placeholder="留空则英文页面仍显示中文名称" class="layui-input">
+		                     </div>
+		                </div>
 		                
 		                <div class="layui-form-item">
 		                     <label class="layui-form-label">URL名称 </label>
@@ -517,11 +571,23 @@
 		                     	<input type="text" name="subname" value="{$sort->subname}" placeholder="请输入栏目副名称" class="layui-input">
 		                     </div>
 		                </div>
+		                <div class="layui-form-item">
+		                     <label class="layui-form-label">英文副名称</label>
+		                     <div class="layui-input-block">
+		                     	<input type="text" name="subname_en" value="{$sort->subname_en}" placeholder="留空则英文页面仍显示中文副名称" class="layui-input">
+		                     </div>
+		                </div>
 		                
 		                 <div class="layui-form-item">
 		                     <label class="layui-form-label">栏目描述1</label>
 		                     <div class="layui-input-block">
 		                     	<input type="text" name="def1"  value="{$sort->def1}"  placeholder="请输入栏目描述1内容"  class="layui-input">
+		                     </div>
+		                </div>
+		                <div class="layui-form-item">
+		                     <label class="layui-form-label">英文描述1</label>
+		                     <div class="layui-input-block">
+		                     	<input type="text" name="def1_en" value="{$sort->def1_en}" placeholder="留空则英文页面仍显示中文" class="layui-input">
 		                     </div>
 		                </div>
 		                
@@ -531,11 +597,23 @@
 		                     	<input type="text" name="def2" value="{$sort->def2}" placeholder="请输入栏目描述2内容"  class="layui-input">
 		                     </div>
 		                </div>
+		                <div class="layui-form-item">
+		                     <label class="layui-form-label">英文描述2</label>
+		                     <div class="layui-input-block">
+		                     	<input type="text" name="def2_en" value="{$sort->def2_en}" placeholder="留空则英文页面仍显示中文" class="layui-input">
+		                     </div>
+		                </div>
 		                
 		                <div class="layui-form-item">
 		                     <label class="layui-form-label">栏目描述3</label>
 		                     <div class="layui-input-block">
 		                     	<input type="text" name="def3" value="{$sort->def3}" placeholder="请输入栏目描述3内容"  class="layui-input">
+		                     </div>
+		                </div>
+		                <div class="layui-form-item">
+		                     <label class="layui-form-label">英文描述3</label>
+		                     <div class="layui-input-block">
+		                     	<input type="text" name="def3_en" value="{$sort->def3_en}" placeholder="留空则英文页面仍显示中文" class="layui-input">
 		                     </div>
 		                </div>
 			                
@@ -581,6 +659,12 @@
 		                     	<input type="text" name="title" value="{$sort->title}" placeholder="请输入栏目SEO标题，需前端调用" class="layui-input">
 		                     </div>
 		                </div>
+		                <div class="layui-form-item">
+		                     <label class="layui-form-label">英文SEO标题</label>
+		                     <div class="layui-input-block">
+		                     	<input type="text" name="title_en" value="{$sort->title_en}" placeholder="留空则英文页面仍显示中文" class="layui-input">
+		                     </div>
+		                </div>
 		                
 		                <div class="layui-form-item">
 		                     <label class="layui-form-label">SEO关键字</label>
@@ -588,11 +672,23 @@
 		                     	<input type="text" name="keywords" value="{$sort->keywords}" placeholder="请输入栏目SEO关键字，需前端调用" class="layui-input">
 		                     </div>
 		                </div>
+		                <div class="layui-form-item">
+		                     <label class="layui-form-label">英文SEO关键字</label>
+		                     <div class="layui-input-block">
+		                     	<input type="text" name="keywords_en" value="{$sort->keywords_en}" placeholder="留空则英文页面仍显示中文" class="layui-input">
+		                     </div>
+		                </div>
 		                
 		                <div class="layui-form-item">
 		                     <label class="layui-form-label">SEO描述</label>
 		                     <div class="layui-input-block">
 		                     	<textarea name="description" placeholder="请输入栏目SEO描述，需前端调用" class="layui-textarea">{$sort->description}</textarea>
+		                     </div>
+		                </div>
+		                <div class="layui-form-item">
+		                     <label class="layui-form-label">英文SEO描述</label>
+		                     <div class="layui-input-block">
+		                     	<textarea name="description_en" placeholder="留空则英文页面仍显示中文" class="layui-textarea">{$sort->description_en}</textarea>
 		                     </div>
 		                </div>
 				    </div>

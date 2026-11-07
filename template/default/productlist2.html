@@ -5,9 +5,10 @@
 <meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
 <meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
 <meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link type="text/css" rel="stylesheet" href="{pboot:sitedomain}/skin/css/animate.min.css"/>
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -112,7 +113,7 @@ $(document).ready(function() {
       <a href="#" class="btn-close" aria-hidden="true">×</a>
    
 <div class="modal_text">
-<img src="[list:ext_cpcs]" alt="[list:title]"/>
+{if(joypo_lang()=='en')}[list:content]{else}<img src="[list:ext_cpcs]" alt="[list:title]"/>{/if}
 </div>
   
   </div>
@@ -142,23 +143,23 @@ $(document).ready(function() {
 <div class="cl blank2"></div>
 <div class="w">
 <div class="title wow zoomIn">
-			<div class="h3">研发优势</div>
-            <h3>可衡量的精密品质</h3>
+			<div class="h3">{fun=joypo_t('prod.advantage')}</div>
+            <h3>{fun=joypo_t('prod.precision_h')}</h3>
 		</div>
        <div class="yslist">
        <ul>
-       <li class="wow flipInY"><span>全球标准</span>
+       <li class="wow flipInY"><span>{fun=joypo_t('prod.std_t')}</span>
        <p>IEC 62133 · UN38.3 ·  CE · FCC</p>
        </li>
        
-        <li class="wow flipInY"><span>电芯可追溯</span>
-       <p>完整的批次与批次记录</p>
+        <li class="wow flipInY"><span>{fun=joypo_t('prod.trace_t')}</span>
+       <p>{fun=joypo_t('prod.trace_d')}</p>
        </li>
-        <li class="wow flipInY"><span>100% 测试</span>
-       <p>逐一验证</p>
+        <li class="wow flipInY"><span>{fun=joypo_t('prod.test_t')}</span>
+       <p>{fun=joypo_t('prod.test_d')}</p>
        </li>
         <li class="wow flipInY"><span>ISO 13485</span>
-       <p>医疗器械质量体系</p>
+       <p>{fun=joypo_t('prod.medical_d')}</p>
        </li>
        
        </ul>
@@ -175,10 +176,10 @@ $(document).ready(function() {
         <div class="cl blank2"></div>
 <div class="title wow zoomIn">
 		
-            <h4>需要紧凑的定制电池？</h4>
-            <p>分享您的设备规格与需求量——我们的工程师将在 12 小时内提出最优电池组设计方案。</p>
+            <h4>{fun=joypo_t('prod.compact_cta_h')}</h4>
+            <p>{fun=joypo_t('prod.compact_cta_p')}</p>
 		</div>
-<div class="cona wow flipInY"><a href="{pboot:sitedomain}/?contact/" target="_blank" class="morec">联系我们<span class="icfont icon-left1"></span></a>
+<div class="cona wow flipInY"><a href="{pboot:sitedomain}/?contact/" target="_blank" class="morec">{fun=joypo_t('cta.contact')}<span class="icfont icon-left1"></span></a>
 <a href="mailto:info@joypo.cn" target="_blank" class="morec1">info@joypo.cn</a></div>
 </div>
 </div>

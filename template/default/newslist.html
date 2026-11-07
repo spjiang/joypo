@@ -5,10 +5,11 @@
 <meta name="keywords" content="{pboot:sitekeywords}">
 <meta name="description" content="{pboot:sitedescription}">
 <meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">-->
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper-bundle.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
 
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
@@ -48,7 +49,7 @@
             <div class="h1">[list:title lencn=10]</div>
 			<div class="h2">[list:description lencn=20]</div>
             <div class="date">[list:date style=Y-m-d]</div>
-            <div class="more"><a href="[list:link]" target="_blank">查看更多</a><span class="icfont icon-left1"></span></div>
+            <div class="more"><a href="[list:link]" target="_blank">{fun=joypo_t('home.more')}</a><span class="icfont icon-left1"></span></div>
 				 </dd>
             <dt><a href="[list:link]" target="_blank"><img src="[list:ico]"></a></dt>
             
@@ -94,16 +95,16 @@
 	{pboot:if({page:rows}>0)}
 <div class="pagebar">
 <div class="pagination">
-<!--<a class="page-item page-link hidden-sm" href="{page:index}" title="首页">首页</a>-->
-<a class="page-item page-link st" href="{page:pre}" title="上一页"><span class="icfont icon-youjiantou1"></span></a>
+<!--<a class="page-item page-link hidden-sm" href="{page:index}" title="{fun=joypo_t('nav.home')}">{fun=joypo_t('nav.home')}</a>-->
+<a class="page-item page-link st" href="{page:pre}" title="{fun=joypo_t('pager.prev')}"><span class="icfont icon-youjiantou1"></span></a>
 {page:numbar}
-<!--<a class="page-item page-link" href="javascript:;" title="当前页/总页数">{page:current}/{page:count}</a>-->
-<a class="page-item page-link st" href="{page:next}" title="下一页"><span class="icfont icon-left1"></span></a>
-<!--<a class="page-item page-link hidden-sm" href="{page:last}" title="尾页">尾页</a>-->
+<!--<a class="page-item page-link" href="javascript:;" title="{fun=joypo_t('pager.status')}">{page:current}/{page:count}</a>-->
+<a class="page-item page-link st" href="{page:next}" title="{fun=joypo_t('pager.next')}"><span class="icfont icon-left1"></span></a>
+<!--<a class="page-item page-link hidden-sm" href="{page:last}" title="{fun=joypo_t('pager.last')}">{fun=joypo_t('pager.last')}</a>-->
 </div>
 </div>	
 {else}
-<div class="tac text-secondary">本分类下无任何数据！</div>
+<div class="tac text-secondary">{fun=joypo_t('pager.empty')}</div>
 {/pboot:if}
 <div class="cl blank2"></div>
 {include file=foot.html}

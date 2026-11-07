@@ -168,6 +168,14 @@ class ContentSortController extends Controller
                 $def1 = post('def1');
                 $def2 = post('def2');
                 $def3 = post('def3');
+                $name_en = post('name_en');
+                $subname_en = post('subname_en');
+                $def1_en = post('def1_en');
+                $def2_en = post('def2_en');
+                $def3_en = post('def3_en');
+                $title_en = post('title_en');
+                $keywords_en = post('keywords_en');
+                $description_en = post('description_en');
                 
                 if (! $scode) {
                     alert_back('编码不能为空！');
@@ -220,6 +228,7 @@ class ContentSortController extends Controller
                     'pcode' => $pcode,
                     'scode' => $scode,
                     'name' => $name,
+                    'name_en' => $name_en,
                     'mcode' => $mcode,
                     'listtpl' => $listtpl,
                     'contenttpl' => $contenttpl,
@@ -228,16 +237,23 @@ class ContentSortController extends Controller
                     'gtype' => $gtype,
                     'gnote' => $gnote,
                     'subname' => $subname,
+                    'subname_en' => $subname_en,
                     'def1' => $def1,
+                    'def1_en' => $def1_en,
                     'def2' => $def2,
+                    'def2_en' => $def2_en,
                     'def3' => $def3,
+                    'def3_en' => $def3_en,
                     'filename' => $filename,
                     'outlink' => $outlink,
                     'ico' => $ico,
                     'pic' => $pic,
                     'title' => $title,
+                    'title_en' => $title_en,
                     'keywords' => $keywords,
+                    'keywords_en' => $keywords_en,
                     'description' => $description,
+                    'description_en' => $description_en,
                     'sorting' => 255,
                     'create_user' => session('username'),
                     'update_user' => session('username')
@@ -385,6 +401,14 @@ class ContentSortController extends Controller
             $def1 = post('def1');
             $def2 = post('def2');
             $def3 = post('def3');
+            $name_en = post('name_en');
+            $subname_en = post('subname_en');
+            $def1_en = post('def1_en');
+            $def2_en = post('def2_en');
+            $def3_en = post('def3_en');
+            $title_en = post('title_en');
+            $keywords_en = post('keywords_en');
+            $description_en = post('description_en');
             
             if (! $pcode) { // 父编码默认为0
                 $pcode = 0;
@@ -425,6 +449,7 @@ class ContentSortController extends Controller
             $data = array(
                 'pcode' => $pcode,
                 'name' => $name,
+                'name_en' => $name_en,
                 'mcode' => $mcode,
                 'listtpl' => $listtpl,
                 'contenttpl' => $contenttpl,
@@ -433,16 +458,23 @@ class ContentSortController extends Controller
                 'gtype' => $gtype,
                 'gnote' => $gnote,
                 'subname' => $subname,
+                'subname_en' => $subname_en,
                 'def1' => $def1,
+                'def1_en' => $def1_en,
                 'def2' => $def2,
+                'def2_en' => $def2_en,
                 'def3' => $def3,
+                'def3_en' => $def3_en,
                 'filename' => $filename,
                 'outlink' => $outlink,
                 'ico' => $ico,
                 'pic' => $pic,
                 'title' => $title,
+                'title_en' => $title_en,
                 'keywords' => $keywords,
+                'keywords_en' => $keywords_en,
                 'description' => $description,
+                'description_en' => $description_en,
                 'update_user' => session('username')
             );
             

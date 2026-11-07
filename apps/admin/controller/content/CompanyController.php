@@ -38,6 +38,7 @@ class CompanyController extends Controller
         $data = array(
             'name' => post('name'),
             'address' => post('address'),
+            'address_en' => post('address_en'),
             'postcode' => post('postcode'),
             'contact' => post('contact'),
             'mobile' => post('mobile'),

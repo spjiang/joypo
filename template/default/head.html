@@ -1,24 +1,12 @@
-<script src="{pboot:sitedomain}/skin/js/translate.js"></script> 
 <!--Joypo 动效增强层：滚动载入 + 悬停动效（仅用 transform/opacity，不改布局）-->
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-anim.css">
-<script src="{pboot:sitedomain}/skin/js/joypo-anim.js" defer></script>
-<script>
-    /* 移动端视口：本项目未做独立移动端模板，PC 模板靠整体缩放适配手机，
-       因此保留 initial-scale=screen.width/1200 的缩放版 viewport。
-       注意：缩放后浏览器视口逻辑宽度恒为 1200px，
-       所以 max-width 媒体查询要按 1200px 断点来写，不能用 768px。 */
-    (function () {
-        var scale = Math.min(parseInt(window.screen.width, 10) / 1200, 1);
-        var vp = document.createElement('meta');
-        vp.name = 'viewport';
-        vp.content = 'width=device-width, initial-scale=' + scale +
-                     ', minimum-scale=' + scale + ', maximum-scale=' + scale + ', user-scalable=no';
-        document.getElementsByTagName('head')[0].appendChild(vp);
-    })();
-</script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-anim.css?v=20261107k">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-fx.css?v=20261107k">
+<script src="{pboot:sitedomain}/skin/js/joypo-anim.js?v=20261107k" defer></script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-mobile.css?v=20261107f">
 <!--页头-->
 <!--导航-->
 <header class="cms-site-head" id="header">
+    <button type="button" class="nav-backdrop" aria-label="{fun=joypo_t('nav.menu_close')}"></button>
     <div class="header-main">
         <div class="cms-site-inner limit-width wrapper">
             <div class="cms-site-logo header-logo">
@@ -27,13 +15,19 @@
                     <img class="mouseLogo" src="{pboot:sitedomain}/skin/images/logo1.webp" >
                 </a>
             </div>
+            <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="{fun=joypo_t('nav.menu_open')}">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
             <div class="header-nav cms-site-menu">
-                <nav class="header">
+                <nav class="header" id="site-nav">
                      <!-- <div class="header-right"> -->
                         <ul class="nav-lv1">
                      {pboot:nav num=5}
 		<li><a href="[nav:link]">[nav:name]</a>
           {pboot:if([nav:soncount]>0)}
+        <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-label="{fun=joypo_t('nav.submenu_open')}"></button>
         <ul class="cms-site-submenu">
       
            {pboot:2nav parent=[nav:scode]}
@@ -69,7 +63,7 @@
         <script type="text/javascript">
    function checktop(nForm){
    if(nForm.title.value=="Search")
-   { alert("请填写搜索关键字!");
+   { alert("{fun=joypo_t('search.required')}");
     nForm.title.focus();
     return false;
    }
@@ -86,16 +80,10 @@
     </div>
     
 <div class="header_top_lan">
-	<a class="on" href="javascript:translate.changeLanguage('chinese_simplified');">中</a>
-    <a href="javascript:translate.changeLanguage('english');">EN</a>
-    
+	<a class="{fun=joypo_lang_class('zh')}" href="{fun=joypo_lang_url('zh')}">{fun=joypo_t('nav.zh')}</a>
+    <a class="{fun=joypo_lang_class('en')}" href="{fun=joypo_lang_url('en')}">EN</a>
         </div>
-<script type="text/javascript">         
-translate.ignore.class.push('header_top_lan');
-translate.nomenclature.append('chinese_simplified','english',`
-久普=Joypo
-`);
-</script>
+<script>document.documentElement.lang="{fun=joypo_html_lang()}";</script>
         </div>
             </div>
         </div>
@@ -113,13 +101,94 @@ translate.nomenclature.append('chinese_simplified','english',`
             }
         })
 
-        $(".nav-lv1 li").mouseover(function(){
-            $(".cms-site-submenu").stop().fadeOut(100);
-            $(this).find(".cms-site-submenu").stop().fadeIn(300);
+        var navMq = window.matchMedia('(max-width: 1199px)');
+        var siteHead = document.getElementById('header');
+        var navToggle = siteHead.querySelector('.nav-toggle');
+        var navBackdrop = siteHead.querySelector('.nav-backdrop');
+
+        function setNavOpen(open) {
+            siteHead.classList.toggle('is-nav-open', open);
+            navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            navToggle.setAttribute('aria-label', open ? "{fun=joypo_t('nav.menu_close')}" : "{fun=joypo_t('nav.menu_open')}");
+            document.body.classList.toggle('nav-locked', open);
+        }
+
+        function closeSubmenus() {
+            var buttons = siteHead.querySelectorAll('.nav-sub-toggle');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].setAttribute('aria-expanded', 'false');
+                buttons[i].setAttribute('aria-label', "{fun=joypo_t('nav.submenu_open')}");
+                buttons[i].parentNode.classList.remove('is-sub-open');
+            }
+        }
+
+        function closeNav() {
+            setNavOpen(false);
+            closeSubmenus();
+        }
+
+        navToggle.addEventListener('click', function () {
+            if (!navMq.matches) return;
+            setNavOpen(!siteHead.classList.contains('is-nav-open'));
         });
-        $(".nav-lv1 li").mouseout(function(){
-            $(".cms-site-submenu").stop().fadeOut(100);
-        })
+        navBackdrop.addEventListener('click', closeNav);
+
+        var topItems = siteHead.querySelectorAll('.nav-lv1 > li');
+        for (var n = 0; n < topItems.length; n++) {
+            (function (li) {
+                var subBtn = li.querySelector('.nav-sub-toggle');
+                var topLink = li.querySelector('a');
+                if (subBtn) {
+                    subBtn.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        if (!navMq.matches) return;
+                        var open = li.classList.toggle('is-sub-open');
+                        subBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                        subBtn.setAttribute('aria-label', open ? "{fun=joypo_t('nav.submenu_close')}" : "{fun=joypo_t('nav.submenu_open')}");
+                    });
+                } else if (topLink) {
+                    topLink.addEventListener('click', function () {
+                        if (navMq.matches) closeNav();
+                    });
+                }
+                var subLinks = li.querySelectorAll('.cms-site-submenu a');
+                for (var s = 0; s < subLinks.length; s++) {
+                    subLinks[s].addEventListener('click', function () {
+                        if (navMq.matches) closeNav();
+                    });
+                }
+            })(topItems[n]);
+        }
+
+        function syncNavMode() {
+            if (!navMq.matches) {
+                closeNav();
+                $('.cms-site-submenu').stop(true, true).css('display', '');
+            }
+        }
+        if (navMq.addEventListener) {
+            navMq.addEventListener('change', syncNavMode);
+        } else if (navMq.addListener) {
+            navMq.addListener(syncNavMode);
+        }
+
+        /* 宽屏下拉由样式的 :hover 控制，避免 fade 把菜单收成一条并写死 display。 */
+
+        $(function () {
+            $(".top_search").off("mouseenter mouseleave");
+            $(".top_search").on("mouseenter", function () {
+                if (navMq.matches) return;
+                $(this).children(".search_con").stop().slideDown(300);
+            }).on("mouseleave", function () {
+                if (navMq.matches) return;
+                $(this).children(".search_con").stop().slideUp(300);
+            }).on("click", function (event) {
+                if (!navMq.matches) return;
+                if ($(event.target).closest("form").length) return;
+                $(this).toggleClass("is-search-open");
+            });
+        });
     </script>
     
 

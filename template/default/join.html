@@ -5,9 +5,10 @@
 <meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
 <meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
 <meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -43,27 +44,27 @@
 
         <div class="w">
         <div class="title">
-			<div class="h3"><span>凝聚团队</span></div>
-            <h3>凝聚团队向心力，传递温暖企业文化</h3>
+			<div class="h3"><span>{fun=joypo_t('join.team')}</span></div>
+            <h3>{fun=joypo_t('join.team_h')}</h3>
 		</div>
         <div class="joincon">
-        <p>选择一份工作，也是选择一群同行的人、一种温暖的文化。我们不只是一起完成工作，更会一起聚餐畅谈、一起参与集体活动、一起在团建中突破自我。这些相聚的时刻，不仅是放松与欢乐，更是团队凝聚力的沉淀、彼此信任的积累。在这里，你收获的不只是职业成长，还有一群可并肩、可信赖、可共享美好的伙伴。</p>
-        <img alt="凝聚团队" src="{pboot:sitedomain}/skin/images/j1.jpg"/>
+        <p>{fun=joypo_t('join.team_p')}</p>
+        <img alt="{fun=joypo_t('join.team')}" src="{pboot:sitedomain}/skin/images/j1.jpg"/>
        
       
       <div class="cl blank2"></div>  
       <div class="title">
-			<div class="h3"><span>职业未来</span></div>
-            <h3>为积极进取的你，搭建良好的教育平台</h3>
+			<div class="h3"><span>{fun=joypo_t('join.future')}</span></div>
+            <h3>{fun=joypo_t('join.future_h')}</h3>
 		</div>
-        <p>从专业技能、综合能力到认知提升，我们提供系统培训，助力你在成长路上稳步前行，成就更好的职业未来。</p>
+        <p>{fun=joypo_t('join.future_p')}</p>
          <div class="swiper-container" id="join_banner" >
       <div class="swiper-wrapper"> 
  
 			
-			<div class="swiper-slide"><img alt="职业未来"src="{pboot:sitedomain}/skin/images/j2.jpg"/></div>
-		  <div class="swiper-slide"><img alt="职业未来"src="{pboot:sitedomain}/skin/images/j3.jpg"/></div>
-          <div class="swiper-slide"><img alt="职业未来"src="{pboot:sitedomain}/skin/images/j4.jpg"/></div>
+			<div class="swiper-slide"><img alt="{fun=joypo_t('join.future')}"src="{pboot:sitedomain}/skin/images/j2.jpg"/></div>
+		  <div class="swiper-slide"><img alt="{fun=joypo_t('join.future')}"src="{pboot:sitedomain}/skin/images/j3.jpg"/></div>
+          <div class="swiper-slide"><img alt="{fun=joypo_t('join.future')}"src="{pboot:sitedomain}/skin/images/j4.jpg"/></div>
             
         
         </div>
@@ -83,11 +84,11 @@
  <div class="cl blank"></div>
    <div class="w">
         <div class="title">
-			<div class="h3"><span>丰富生活</span></div>
-            <h3>倡导健康文明的工作与生活方式</h3>
+			<div class="h3"><span>{fun=joypo_t('join.life')}</span></div>
+            <h3>{fun=joypo_t('join.life_h')}</h3>
 		</div>
       <div class="joincon">
-        <p style="width:85%; margin:0 auto;">工作上全力以赴，生活里热情奔赴。登山、骑行、球场挥拍，在运动中释放活力、凝聚伙伴。我们不止追求事业成长，更鼓励每一位同事保持乐观的心态和强健的体魄，工作与生活双向奔赴，在这里遇见更好的自己。</p>
+        <p style="width:85%; margin:0 auto;">{fun=joypo_t('join.life_p')}</p>
         <div class="cl"></div>
             
                  <div class="swiper-container" id="join_banner1" >

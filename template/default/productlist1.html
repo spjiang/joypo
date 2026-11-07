@@ -5,9 +5,10 @@
 <meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
 <meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
 <meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link type="text/css" rel="stylesheet" href="{pboot:sitedomain}/skin/css/animate.min.css"/>
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -112,7 +113,7 @@ $(document).ready(function() {
       <a href="#" class="btn-close" aria-hidden="true">×</a>
    
 <div class="modal_text">
-<img src="[list:ext_cpcs]" alt="[list:title]"/>
+{if(joypo_lang()=='en')}[list:content]{else}<img src="[list:ext_cpcs]" alt="[list:title]"/>{/if}
 </div>
   
   </div>
@@ -142,23 +143,23 @@ $(document).ready(function() {
 <div class="cl blank2"></div>
 <div class="w">
 <div class="title wow zoomIn">
-			<div class="h3">研发优势</div>
-            <h1>为道路而生</h1>
+			<div class="h3">{fun=joypo_t('prod.advantage')}</div>
+            <h1>{fun=joypo_t('prod.power_h')}</h1>
 		</div>
        <div class="yslist">
        <ul>
-       <li class="wow flipInY"><span>高倍率放电</span>
-       <p>1–3C 持续，峰值 5C</p>
+       <li class="wow flipInY"><span>{fun=joypo_t('prod.discharge_t')}</span>
+       <p>{fun=joypo_t('prod.discharge_d')}</p>
        </li>
        
-        <li class="wow flipInY"><span>抗振与抗冲击</span>
-       <p>MIL-STD 级测试</p>
+        <li class="wow flipInY"><span>{fun=joypo_t('prod.shock_t')}</span>
+       <p>{fun=joypo_t('prod.shock_d')}</p>
        </li>
         <li class="wow flipInY"><span>IP65–IP67</span>
-       <p>防水防尘保护</p>
+       <p>{fun=joypo_t('prod.ip_d')}</p>
        </li>
-        <li class="wow flipInY"><span>宽温域</span>
-       <p>充电 -20°C，放电 -35°C</p>
+        <li class="wow flipInY"><span>{fun=joypo_t('prod.temp_t')}</span>
+       <p>{fun=joypo_t('prod.temp_d')}</p>
        </li>
        
        </ul>
@@ -175,10 +176,10 @@ $(document).ready(function() {
         <div class="cl blank2"></div>
 <div class="title wow zoomIn">
 		
-            <h4>用久普动力驱动您的车辆</h4>
-            <p>告诉我们您的车辆类型、电压与续航需求——12 小时内获得定制化电池方案。</p>
+            <h4>{fun=joypo_t('prod.power_cta_h')}</h4>
+            <p>{fun=joypo_t('prod.power_cta_p')}</p>
 		</div>
-<div class="cona wow flipInY"><a href="{pboot:sitedomain}/?contact/" target="_blank" class="morec">联系我们<span class="icfont icon-left1"></span></a>
+<div class="cona wow flipInY"><a href="{pboot:sitedomain}/?contact/" target="_blank" class="morec">{fun=joypo_t('cta.contact')}<span class="icfont icon-left1"></span></a>
 <a href="mailto:info@joypo.cn" target="_blank" class="morec1">info@joypo.cn</a></div>
 </div>
 </div>

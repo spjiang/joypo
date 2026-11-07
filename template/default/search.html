@@ -5,9 +5,10 @@
 <meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
 <meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
 <meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/photoswipe.css"> 
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/default-skin.css"> 
@@ -50,7 +51,7 @@
 		<div class="search">
 			<form id="comment_form" name="formsearch" action="{pboot:scaction}"  method="get">
 				<input type="hidden" name="scode" value="2">
-				<input type="text" class="text" name="keyword" id="k" placeholder="请输入产品关键词">
+				<input type="text" class="text" name="keyword" id="k" placeholder="{fun=joypo_t('search.placeholder')}">
 				<input type="submit" class="submit" value="">
 			</form>
 			<div class="clear"></div>
@@ -78,16 +79,16 @@
 	{pboot:if({page:rows}>0)}
 <div class="pagebar">
 <div class="pagination">
-<a class="page-item page-link hidden-sm" href="{page:index}" title="首页">首页</a>
-<a class="page-item page-link st" href="{page:pre}" title="上一页"><<</a>
+<a class="page-item page-link hidden-sm" href="{page:index}" title="{fun=joypo_t('nav.home')}">{fun=joypo_t('nav.home')}</a>
+<a class="page-item page-link st" href="{page:pre}" title="{fun=joypo_t('pager.prev')}"><<</a>
 {page:numbar}
-<a class="page-item page-link" href="javascript:;" title="当前页/总页数">{page:current}/{page:count}</a>
-<a class="page-item page-link st" href="{page:next}" title="下一页">>></a>
-<a class="page-item page-link hidden-sm" href="{page:last}" title="尾页">尾页</a>
+<a class="page-item page-link" href="javascript:;" title="{fun=joypo_t('pager.status')}">{page:current}/{page:count}</a>
+<a class="page-item page-link st" href="{page:next}" title="{fun=joypo_t('pager.next')}">>></a>
+<a class="page-item page-link hidden-sm" href="{page:last}" title="{fun=joypo_t('pager.last')}">{fun=joypo_t('pager.last')}</a>
 </div>
 </div>	
 {else}
-<div class="tac text-secondary">本分类下无任何数据！</div>
+<div class="tac text-secondary">{fun=joypo_t('pager.empty')}</div>
 {/pboot:if}
 
 </div>

@@ -883,3 +883,37 @@ function llms_link_line($title, $url, $note = '')
     return '- [' . $title . '](' . $url . ')' . ($note !== '' ? ': ' . $note : '');
 }
 
+require_once __DIR__ . '/I18n.php';
+
+function joypo_t($key)
+{
+    return \app\common\I18n::t($key);
+}
+
+function joypo_lang()
+{
+    return \app\common\I18n::lang();
+}
+
+function joypo_lang_url($lang)
+{
+    return \app\common\I18n::url($lang);
+}
+
+function joypo_lang_class($lang)
+{
+    return \app\common\I18n::lang() === $lang ? 'on' : '';
+}
+
+function joypo_html_lang()
+{
+    return \app\common\I18n::lang() === 'en' ? 'en' : 'zh-CN';
+}
+
+if (defined('ROOT_PATH')) {
+    try {
+        \app\common\I18n::boot();
+    } catch (\Throwable $e) {
+    }
+}
+

@@ -15,11 +15,23 @@
                      	<input type="text" name="title" value="{$sites->title}" placeholder="请输入站点标题"  class="layui-input">
                      </div>
                 </div>
+                <div class="layui-form-item">
+                     <label class="layui-form-label">英文标题</label>
+                     <div class="layui-input-block">
+                     	<input type="text" name="title_en" value="{$sites->title_en}" placeholder="留空则英文页面仍显示中文标题"  class="layui-input">
+                     </div>
+                </div>
                 
                 <div class="layui-form-item">
                      <label class="layui-form-label">站点副标题</label>
                      <div class="layui-input-block">
                      	<input type="text" name="subtitle" value="{$sites->subtitle}" placeholder="请输入站点副标题"  class="layui-input">
+                     </div>
+                </div>
+                <div class="layui-form-item">
+                     <label class="layui-form-label">英文副标题</label>
+                     <div class="layui-input-block">
+                     	<input type="text" name="subtitle_en" value="{$sites->subtitle_en}" placeholder="留空则英文页面仍显示中文副标题"  class="layui-input">
                      </div>
                 </div>
                 
@@ -47,6 +59,12 @@
                      	<input type="text" name="keywords" value="{$sites->keywords}" placeholder="请输入站点关键字"  class="layui-input">
                      </div>
                 </div>
+                <div class="layui-form-item">
+                     <label class="layui-form-label">英文关键字</label>
+                     <div class="layui-input-block">
+                     	<input type="text" name="keywords_en" value="{$sites->keywords_en}" placeholder="留空则英文页面仍显示中文关键字"  class="layui-input">
+                     </div>
+                </div>
                 
                 <div class="layui-form-item">
                      <label class="layui-form-label">站点描述</label>
@@ -54,11 +72,23 @@
                      	<textarea name="description" placeholder="请输入站点描述" class="layui-textarea">{$sites->description}</textarea>
                      </div>
                 </div>
+                <div class="layui-form-item">
+                     <label class="layui-form-label">英文描述</label>
+                     <div class="layui-input-block">
+                     	<textarea name="description_en" placeholder="留空则英文页面仍显示中文描述" class="layui-textarea">{$sites->description_en}</textarea>
+                     </div>
+                </div>
                 
                 <div class="layui-form-item">
                      <label class="layui-form-label">站点备案</label>
                      <div class="layui-input-block">
                      	<input type="text" name="icp" value="{$sites->icp}" placeholder="请输入站点备案"  class="layui-input">
+                     </div>
+                </div>
+                <div class="layui-form-item">
+                     <label class="layui-form-label">英文备案</label>
+                     <div class="layui-input-block">
+                     	<input type="text" name="icp_en" value="{$sites->icp_en}" placeholder="留空则英文页面仍显示中文备案"  class="layui-input">
                      </div>
                 </div>
                 
@@ -88,6 +118,12 @@
                      <label class="layui-form-label">尾部信息</label>
                      <div class="layui-input-block">
                      	<textarea name="copyright" placeholder="请输入尾部信息" class="layui-textarea">{$sites->copyright}</textarea>
+                     </div>
+                </div>
+                <div class="layui-form-item">
+                     <label class="layui-form-label">英文尾部</label>
+                     <div class="layui-input-block">
+                     	<textarea name="copyright_en" placeholder="留空则英文页面仍显示中文尾部" class="layui-textarea">{$sites->copyright_en}</textarea>
                      </div>
                 </div>
 				

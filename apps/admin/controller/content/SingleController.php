@@ -245,7 +245,9 @@ class SingleController extends Controller
             // 构建数据
             $data = array(
                 'title' => $title,
+                'title_en' => post('title_en'),
                 'content' => $content,
+                'content_en' => normalize_richtext_for_storage(post('content_en')),
                 'tags' => $tags,
                 'author' => $author,
                 'source' => $source,
@@ -258,7 +260,9 @@ class SingleController extends Controller
                 'date' => $date,
                 'enclosure' => $enclosure,
                 'keywords' => $keywords,
+                'keywords_en' => post('keywords_en'),
                 'description' => clear_html_blank($description),
+                'description_en' => post('description_en'),
                 'status' => $status,
                 'update_user' => session('username')
             );

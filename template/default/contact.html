@@ -5,9 +5,10 @@
 <meta name="keywords" content="{pboot:if('{sort:keywords}'=='')}{pboot:pagekeywords}{else}{sort:keywords}{/pboot:if}">
 <meta name="description" content="{pboot:if('{sort:description}'=='')}{pboot:pagedescription}{else}{sort:description}{/pboot:if}">
 <meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -43,15 +44,15 @@
 
         <div class="w">
         <div class="title1">
-			<div class="h3"><span>联系方式</span></div>
-            <h3>聊聊您的电池项目</h3>
-            <p>告诉我们您的应用场景、技术规格与目标数量。我们的团队将在 12 小时内回复定制化方案。</p>
+			<div class="h3"><span>{fun=joypo_t('contact.way')}</span></div>
+            <h3>{fun=joypo_t('contact.talk')}</h3>
+            <p>{fun=joypo_t('contact.talk_p')}</p>
 		</div>
         <div class="contus">
         <dl>
         <dt><img src="{pboot:sitedomain}/skin/images/con1.png"/></dt>
         <dd>
-        <h1>公司地址</h1>
+        <h1>{fun=joypo_t('contact.address')}</h1>
         <p>{pboot:companyaddress}</p>
         </dd>
         </dl>
@@ -59,7 +60,7 @@
         <dl>
         <dt><img src="{pboot:sitedomain}/skin/images/con2.png"/></dt>
         <dd>
-        <h1>业务热线</h1>
+        <h1>{fun=joypo_t('contact.hotline')}</h1>
         <p>{pboot:companymobile}</p>
         </dd>
         </dl>
@@ -67,7 +68,7 @@
         <dl>
         <dt><img src="{pboot:sitedomain}/skin/images/con3.png"/></dt>
         <dd>
-        <h1>公司邮箱</h1>
+        <h1>{fun=joypo_t('contact.email')}</h1>
         <p>{pboot:companyemail}</p>
         </dd>
         </dl>
@@ -84,8 +85,8 @@
 <div class="w">
 <div class="cl blank2"></div>
         <div class="title1">
-            <h3>您的反馈对我们来说非常有价值</h3>
-            <p>我们欢迎您对我们公司的解决方案和储能电池产品提出宝贵的意见和反馈。</p>
+            <h3>{fun=joypo_t('contact.feedback_h')}</h3>
+            <p>{fun=joypo_t('contact.feedback_p')}</p>
 		</div>
         <div class="cl blank2"></div>
       
@@ -93,52 +94,52 @@
 			  <div class="lianxi">	
   <ul>
    <li class="li1">
-   姓名
+   {fun=joypo_t('contact.form_name')}
    <div class="div_input">
    <input type="text" class="wb" name="name" id="name"/>
    </div>
   </li>
   <li class="li1">
-  公司名称
+  {fun=joypo_t('contact.form_company')}
    <div class="div_input">
    <input type="text" class="wb" name="name" id="name"/>
    </div>
   </li>
   <li class="li1">
-  邮箱
+  {fun=joypo_t('contact.form_email')}
    <div class="div_input">
    <input type="text" class="wb" name="email"/>
    </div>
    </li>
    <li class="li1">
-   电话/WhatsApp
+   {fun=joypo_t('contact.form_phone')}
    <div class="div_input">
    <input type="text" class="wb" name="tel" id="tel"/>
    </div>
   
    </li>
  <li>
-  意向产品
+  {fun=joypo_t('contact.form_product')}
    <div class="div_input">
    <input type="text" class="wb" name="email"/>
    </div>
    </li>
    <li>
-  您的需求参数
+  {fun=joypo_t('contact.form_specs')}
    <div class="div_input">
-   <input type="text" class="wb" placeholder="例如:48V100Ah，5000组/年，壁挂式" name="email"/>
+   <input type="text" class="wb" placeholder="{fun=joypo_t('contact.form_specs_ph')}" name="email"/>
    </div>
    </li>
    <li>
-   需求说明
+   {fun=joypo_t('contact.form_need')}
    <div class="div_input">
-    <textarea class="wb1" placeholder="请描述您的应用场景、目标市场、采购数量与时间计划..." name="content"></textarea>
+    <textarea class="wb1" placeholder="{fun=joypo_t('contact.form_need_ph')}" name="content"></textarea>
    </div>
   
    </li>
    <li class="li">
  
-   <div class="btn"><a href="javascript:void(0);" onclick="$('form').submit()">提 交</a></div>
+   <div class="btn"><a href="javascript:void(0);" onclick="$('form').submit()">{fun=joypo_t('contact.form_submit')}</a></div>
    </li>
 
   </ul>

@@ -42,15 +42,21 @@ class SiteController extends Controller
         
         $data = array(
             'title' => post('title'),
+            'title_en' => post('title_en'),
             'subtitle' => post('subtitle'),
+            'subtitle_en' => post('subtitle_en'),
             'domain' => post('domain'),
             'logo' => post('logo'),
             'keywords' => post('keywords'),
+            'keywords_en' => post('keywords_en'),
             'description' => post('description'),
+            'description_en' => post('description_en'),
             'icp' => post('icp'),
+            'icp_en' => post('icp_en'),
             'theme' => basename(post('theme')) ?: 'default',
             'statistical' => post('statistical'),
-            'copyright' => post('copyright')
+            'copyright' => post('copyright'),
+            'copyright_en' => post('copyright_en')
         );
         
         path_delete(RUN_PATH . '/config'); // 清理缓存的配置文件

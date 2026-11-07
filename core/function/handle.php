@@ -1039,7 +1039,8 @@ function content_query_fields()
         'picstitle', 'content', 'tags', 'enclosure', 'keywords', 'description',
         'sorting', 'status', 'istop', 'isrecommend', 'isheadline', 'visits',
         'likes', 'oppose', 'create_user', 'update_user', 'create_time',
-        'update_time', 'gtype', 'gid', 'gnote'
+        'update_time', 'gtype', 'gid', 'gnote',
+        'title_en', 'keywords_en', 'description_en', 'content_en'
     );
 }
 

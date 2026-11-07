@@ -137,24 +137,11 @@ $(document).ready(function(){
     });
 
 $(document).ready(function(){
-    if($(window).width()>1400){
-      var galleryTop1 = new Swiper('#honor_banner', {
-      slidesPerView:6,
-      spaceBetween:27,
-      loop: true,
-      autoplay:{
-        delay:3000,
-        disableOnInteraction: false,
-      },
-      navigation:{
-        nextEl: '.swiper-button-next.hr',
-        prevEl: '.swiper-button-prev.hl',
-      },
-     }); 
-       }else{
-      var galleryTop1 = new Swiper('#honor_banner', {
-      slidesPerView:5,
-      spaceBetween:10,
+    var honorWidth = $(window).width();
+    var honorPerView = honorWidth > 1400 ? 6 : (honorWidth > 768 ? 5 : 1.2);
+    var galleryTop1 = new Swiper('#honor_banner', {
+      slidesPerView: honorPerView,
+      spaceBetween: honorWidth > 1400 ? 27 : 10,
       loop: true,
       autoplay:{
         delay:3000,
@@ -165,7 +152,6 @@ $(document).ready(function(){
         prevEl: '.swiper-button-prev.hl',
       },
      });
-    }
     });
 	
 	$(document).ready(function(){

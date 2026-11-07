@@ -43,13 +43,22 @@ class ParserModel extends Model
     // 站点配置信息
     public function getSite()
     {
-        return parent::table('ay_site')->where("acode='" . get_lg() . "'")->find();
+        return \app\common\I18n::apply(parent::table('ay_site')->where("acode='" . get_lg() . "'")->find(), array(
+            'title',
+            'subtitle',
+            'keywords',
+            'description',
+            'copyright',
+            'icp'
+        ));
     }
 
     // 公司信息
     public function getCompany()
     {
-        return parent::table('ay_company')->where("acode='" . get_lg() . "'")->find();
+        return \app\common\I18n::apply(parent::table('ay_company')->where("acode='" . get_lg() . "'")->find(), array(
+            'address'
+        ));
     }
 
     // 自定义标签，不区分语言，兼容跨语言
@@ -86,10 +95,10 @@ class ParserModel extends Model
                 'LEFT'
             )
         );
-        return parent::table('ay_content_sort a')->field($field)
+        return $this->i18nRows(parent::table('ay_content_sort a')->field($field)
             ->where("a.scode='$scode' OR a.filename='$scode'")
             ->join($join)
-            ->find();
+            ->find(), $this->i18nSortFields());
     }
 
     // 多个分类信息，不区分语言，兼容跨语言
@@ -113,11 +122,11 @@ class ParserModel extends Model
                 'LEFT'
             )
         );
-        return parent::table('ay_content_sort a')->field($field)
+        return $this->i18nRows(parent::table('ay_content_sort a')->field($field)
             ->in('a.scode', $scodes)
             ->join($join)
             ->order('a.sorting,a.id')
-            ->select();
+            ->select(), $this->i18nSortFields());
     }
 
     // 指定分类数量
@@ -168,6 +177,11 @@ class ParserModel extends Model
             ->column($fields, 'scode');
 
         foreach ($result as $key => $value) {
+            $value = \app\common\I18n::apply($value, $this->i18nSortFields());
+            if (isset($result[$key]['son'])) {
+                $value['son'] = $result[$key]['son'];
+            }
+            $result[$key] = $value;
             if ($value['pcode']) {
                 $result[$value['pcode']]['son'][] = $value; // 记录到关系树
             } else {
@@ -310,6 +324,7 @@ class ParserModel extends Model
                 'a.pcode',
                 'a.scode',
                 'a.name',
+                'a.name_en',
                 'a.filename',
                 'a.outlink',
                 'a.pic',
@@ -324,6 +339,7 @@ class ParserModel extends Model
             $this->sorts = parent::table('ay_content_sort a')->where("a.acode='" . get_lg() . "'")
                 ->join($join)
                 ->column($fields, 'scode');
+            $this->sorts = $this->i18nRows($this->sorts, array('name'));
         }
         return $this->sorts;
     }
@@ -421,12 +437,18 @@ class ParserModel extends Model
                 'a.enclosure',
                 'a.keywords',
                 'a.description',
+                'a.title_en',
+                'a.keywords_en',
+                'a.description_en',
+                'a.content_en',
                 'a.istop',
                 'a.isrecommend',
                 'a.isheadline',
                 'b.name as sortname',
+                'b.name_en as sortname_en',
                 'b.filename as sortfilename',
                 'c.name as subsortname',
+                'c.name_en as subsortname_en',
                 'c.filename as subfilename',
                 'd.type',
                 'd.name as modelname',
@@ -531,7 +553,7 @@ class ParserModel extends Model
 
         // 筛选条件支持模糊匹配
         if($page){
-            return parent::table('ay_content a ' . $indexSql)->field($fields)
+            $rows = parent::table('ay_content a ' . $indexSql)->field($fields)
                 ->where($scode_arr, 'OR')
                 ->where($where)
                 ->where($select, 'AND', 'AND', $fuzzy)
@@ -543,7 +565,7 @@ class ParserModel extends Model
                 ->decode()
                 ->select();
         }else{
-            return parent::table('ay_content a ' . $indexSql)->field($fields)
+            $rows = parent::table('ay_content a ' . $indexSql)->field($fields)
                 ->where($scode_arr, 'OR')
                 ->where($where)
                 ->where($select, 'AND', 'AND', $fuzzy)
@@ -555,6 +577,7 @@ class ParserModel extends Model
                 ->decode()
                 ->select();
         }
+        return $this->i18nRows($rows, $this->i18nContentFields());
 
     }
 
@@ -586,9 +609,11 @@ class ParserModel extends Model
         $field = array(
             'a.*',
             'b.name as sortname',
+            'b.name_en as sortname_en',
             'b.filename as sortfilename',
             'b.outlink as sortoutlink',
             'c.name as subsortname',
+            'c.name_en as subsortname_en',
             'c.filename as subfilename',
             'd.type',
             'd.name as modelname',
@@ -631,7 +656,7 @@ class ParserModel extends Model
             ->join($join)
             ->decode()
             ->find();
-        return $result;
+        return $this->i18nRows($result, $this->i18nContentFields());
     }
 
     // 单篇详情,不区分语言，兼容跨语言
@@ -641,8 +666,10 @@ class ParserModel extends Model
         $field = array(
             'a.*',
             'b.name as sortname',
+            'b.name_en as sortname_en',
             'b.filename as sortfilename',
             'c.name as subsortname',
+            'c.name_en as subsortname_en',
             'c.filename as subfilename',
             'd.type',
             'd.name as modelname',
@@ -684,7 +711,7 @@ class ParserModel extends Model
             ->decode()
             ->order('id DESC')
             ->find();
-        return $result;
+        return $this->i18nRows($result, $this->i18nContentFields());
     }
 
     // 指定内容多图
@@ -770,6 +797,7 @@ class ParserModel extends Model
             $field = array(
                 'a.id',
                 'a.title',
+                'a.title_en',
                 'a.filename',
                 'a.ico',
                 'a.scode',
@@ -800,6 +828,7 @@ class ParserModel extends Model
                 ->where("a.date<'" . date('Y-m-d H:i:s') . "'")
                 ->order('a.id DESC')
                 ->find();
+            $this->pre = $this->i18nRows($this->pre, array('title'));
         }
         return $this->pre;
     }
@@ -814,6 +843,7 @@ class ParserModel extends Model
             $field = array(
                 'a.id',
                 'a.title',
+                'a.title_en',
                 'a.filename',
                 'a.ico',
                 'a.scode',
@@ -844,6 +874,7 @@ class ParserModel extends Model
                 ->where("a.date<'" . date('Y-m-d H:i:s') . "'")
                 ->order('a.id ASC')
                 ->find();
+            $this->next = $this->i18nRows($this->next, array('title'));
         }
         return $this->next;
     }
@@ -1087,5 +1118,26 @@ class ParserModel extends Model
         return parent::table('ay_member_comment')->where("uid='" . session('pboot_uid') . "'")
             ->where("id=$id")
             ->delete();
+    }
+
+    private function i18nSortFields()
+    {
+        return array('name', 'subname', 'title', 'keywords', 'description', 'def1', 'def2', 'def3');
+    }
+
+    private function i18nContentFields()
+    {
+        return array('title', 'keywords', 'description', 'content', 'sortname', 'subsortname');
+    }
+
+    private function i18nRows($rows, array $fields)
+    {
+        if (is_array($rows)) {
+            foreach ($rows as $key => $row) {
+                $rows[$key] = \app\common\I18n::apply($row, $fields);
+            }
+            return $rows;
+        }
+        return \app\common\I18n::apply($rows, $fields);
     }
 }

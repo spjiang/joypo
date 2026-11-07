@@ -589,7 +589,7 @@ class ParserController extends Controller
                 if ($indexicon) {
                     $indextext = '<i class="' . $indexicon . '"></i>';
                 } elseif (!$indextext) {
-                    $indextext = '首页';
+                    $indextext = joypo_t('nav.home');
                 }
 
                 $out_html = '<a href="' . SITE_INDEX_DIR . '/">' . $indextext . '</a>';
@@ -3860,7 +3860,7 @@ class ParserController extends Controller
                     if (isset($params['notext'])) {
                         $content = str_replace($search, $params['notext'], $content);
                     } else {
-                        $content = str_replace($search, '没有了！', $content);
+                        $content = str_replace($search, joypo_t('content.none'), $content);
                     }
                 }
                 break;
@@ -3882,7 +3882,7 @@ class ParserController extends Controller
                     if (isset($params['notext'])) {
                         $content = str_replace($search, $params['notext'], $content);
                     } else {
-                        $content = str_replace($search, '没有了！', $content);
+                        $content = str_replace($search, joypo_t('content.none'), $content);
                     }
                 }
                 break;
@@ -3904,7 +3904,7 @@ class ParserController extends Controller
                     if (isset($params['notext'])) {
                         $content = str_replace($search, $params['notext'], $content);
                     } else {
-                        $content = str_replace($search, '没有了！', $content);
+                        $content = str_replace($search, joypo_t('content.none'), $content);
                     }
                 }
                 break;
@@ -3926,7 +3926,7 @@ class ParserController extends Controller
                     if (isset($params['notext'])) {
                         $content = str_replace($search, $params['notext'], $content);
                     } else {
-                        $content = str_replace($search, '没有了！', $content);
+                        $content = str_replace($search, joypo_t('content.none'), $content);
                     }
                 }
                 break;

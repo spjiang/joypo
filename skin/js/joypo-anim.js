@@ -94,6 +94,20 @@
         // 产品页分类导航按钮（电池解决方案 / 储能系统 等页面的 .plcen）
         ['.plcen dl', 'pop', 0.2, 0],
 
+        // 研发、荣誉、加入、正文、留言
+        ['.inyfzz dl', 'fade', 0.08, 0],
+        ['.hr2', 'up', 0.08, 0],
+        ['.prductinfo', 'up', 0, 0],
+        ['.message .box', 'up', 0, 0],
+        ['.pagebar', 'fade', 0, 0],
+        ['#honor_banner', 'fade', 0, 0],
+        ['#join_banner', 'fade', 0, 0],
+        ['#w2 .title', 'up', 0, 0],
+        ['#w8 .title', 'up', 0, 0],
+        ['#w9 .title', 'up', 0, 0],
+        ['#w7 .title', 'zoom', 0, 0],
+        ['.jp-about-years', 'up', 0, 0],
+
         // 联系页
         ['.lianxi', 'left', 0, 0],
         ['.contus', 'right', 0, 0],
@@ -253,6 +267,77 @@
     }
 
     /* ================================================================
+       6b. 鼠标光斑 —— 只在精细指针设备上出现，不挡点击
+       ================================================================ */
+    function initGlow() {
+        if (reduceMotion) return;
+        if (!win.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+        var glow = doc.createElement('div');
+        glow.className = 'jp-glow';
+        glow.setAttribute('aria-hidden', 'true');
+        doc.body.appendChild(glow);
+
+        var x = 0;
+        var y = 0;
+        var tx = 0;
+        var ty = 0;
+        var on = false;
+        var running = false;
+
+        function frame() {
+            x += (tx - x) * 0.18;
+            y += (ty - y) * 0.18;
+            glow.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+            if (Math.abs(tx - x) > 0.4 || Math.abs(ty - y) > 0.4) {
+                win.requestAnimationFrame(frame);
+            } else {
+                running = false;
+            }
+        }
+
+        doc.addEventListener('mousemove', function (e) {
+            tx = e.clientX;
+            ty = e.clientY;
+            if (!on) {
+                on = true;
+                glow.classList.add('is-on');
+            }
+            if (!running) {
+                running = true;
+                win.requestAnimationFrame(frame);
+            }
+        }, { passive: true });
+
+        doc.addEventListener('mouseleave', function () {
+            on = false;
+            glow.classList.remove('is-on');
+        });
+    }
+
+    /* ================================================================
+       6c. 顶栏下方的扫描光 —— 固定定位，不推动任何内容
+       ================================================================ */
+    function initLaser() {
+        if (reduceMotion) return;
+        var stage = doc.createElement('div');
+        stage.className = 'jp-stage';
+        stage.setAttribute('aria-hidden', 'true');
+        stage.innerHTML = '<div class="jp-grid"></div><div class="jp-aurora"></div><div class="jp-aurora jp-aurora--b"></div><div class="jp-sweep"></div><div class="jp-ring"></div>';
+        doc.body.appendChild(stage);
+
+        var laser = doc.createElement('div');
+        laser.className = 'jp-laser';
+        laser.setAttribute('aria-hidden', 'true');
+        doc.body.appendChild(laser);
+
+        var laserB = doc.createElement('div');
+        laserB.className = 'jp-laser jp-laser--b';
+        laserB.setAttribute('aria-hidden', 'true');
+        doc.body.appendChild(laserB);
+    }
+
+    /* ================================================================
        7. 安全兜底
        若脚本因故未执行完，2.4 秒后强制显示所有内容，
        绝不让访客看到空白页面
@@ -277,6 +362,8 @@
             initCounters();
             initProgress();
             initSmoothScroll();
+            initGlow();
+            initLaser();
         } catch (e) {
             // 任何异常都要保证内容可见
             $$('.jp-anim').forEach(function (el) {

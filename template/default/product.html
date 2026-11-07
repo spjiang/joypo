@@ -5,9 +5,10 @@
 <meta name="keywords" content="{content:keywords}">
 <meta name="description" content="{content:description}">
 <meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -46,13 +47,13 @@
          <div class="cl blank2"></div>
 		<div class="p">
 			<div class="previous">
-				上一篇：{content:precontent}
+				{fun=joypo_t('content.prev')}{content:precontent}
 			</div>
 			<div class="next">
-				下一篇：{content:nextcontent}
+				{fun=joypo_t('content.next')}{content:nextcontent}
 			</div>
 		</div>
-		<a href="javascript:window.history.back();" class="return">&#91; 返回 &#93;</a>
+		<a href="javascript:window.history.back();" class="return">{fun=joypo_t('content.back')}</a>
         <div class="cl blank6"></div>
 	</div>
 </div>

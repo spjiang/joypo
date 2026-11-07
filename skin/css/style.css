@@ -204,14 +204,14 @@ display: flex;
 .header-main .header>ul>li>a{
     color: #ffffff;
 display:inline-block;
-min-width:100px;
- padding:0 5px;
+min-width:0;
+ padding:0 14px;
 }
 .header-main01 .header>ul>li>a{
 /*    color: #333;*/
  display:inline-block;
-min-width:100px;
- padding:0 5px;
+min-width:0;
+ padding:0 14px;
 
 }
 .header ul li a{
@@ -226,7 +226,6 @@ min-width:100px;
 
 .header-main .header>ul>li>a:hover{
     font-weight: bold;
-	border-bottom:3px solid #5dc2d0;
 }
 
 .header-main .header>ul>li>ul li a{

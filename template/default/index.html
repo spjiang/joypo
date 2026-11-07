@@ -5,10 +5,10 @@
 <meta name="keywords" content="{pboot:sitekeywords}">
 <meta name="description" content="{pboot:sitedescription}">
 <meta name="renderer" content="webkit">
-<meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">-->
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper-bundle.min.css">
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
@@ -32,12 +32,12 @@
 <div class="inbanner">
 <video width="100%" preload="metadata" poster="{pboot:sitedomain}/skin/images/poster_index.jpg" playsinline webkit-playsinline x5-video-player-type="h5" autoplay muted loop>
             <source src="{pboot:sitedomain}/skin/images/index.mp4" type="video/mp4">
-            您的浏览器不支持 HTML5 视频播放。
+            {fun=joypo_t('video.unsupported')}
         </video>
         <div class="mack">
         <div class="w">
-        <h1>以工匠精神打造</h1>
-        <h2>安全可靠的电池解决方案</h2>
+        <h1>{fun=joypo_t('hero.line1')}</h1>
+        <h2>{fun=joypo_t('hero.line2')}</h2>
         </div>
         </div>
    </div>   
@@ -50,33 +50,33 @@
 <div class="cl blank2"></div>
 		<div class="title">
 			<div class="h1"><span>[sort:name]</span></div>
-            <h1>成为全球最值得信赖的电池解决方案制造商</h1>
+            <h1>{fun=joypo_t('hero.trust')}</h1>
 		</div>
         
       <div class="inabout">
       <dl>
-      <dt><img alt="企业使命" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
-      <dd><h1>企业使命</h1>
+      <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
+      <dd><h1>{fun=joypo_t('mission.title')}</h1>
     
-      <p>用可持续发展的方式，打造值得信赖的产品与服务，让每位成员在充满归属感和荣誉感的环境中，共创价值，共享成长。</p>
+      <p>{fun=joypo_t('mission.text')}</p>
       </dd>
       
       </dl>
       
       <dl>
-      <dt><img alt="企业愿景" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
+      <dt><img alt="{fun=joypo_t('vision.title')}" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
       <dd>
-      <h1>企业愿景</h1>
-      <p>成为一家以工匠精神和信赖为基础，让员工、合作伙伴和客户都感到幸福的现代企业。</p>
+      <h1>{fun=joypo_t('vision.title')}</h1>
+      <p>{fun=joypo_t('vision.text')}</p>
       </dd>
       
       </dl>
       
       <dl aos="fade-up">
-       <dt><img alt="企业使命" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
+       <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
       <dd>
-       <h1>企业核心价值观</h1>
-      <p>一切以正能量为中心，务实开放、诚信进取、简约高效、健康文明</p>
+       <h1>{fun=joypo_t('values.title')}</h1>
+      <p>{fun=joypo_t('values.text')}</p>
       </dd>
       
       </dl>
@@ -101,8 +101,8 @@
 
 <div class="cl blank6"></div>
 		<div class="title" aos="fade-up">
-			<div class="h2">解决方案</div>
-            <h2>以工匠精神打造安全可靠的电池解决方案</h2>
+			<div class="h2">{fun=joypo_t('home.solution')}</div>
+            <h2>{fun=joypo_t('home.solution_h')}</h2>
 		</div>
         <div class="cl blank2"></div>
         <div class="w">
@@ -177,7 +177,7 @@
 </div>-->
  <div class="cl blank3"></div>
 		<div class="title" aos="fade-up">
-			<div class="h2">新闻中心</div>
+			<div class="h2">{fun=joypo_t('home.news')}</div>
            
 		</div>
         
@@ -199,10 +199,10 @@
               <div class="h1"><a href="[list:link]" target="_blank">[list:title]</a></div>
               <div class="jp-news-meta">
                 <span class="jp-news-date"><i class="iconfont iconxinxi"></i>[list:date style=Y-m-d]</span>
-                <span class="jp-news-cat"><i class="iconfont icondizhi"></i>公司新闻</span>
+                <span class="jp-news-cat"><i class="iconfont icondizhi"></i>{fun=joypo_t('home.news_cat')}</span>
               </div>
               <div class="h2">[list:description lencn=50]</div>
-              <div class="more"><a href="[list:link]" target="_blank">查看详情<i class="iconfont icon-jiantou_you"></i></a></div>
+              <div class="more"><a href="[list:link]" target="_blank">{fun=joypo_t('home.detail')}<i class="iconfont icon-jiantou_you"></i></a></div>
 				 </dd>
 			
               <div class="cl"></div>
@@ -230,30 +230,30 @@
  <div class="cl blank6"></div>
   <div class="cl blank2"></div>
  <div class="title">
-			 <h1 style="font-size:60px;"> 以全流程之稳   承每一度之重</h1>
+			 <h1 style="font-size:60px;"> {fun=joypo_t('home.weight')}</h1>
 		</div>
         <div class="cl blank6"></div>
         <div class="abcont">
 <div class="absj">
 <ul>
 <li>
-<span class="timer" data-start="12">12</span><strong>+</strong><br/>行业经验
+<span class="timer" data-start="12">12</span><strong>+</strong><br/>{fun=joypo_t('stat.years')}
 </li>
 <li>
-<span class="timer" data-start="20">20</span><strong>%</strong><br/>技术人员占比
+<span class="timer" data-start="20">20</span><strong>%</strong><br/>{fun=joypo_t('stat.engineers')}
 </li>
 <li>
-<span class="timer" data-start="300">300</span><b>w</b><strong>+</strong><br/>年生产力
+<span class="timer" data-start="300">300</span><b>w</b><strong>+</strong><br/>{fun=joypo_t('stat.capacity')}
 </li>
 <li>
-<span class="timer" data-start="1000">1000</span><strong>+</strong><br/>成熟产品设计方案
+<span class="timer" data-start="1000">1000</span><strong>+</strong><br/>{fun=joypo_t('stat.designs')}
 </li>
 </ul>
 
 </div>
  <div class="cl blank6"></div>
   <div class="cl blank3"></div>
-<div class="more1"><a href="/?about/" target="_blank">查看更多</a></div>
+<div class="more1"><a href="/?about/" target="_blank">{fun=joypo_t('home.more')}</a></div>
 </div>
  <script type="text/javascript" src="{pboot:sitedomain}/skin/js/appear.js"></script> 
 
