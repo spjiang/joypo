@@ -1,6 +1,8 @@
 FROM php:8.3-apache
 
-RUN apt-get update \
+# 测试机在国内，Debian 官方源经常卡住，构建时改走阿里云镜像。
+RUN sed -i 's|http://deb.debian.org|http://mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
