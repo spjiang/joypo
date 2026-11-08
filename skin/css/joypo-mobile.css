@@ -451,10 +451,24 @@
 	}
 
 	.header-nav .nav-lv1 > li > a::after,
-	.header-nav .nav-lv1 > li > a:hover::after {
+	.header-nav .nav-lv1 > li > a:hover::after,
+	.header-nav .nav-lv1 > li.is-current > a::after {
 		content: none;
 		width: 0;
 		border: 0;
+	}
+
+	.header-main .header > ul > li.is-current > a,
+	.header-main01 .header > ul > li.is-current > a,
+	.header-main .header > ul > li.is-current > a:hover,
+	.header-main01 .header > ul > li.is-current > a:hover {
+		color: #5dc2d0;
+	}
+
+	.header .cms-site-submenu a.nav-item-lv2.is-current,
+	.header .cms-site-submenu a.nav-lv3.is-current {
+		color: #fff;
+		background: rgba(93, 194, 208, .28);
 	}
 
 	.nav-sub-toggle {
@@ -1438,5 +1452,74 @@
 	.inyfzz {
 		padding-right: 58px;
 		box-sizing: border-box;
+	}
+}
+
+/* 窄屏图片按原始比例完整显示，不再裁成一条 */
+@media (max-width: 1199px) {
+	.banner_n,
+	.banner_n2,
+	.banner_pn,
+	.banner_n2:has(.box1) {
+		height: auto;
+		min-height: 0;
+		padding: 0;
+		overflow: visible;
+	}
+
+	.banner_n2:has(.box1)::after {
+		display: none;
+	}
+
+	.banner_n .box,
+	.banner_n2 .box,
+	.nbox {
+		position: relative;
+		top: auto;
+		right: auto;
+		bottom: auto;
+		left: auto;
+		width: auto;
+		max-width: none;
+		margin: 0;
+		padding: 16px 20px 20px;
+		background: #071218;
+		box-sizing: border-box;
+	}
+
+	.banner_n > img,
+	.banner_n2 > img,
+	.banner_pn > img,
+	.banner_n2:has(.box1) > img,
+	.banner img,
+	#case_banner2 .swiper-slide .imWrap img,
+	#zlgl_banner .swiper-slide img,
+	#inews_banner .jp-news-pic img,
+	.gw-news-img img,
+	.gw-about-media img,
+	.incase dl dt img,
+	.service_list1 img,
+	.about_box img,
+	.honor img,
+	.jp-prod-thumb-box img,
+	.new_conter_p img,
+	.probody img {
+		position: relative;
+		inset: auto;
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		height: auto !important;
+		min-height: 0 !important;
+		object-fit: contain;
+	}
+
+	#inews_banner .jp-news-pic,
+	#inews_banner .jp-news-pic a,
+	.gw-news-img,
+	#case_banner2 .swiper-slide .imWrap,
+	.jp-prod-thumb-box {
+		height: auto;
+		overflow: visible;
 	}
 }
