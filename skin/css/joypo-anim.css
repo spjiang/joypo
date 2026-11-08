@@ -229,8 +229,8 @@ html.no-js .jp-anim {
 .title .h3,
 .title1 .h3 {
     position: relative;
-    overflow: hidden;
-    transition: color .35s ease, border-color .35s ease, box-shadow .35s ease;
+    overflow: visible;
+    transition: color .35s ease, border-color .35s ease;
 }
 
 .title .h1::after,
@@ -253,7 +253,6 @@ html.no-js .jp-anim {
 .title1 .h3:hover {
     color: #2b8fa0;
     border-color: rgba(93, 194, 208, .35);
-    box-shadow: 0 10px 28px rgba(93, 194, 208, .22);
 }
 
 .title .h1:hover::after,

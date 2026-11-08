@@ -1554,3 +1554,19 @@
 		overflow: visible;
 	}
 }
+
+/* 动效不要阴影 */
+.title .h1:hover,
+.title .h2:hover,
+.title .h3:hover,
+.title1 .h3:hover,
+.inabout dl,
+.inabout dl:hover,
+#honor_banner .swiper-slide a,
+#honor_banner .swiper-slide:hover a,
+#inews_banner .jp-news-card,
+.jp-prod-shot-box,
+.jp-prod-thumb-box,
+.jp-prod-thumb-link:hover .jp-prod-thumb-box {
+	box-shadow: none !important;
+}

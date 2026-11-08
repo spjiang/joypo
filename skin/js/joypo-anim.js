@@ -250,7 +250,7 @@
 
         $$('img, video').forEach(function (img) {
             if (img.classList.contains('jp-img')) return;
-            if (img.closest && img.closest('.cms-site-head, header, .foot, .modal, .full, .contus, .top_search, .copy, .swiper')) return;
+            if (img.closest && img.closest('.cms-site-head, header, .foot, .modal, .full, .contus, .top_search, .copy, .swiper, .swiper-container, #honor_banner, .jp-about-history')) return;
 
             img.classList.add('jp-img');
             var pos = win.getComputedStyle(img).position;
@@ -503,6 +503,26 @@
        若脚本因故未执行完，2.4 秒后强制显示所有内容，
        绝不让访客看到空白页面
        ================================================================ */
+    function initZoom() {
+        doc.addEventListener('click', function (e) {
+            var a = e.target.closest ? e.target.closest('a.jp-zoom') : null;
+            if (!a) return;
+            e.preventDefault();
+            var src = a.getAttribute('href');
+            if (!src) return;
+            var layer = doc.createElement('div');
+            layer.className = 'jp-zoom-layer';
+            layer.innerHTML = '<button type="button" aria-label="关闭">×</button><img alt="">';
+            layer.querySelector('img').src = src;
+            layer.addEventListener('click', function (ev) {
+                if (ev.target === layer || ev.target.tagName === 'BUTTON') {
+                    if (layer.parentNode) layer.parentNode.removeChild(layer);
+                }
+            });
+            doc.body.appendChild(layer);
+        });
+    }
+
     function safetyNet() {
         setTimeout(function () {
             $$('.jp-anim, .jp-img').forEach(function (el) {
@@ -529,6 +549,7 @@
             initMouse();
             markCurrentNav();
             watchStages();
+            initZoom();
         } catch (e) {
             // 任何异常都要保证内容可见
             $$('.jp-anim, .jp-img').forEach(function (el) {
