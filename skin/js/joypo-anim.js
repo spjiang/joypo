@@ -167,8 +167,45 @@
     /* ================================================================
        4. 观察器 —— 元素进入视口即触发
        ================================================================ */
+    /* 内容图片单独出场。轮播里的图交给 CSS，避免和 swiper 的定位打架。 */
+    function initImageReveal() {
+        if (reduceMotion) return;
+
+        var parents = [];
+        var buckets = [];
+
+        $$('img, video').forEach(function (img) {
+            if (img.classList.contains('jp-img')) return;
+            if (img.closest && img.closest('.cms-site-head, header, .foot, .modal, .full, .contus, .top_search, .copy, .swiper')) return;
+
+            img.classList.add('jp-img');
+            var pos = win.getComputedStyle(img).position;
+            var parent = img.parentElement;
+            var clip = parent ? win.getComputedStyle(parent).overflow : '';
+            if (pos !== 'absolute' && pos !== 'fixed' && (clip === 'hidden' || clip === 'clip')) {
+                img.classList.add('jp-img--zoom');
+            }
+
+            if (!parent) return;
+            var index = parents.indexOf(parent);
+            if (index < 0) {
+                parents.push(parent);
+                buckets.push([]);
+                index = parents.length - 1;
+            }
+            buckets[index].push(img);
+        });
+
+        buckets.forEach(function (list) {
+            if (list.length < 2) return;
+            list.forEach(function (img, i) {
+                img.style.transitionDelay = (i * 0.12) + 's';
+            });
+        });
+    }
+
     function initObserver() {
-        var targets = $$('.jp-anim');
+        var targets = $$('.jp-anim, .jp-img');
         if (!targets.length) return;
 
         if (reduceMotion || !('IntersectionObserver' in win)) {
@@ -394,7 +431,7 @@
        ================================================================ */
     function safetyNet() {
         setTimeout(function () {
-            $$('.jp-anim').forEach(function (el) {
+            $$('.jp-anim, .jp-img').forEach(function (el) {
                 if (el.classList.contains('jp-in')) return;
                 var r = el.getBoundingClientRect();
                 var visible = r.bottom > 0 && r.top < win.innerHeight;
@@ -409,6 +446,7 @@
     function boot() {
         try {
             applyAnimations();
+            initImageReveal();
             initObserver();
             initCounters();
             initProgress();
@@ -418,7 +456,7 @@
             watchStages();
         } catch (e) {
             // 任何异常都要保证内容可见
-            $$('.jp-anim').forEach(function (el) {
+            $$('.jp-anim, .jp-img').forEach(function (el) {
                 el.classList.add('jp-in', 'jp-done');
             });
             if (win.console) win.console.error('[JoypoAnim] 初始化异常:', e);

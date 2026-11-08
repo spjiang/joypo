@@ -40,7 +40,7 @@
 
 .gw-hero video,
 .gw-hero .gw-bg {
-	animation: jp-drift 22s ease-in-out infinite alternate;
+	animation: jp-shot 1.15s cubic-bezier(.22, .61, .36, 1) both, jp-drift 22s ease-in-out 1.15s infinite alternate;
 	transform-origin: center center;
 }
 
@@ -562,8 +562,7 @@
 @media (max-width: 1199px) {
 	.gw-hero video,
 	.gw-hero .gw-bg {
-		animation: none;
-		transform: none;
+		animation: jp-shot 1.15s cubic-bezier(.22, .61, .36, 1) both;
 	}
 
 	.gw-hero,
@@ -825,6 +824,12 @@
 @keyframes jp-drift {
 	from { transform: scale(1); }
 	to { transform: scale(1.08); }
+}
+
+/* 压过各处只写了 transform 的图片过渡，让裁切开场也能播完 */
+img.jp-img,
+video.jp-img {
+	transition: opacity .7s ease, clip-path 1.05s cubic-bezier(.22, .61, .36, 1), filter .9s ease, transform 1.15s cubic-bezier(.22, .61, .36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
