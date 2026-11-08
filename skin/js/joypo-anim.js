@@ -17,6 +17,80 @@
     function $(s, c) { return (c || doc).querySelector(s); }
     function $$(s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); }
 
+    /* 新打开的页面回到顶部。后退仍保留原来的阅读位置。 */
+    function pinFreshPageToTop() {
+        var nav = win.performance && win.performance.getEntriesByType
+            ? win.performance.getEntriesByType('navigation')[0]
+            : null;
+
+        function isBack(e) {
+            if (e && e.persisted) return true;
+            return !!(nav && nav.type === 'back_forward');
+        }
+
+        function hasHashTarget() {
+            if (!location.hash || location.hash === '#') return false;
+            return !!doc.getElementById(location.hash.slice(1));
+        }
+
+        function top() {
+            if (hasHashTarget()) return;
+            win.scrollTo(0, 0);
+            doc.documentElement.scrollTop = 0;
+            if (doc.body) doc.body.scrollTop = 0;
+        }
+
+        var userMoved = false;
+        function noteUserMove() { userMoved = true; }
+        win.addEventListener('wheel', noteUserMove, { passive: true });
+        win.addEventListener('touchmove', noteUserMove, { passive: true });
+        win.addEventListener('keydown', function (e) {
+            if (e.key === ' ' || e.key === 'End' || e.key === 'PageDown' || e.key.indexOf('Arrow') === 0) noteUserMove();
+        });
+
+        if (!isBack()) top();
+
+        win.addEventListener('pageshow', function (e) {
+            if (isBack(e)) return;
+            top();
+        });
+
+        function guard() {
+            if (userMoved || isBack() || hasHashTarget()) return;
+            if ((win.scrollY || doc.documentElement.scrollTop || 0) > 40) top();
+        }
+
+        win.addEventListener('load', function () {
+            guard();
+            win.setTimeout(guard, 400);
+            win.setTimeout(guard, 1200);
+        });
+    }
+
+    function markCurrentNav() {
+        var head = doc.getElementById('header');
+        if (!head) return;
+        var tcode = head.getAttribute('data-tcode') || '';
+        var scode = head.getAttribute('data-scode') || '';
+        var pcode = head.getAttribute('data-pcode') || '';
+        if (!tcode || tcode === '0') return;
+
+        $$('.nav-lv1 > li').forEach(function (li) {
+            if (li.getAttribute('data-scode') === tcode) li.classList.add('is-current');
+        });
+        $$('.nav-item-lv2, .nav-lv3').forEach(function (a) {
+            var id = a.getAttribute('data-scode');
+            if (!id) return;
+            if (a.classList.contains('nav-lv3')) {
+                if (id === scode) a.classList.add('is-current');
+            } else if (id === scode || id === pcode) {
+                a.classList.add('is-current');
+            }
+        });
+    }
+
+    pinFreshPageToTop();
+
     /* ================================================================
        1. 滚动进度条
        ================================================================ */
@@ -453,6 +527,7 @@
             initSmoothScroll();
             initHeader();
             initMouse();
+            markCurrentNav();
             watchStages();
         } catch (e) {
             // 任何异常都要保证内容可见

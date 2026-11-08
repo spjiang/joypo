@@ -96,10 +96,10 @@
 <div class="pagebar">
 <div class="pagination">
 <!--<a class="page-item page-link hidden-sm" href="{page:index}" title="{fun=joypo_t('nav.home')}">{fun=joypo_t('nav.home')}</a>-->
-<a class="page-item page-link st" href="{page:pre}" title="{fun=joypo_t('pager.prev')}"><span class="icfont icon-youjiantou1"></span></a>
+<a class="page-item page-link st" href="{page:pre}" title="{fun=joypo_t('pager.prev')}"><span aria-hidden="true">‹</span></a>
 {page:numbar}
 <!--<a class="page-item page-link" href="javascript:;" title="{fun=joypo_t('pager.status')}">{page:current}/{page:count}</a>-->
-<a class="page-item page-link st" href="{page:next}" title="{fun=joypo_t('pager.next')}"><span class="icfont icon-left1"></span></a>
+<a class="page-item page-link st" href="{page:next}" title="{fun=joypo_t('pager.next')}"><span aria-hidden="true">›</span></a>
 <!--<a class="page-item page-link hidden-sm" href="{page:last}" title="{fun=joypo_t('pager.last')}">{fun=joypo_t('pager.last')}</a>-->
 </div>
 </div>	
@@ -111,13 +111,12 @@
 
 <script>
     var swiper = new Swiper(".mySwiper", {
-      slidesPerView: "auto",
+      slidesPerView: 1,
       spaceBetween: 0,
-	  freeMode: true,
-
+      speed: 800,
       autoplay: {
-        delay: 2500,
-       disableOnInteraction: false,
+        delay: 6500,
+        disableOnInteraction: false,
       },
       pagination: {
         el: ".swiper-pagination",

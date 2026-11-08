@@ -4,6 +4,11 @@
         绝不改变元素尺寸、位置、盒模型 —— 页面布局零变化
    ========================================================================== */
 
+/* 图片陆续撑开时，浏览器的滚动锚定会把新页面往下推 */
+html {
+    overflow-anchor: none;
+}
+
 /* --------------------------------------------------------------------------
    1. 滚动载入动效 —— 由 joypo.js 挂载 .jp-in 类触发
    -------------------------------------------------------------------------- */
@@ -547,8 +552,35 @@ html.no-js .jp-anim {
 }
 
 .header-nav .nav-lv1 > li > a:hover::after,
-.header-nav .nav-lv1 > li:hover > a::after {
+.header-nav .nav-lv1 > li:hover > a::after,
+.header-nav .nav-lv1 > li.is-current > a::after {
     transform: scaleX(1);
+}
+
+.header-main .header > ul > li.is-current > a,
+.header-main01 .header > ul > li.is-current > a,
+.header-main .header > ul > li.is-current > a:hover,
+.header-main01 .header > ul > li.is-current > a:hover {
+    color: #5dc2d0;
+    font-weight: 700;
+}
+
+.header .cms-site-submenu a.nav-item-lv2.is-current,
+.header .cms-site-submenu a.nav-lv3.is-current {
+    color: #071218;
+    background: rgba(93, 194, 208, .22);
+}
+
+.pagination a.st span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 22px;
+    line-height: 1;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* 2.7 新闻列表项 —— 图片微缩放
