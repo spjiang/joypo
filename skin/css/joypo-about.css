@@ -129,20 +129,55 @@
 	transform:translateY(-2px);
 }
 
-/* 左右切换按钮：悬停时放大并显形 */
+/* 左右切换：一个圆、一条箭头，始终分开，不叠在证书上 */
 #honor_banner .swiper-button-prev.hl,
 #honor_banner .swiper-button-next.hr{
-	transition:transform .4s cubic-bezier(.18, 1.25, .4, 1),
-	           opacity .35s ease, background-color .35s ease;
+	width:44px;
+	height:44px;
+	margin:0;
+	top:auto;
+	bottom:28px;
+	background:none;
+	border-radius:0;
+	transform:none;
+}
+#honor_banner .swiper-button-prev.hl{
+	left:calc(50% - 62px);
+	right:auto;
+}
+#honor_banner .swiper-button-next.hr{
+	right:calc(50% - 62px);
+	left:auto;
+}
+#honor_banner .swiper-button-prev.hl::after,
+#honor_banner .swiper-button-next.hr::after{
+	content:none;
+}
+#honor_banner .swiper-button-prev.hl span,
+#honor_banner .swiper-button-next.hr span{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	width:44px;
+	height:44px;
+	padding:0;
+	font-size:26px;
+	line-height:1;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666;
+	border:1px solid #c5c5c5;
 	border-radius:50%;
+	box-sizing:border-box;
 }
-#honor_banner .swiper-button-prev.hl:hover{
-	transform:scale(1.16);
-	background-color:rgba(93, 194, 208, .28);
-}
+#honor_banner .swiper-button-prev.hl:hover,
 #honor_banner .swiper-button-next.hr:hover{
-	transform:scale(1.16);
-	background-color:rgba(93, 194, 208, .28);
+	background:none;
+	transform:none;
+}
+#honor_banner .swiper-button-prev.hl:hover span,
+#honor_banner .swiper-button-next.hr:hover span{
+	color:#5dc2d0;
+	border-color:#5dc2d0;
 }
 
 /* ---------------------------------------------------------------------------
