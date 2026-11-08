@@ -705,6 +705,32 @@
 		box-sizing: border-box;
 	}
 
+	.title .h1,
+	.title .h2,
+	.title .h3,
+	.title1 .h3 {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: auto !important;
+		min-height: 40px;
+		max-width: 100%;
+		padding: 8px 22px;
+		font-size: 18px !important;
+		line-height: 1.35 !important;
+		white-space: normal;
+		overflow: visible !important;
+		box-sizing: border-box;
+	}
+
+	.title .h1 span,
+	.title .h2 span,
+	.title .h3 span,
+	.title1 .h3 span {
+		font-size: inherit !important;
+		line-height: inherit !important;
+	}
+
 	#tab1 {
 		position: static;
 		width: auto;
@@ -846,16 +872,25 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		height: auto;
+		height: auto !important;
 		min-height: 36px;
 		max-width: 100%;
 		margin: 0 0 14px;
 		padding: 8px 18px;
-		font-size: 16px;
-		line-height: 1.35;
+		font-size: 16px !important;
+		line-height: 1.35 !important;
 		white-space: normal;
-		overflow: visible;
+		overflow: visible !important;
 		box-sizing: border-box;
+	}
+
+	.title .h1 span,
+	.title .h2 span,
+	.title .h3 span,
+	.title1 .h3 span {
+		font-size: inherit !important;
+		line-height: inherit !important;
+		white-space: normal;
 	}
 
 	.title h1,
