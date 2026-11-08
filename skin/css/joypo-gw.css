@@ -89,7 +89,7 @@
 
 .gw-hero .swiper-slide-active .gw-hero-title,
 .gw-biz .swiper-slide-active .gw-biz-copy h2 {
-	animation: jp-rise 1s cubic-bezier(.22, .61, .36, 1) both;
+	animation: jp-rise 1s cubic-bezier(.22, .61, .36, 1) both, jp-float 5.2s ease-in-out 1s infinite alternate;
 }
 
 .gw-btn {
@@ -265,7 +265,7 @@
 
 .gw-biz .swiper-slide {
 	background-position: center;
-	background-size: cover;
+	background-size: 118%;
 }
 
 .gw-biz-copy p {

@@ -95,6 +95,57 @@ html.no-js .jp-anim {
     transform: none;
 }
 
+/* 进场结束后继续动：裁切框内的图缓慢放大漂移，铺满的图只平移画面 */
+@keyframes jp-live {
+    from { transform: scale(1.02); object-position: 47% 44%; }
+    to { transform: scale(1.08); object-position: 53% 58%; }
+}
+
+@keyframes jp-pan {
+    from { object-position: 44% 40%; }
+    to { object-position: 56% 62%; }
+}
+
+.jp-img--zoom.jp-done {
+    transition: none;
+    animation: jp-live 11s ease-in-out infinite alternate;
+}
+
+.jp-img.jp-done:not(.jp-img--zoom) {
+    animation: jp-pan 16s ease-in-out infinite alternate;
+}
+
+.gw-news-item:hover img.jp-img,
+.jp-prod-shot:hover img.jp-img,
+.jp-prod-thumb-box:hover img.jp-img {
+    animation: none;
+}
+
+@keyframes jp-float {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(0, -8px, 0); }
+}
+
+@keyframes jp-float-sm {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(0, -4px, 0); }
+}
+
+.title .h2.jp-done,
+.title1 .h3.jp-done,
+.gw-kicker,
+.box1 h1,
+.gw-news-copy h3 {
+    animation: jp-float 5.2s ease-in-out infinite alternate;
+}
+
+.box1 p,
+.gw-about-copy p,
+.gw-biz-copy p,
+.pbox p {
+    animation: jp-float-sm 6.4s ease-in-out infinite alternate;
+}
+
 @keyframes jp-shot {
     from {
         opacity: .2;
@@ -113,11 +164,20 @@ html.no-js .jp-anim {
 .swiper-slide-active > img,
 .swiper-slide-active > video,
 .swiper-slide-active .gw-bg {
-    animation: jp-shot 1.15s cubic-bezier(.22, .61, .36, 1) both;
+    animation: jp-shot 1.15s cubic-bezier(.22, .61, .36, 1) both, jp-pan 18s ease-in-out 1.15s infinite alternate;
+}
+
+#gwBiz .swiper-slide {
+    background-size: 118%;
 }
 
 #gwBiz .swiper-slide-active {
-    animation: jp-bg-flash 1.1s ease both;
+    animation: jp-bg-flash 1.1s ease both, jp-bg-pan 18s ease-in-out 1.1s infinite alternate;
+}
+
+@keyframes jp-bg-pan {
+    from { background-position: 42% 38%; }
+    to { background-position: 58% 64%; }
 }
 
 @keyframes jp-bg-flash {
@@ -139,7 +199,17 @@ html.no-js .jp-anim {
     .swiper-slide-active > img,
     .swiper-slide-active > video,
     .swiper-slide-active .gw-bg,
-    #gwBiz .swiper-slide-active {
+    #gwBiz .swiper-slide-active,
+    .jp-img.jp-done,
+    .title .h2.jp-done,
+    .title1 .h3.jp-done,
+    .gw-kicker,
+    .box1 h1,
+    .box1 p,
+    .gw-about-copy p,
+    .gw-biz-copy p,
+    .gw-news-copy h3,
+    .pbox p {
         animation: none;
     }
 }
