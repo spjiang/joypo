@@ -567,8 +567,12 @@ html.no-js .jp-anim {
 
 .header .cms-site-submenu a.nav-item-lv2.is-current,
 .header .cms-site-submenu a.nav-lv3.is-current {
-    color: #071218;
-    background: rgba(93, 194, 208, .22);
+    color: #fff;
+    background: none;
+    text-decoration: underline;
+    text-decoration-color: #5dc2d0;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 7px;
 }
 
 .pagination a.st span {

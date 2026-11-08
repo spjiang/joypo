@@ -98,6 +98,21 @@
 	.header-main .header .cms-site-submenu li > a.nav-lv3:hover {
 		color: #fff;
 	}
+
+	.header-main .header .cms-site-submenu a.nav-item-lv2.is-current,
+	.header-main .header .cms-site-submenu a.nav-lv3.is-current {
+		color: #fff;
+		background: none;
+		text-decoration: underline;
+		text-decoration-color: #5dc2d0;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 7px;
+	}
+
+	.header-main .header .cms-site-submenu li:has(> a.nav-lv3) > a.nav-item-lv2.is-current {
+		text-decoration: none;
+		border-bottom-color: #5dc2d0;
+	}
 }
 
 @media (max-width: 1199px) {
@@ -468,7 +483,11 @@
 	.header .cms-site-submenu a.nav-item-lv2.is-current,
 	.header .cms-site-submenu a.nav-lv3.is-current {
 		color: #fff;
-		background: rgba(93, 194, 208, .28);
+		background: none;
+		text-decoration: underline;
+		text-decoration-color: #5dc2d0;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 6px;
 	}
 
 	.nav-sub-toggle {
