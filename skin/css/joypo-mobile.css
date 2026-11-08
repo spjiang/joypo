@@ -312,6 +312,18 @@
 		background-color: rgba(8, 18, 22, .94);
 	}
 
+	body {
+		padding-top: 64px;
+	}
+
+	.gw-hero,
+	.gw-biz,
+	.gw-hero .swiper-slide,
+	.gw-biz .swiper-slide {
+		height: calc(100svh - 64px);
+		min-height: 0;
+	}
+
 	.header-main .cms-site-inner {
 		width: calc(100% - 24px);
 		align-items: center;
