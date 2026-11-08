@@ -15,7 +15,7 @@
 <!--<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/swipe.min.js"></script> -->
 <script src="{pboot:sitedomain}/skin/css/swiper-bundle.min.js"></script>
-<script src="{pboot:sitedomain}/skin/js/tab.js"></script>
+<script src="{pboot:sitedomain}/skin/js/tab.js?v=20261108e"></script>
 <script type="text/javascript" src="{pboot:sitedomain}/skin/js/wow.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/iconfont.css">
 <!--
@@ -205,12 +205,13 @@
 {include file=foot.html}
 
   <script>
+    var caseNarrow = window.matchMedia("(max-width: 1199px)").matches;
     var swiper = new Swiper(".mySwiper", {
-      slidesPerView: "auto",
-      spaceBetween: 10,
-	  freeMode: true,
-  initialSlide :1,//默认第二个
-  	  centeredSlides: true,
+      slidesPerView: caseNarrow ? 1 : "auto",
+      spaceBetween: caseNarrow ? 0 : 10,
+	  freeMode: !caseNarrow,
+  initialSlide : caseNarrow ? 0 : 1,
+  	  centeredSlides: !caseNarrow,
 	  loop: true, 
 	  autoplay: {
       delay: 2500,

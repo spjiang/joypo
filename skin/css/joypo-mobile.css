@@ -557,6 +557,260 @@
 		font-size: 15px;
 		font-weight: 400;
 	}
+
+	.about,
+	.about1 {
+		margin-top: 0;
+		border-radius: 0;
+	}
+
+	.banner_n2:has(.box1),
+	.banner_pn {
+		height: auto;
+		min-height: 0;
+		overflow: visible;
+		background: #fff;
+	}
+
+	.banner_n2:has(.box1) > img,
+	.banner_pn > img {
+		position: relative;
+		inset: auto;
+		display: block;
+		width: 100%;
+		height: 42vh;
+		min-height: 240px;
+		max-width: none;
+		object-fit: cover;
+	}
+
+	.banner_n2 .box1,
+	.pbox {
+		position: relative;
+		top: auto !important;
+		bottom: auto;
+		left: auto !important;
+		right: auto;
+		width: auto !important;
+		max-width: none;
+		margin: 0;
+		padding: 28px 6% 8px;
+		transform: none !important;
+		text-align: left;
+		line-height: 1.7;
+		color: #16323a;
+		background: #fff;
+		box-sizing: border-box;
+	}
+
+	.banner_n2 .box1 h1,
+	.pbox h1 {
+		height: auto;
+		margin: 0;
+		font-size: 32px;
+		line-height: 1.35;
+		letter-spacing: 0;
+		color: #16323a;
+	}
+
+	.banner_n2 .box1 h1 span {
+		display: block;
+		margin-top: 8px;
+		color: #2b8fa0;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 1.6;
+	}
+
+	.banner_n2 .box1 p,
+	.pbox p {
+		margin: 12px 0 0;
+		line-height: 1.75;
+		color: #4c4c4c;
+	}
+
+	.plcen,
+	.hxcen {
+		position: static;
+		left: auto;
+		bottom: auto;
+		transform: none;
+		width: auto;
+		max-width: none;
+		margin: 16px 6% 28px;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.plcen dl,
+	.hxcen dl {
+		width: auto;
+		padding: 28px 22px;
+		box-sizing: border-box;
+	}
+
+	.plcen dl dt a,
+	.hxcen dl dt {
+		font-size: 22px;
+		line-height: 1.4;
+	}
+
+	#pro_banner {
+		margin-top: 24px;
+	}
+
+	#pro_banner .jp-prod-models,
+	#pro_banner .jp-prod-tabs,
+	#tab01,
+	#tab02,
+	#tab03 {
+		position: static;
+		left: auto;
+		bottom: auto;
+		transform: none;
+		width: auto;
+		height: auto;
+		margin: 16px 6% 32px;
+		padding: 8px 0;
+		line-height: 1.4;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+		box-sizing: border-box;
+		overflow: visible;
+	}
+
+	#pro_banner .jp-prod-models li,
+	#pro_banner .jp-prod-tabs li,
+	#tab01 li,
+	#tab02 li,
+	#tab03 li {
+		float: none;
+		width: auto;
+		height: auto;
+		padding: 12px 18px;
+		font-size: 20px;
+		line-height: 1.4;
+		white-space: nowrap;
+		box-sizing: border-box;
+	}
+
+	.service_list1 ul li a h3 {
+		height: auto;
+		min-height: 0;
+		line-height: 1.45;
+		padding: 16px 18px;
+		overflow: visible;
+		white-space: normal;
+		box-sizing: border-box;
+	}
+
+	#tab1 {
+		position: static;
+		width: auto;
+		height: auto;
+		background: none;
+		text-align: left;
+	}
+
+	#tab1 li {
+		float: none;
+		display: block;
+		height: auto;
+		line-height: 1.4;
+		padding: 8px 0 8px 28px;
+		text-align: left;
+	}
+
+	#tab1 li i {
+		left: 0;
+		top: 12px;
+		transform: none;
+	}
+
+	.lianxi .li1,
+	.lianxi li {
+		float: none;
+		width: auto;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	#case_banner2 .big {
+		width: 100%;
+		overflow: hidden;
+	}
+
+	#case_banner2 .swiper-slide .imWrap img {
+		height: 220px;
+		object-fit: cover;
+	}
+
+	#case_banner2 .swiper-slide {
+		width: 100%;
+	}
+
+	#case_banner2 .ha1 {
+		position: relative;
+		left: auto;
+		right: auto;
+		bottom: auto;
+		display: block;
+		width: auto;
+		margin: 12px 16px 0;
+		font-size: 18px;
+		line-height: 1.4;
+		text-align: center;
+		direction: ltr;
+		color: #16323a;
+		white-space: normal;
+	}
+
+	#zlgl_banner {
+		margin-top: 28px;
+		padding-bottom: 24px;
+	}
+
+	#zlgl_banner,
+	#zlgl_banner .swiper-wrapper {
+		height: auto !important;
+	}
+
+	#zlgl_banner .swiper-slide {
+		flex-direction: column;
+		align-items: stretch;
+		height: auto !important;
+	}
+
+	#zlgl_banner .swiper-slide > a,
+	#zlgl_banner .swiper-slide img {
+		width: 100%;
+		height: auto;
+	}
+
+	#zlgl_banner .swiper-slide .text {
+		position: relative;
+		right: auto;
+		bottom: auto;
+		width: auto;
+		margin: 16px 6% 0;
+		padding: 20px 18px;
+		text-align: left;
+		box-sizing: border-box;
+	}
+
+	#zlgl_banner .swiper-slide .text span {
+		display: block;
+		font-size: 22px;
+		line-height: 1.4;
+		letter-spacing: 0;
+		text-align: left;
+	}
+
+	#zlgl_banner .swiper-slide .text span b {
+		font-size: 28px;
+		line-height: 1.2;
+	}
 }
 
 @media (max-width: 768px) {
@@ -966,7 +1220,11 @@
 		margin-top: 20px;
 	}
 
-	#pro_banner .jp-prod-models {
+	#pro_banner .jp-prod-models,
+	#pro_banner .jp-prod-tabs,
+	#tab01,
+	#tab02,
+	#tab03 {
 		position: static;
 		left: auto;
 		bottom: auto;
@@ -974,22 +1232,36 @@
 		width: auto;
 		height: auto;
 		margin: 12px 16px 28px;
-		padding: 8px 0;
+		padding: 6px 0;
 		line-height: 1.4;
 		flex-direction: column;
+		align-items: stretch;
 		gap: 0;
 		box-sizing: border-box;
+		overflow: visible;
 	}
 
-	#pro_banner .jp-prod-models li {
+	#pro_banner .jp-prod-models li,
+	#pro_banner .jp-prod-tabs li,
+	#tab01 li,
+	#tab02 li,
+	#tab03 li {
 		float: none;
 		width: 100%;
 		height: auto;
-		padding: 12px 16px;
+		padding: 14px 16px;
 		font-size: 18px;
-		line-height: 1.35;
+		line-height: 1.4;
 		white-space: nowrap;
 		box-sizing: border-box;
+	}
+
+	#tab01 li span,
+	#tab02 li span,
+	#tab03 li span,
+	.jp-prod-tabs li span {
+		width: 36px;
+		bottom: 8px;
 	}
 
 	.banner_n2:has(.box1),
@@ -1080,7 +1352,8 @@
 	.nav_n .box,
 	.new_conter,
 	.new_conter_p,
-	.probody {
+	.probody,
+	.title {
 		padding-right: 58px;
 		box-sizing: border-box;
 	}

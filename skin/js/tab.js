@@ -160,6 +160,7 @@ $(document).ready(function(){
       var galleryTop1 = new Swiper('#zlgl_banner', {
       slidesPerView:1,
       spaceBetween:27,
+      autoHeight: true,
       loop: true,
       autoplay:{
         delay:3000,
@@ -171,6 +172,7 @@ $(document).ready(function(){
       var galleryTop1 = new Swiper('#zlgl_banner', {
       slidesPerView:1,
       spaceBetween:10,
+      autoHeight: true,
       loop: true,
       autoplay:{
         delay:3000,
