@@ -1605,6 +1605,23 @@
 	min-height: 350px;
 }
 
+/* 分类标题保持一行，避免英文标题折进说明文字 */
+.pbox {
+	width: max-content;
+	max-width: min(760px, 72%);
+}
+
+.pbox h1 {
+	height: auto;
+	line-height: 1.25;
+	white-space: nowrap;
+}
+
+.pbox p {
+	max-width: 36em;
+	margin-top: 12px;
+}
+
 /* 手机上区块改成一屏滑动 */
 @media (max-width: 1199px) {
 	#inews_banner {
@@ -1780,6 +1797,23 @@
 
 	.banner_n2 .box1 h1 span {
 		font-size: 15px;
+	}
+
+	.pbox {
+		width: max-content !important;
+		max-width: calc(100% - 32px) !important;
+	}
+
+	.pbox h1 {
+		height: auto;
+		line-height: 1.25;
+		white-space: nowrap;
+		font-size: clamp(16px, 4.4vw, 32px);
+	}
+
+	.pbox p {
+		max-width: 36em;
+		white-space: normal;
 	}
 
 	.plcen {
