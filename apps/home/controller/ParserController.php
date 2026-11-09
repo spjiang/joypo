@@ -3361,16 +3361,19 @@ class ParserController extends Controller
         return $content;
     }
 
-    // 英文页优先用英文正文里的图片；没有图片时仍用缩略图
+    // 英文页只输出英文正文里的图片；没有英文图的条目不显示，避免退回中文缩略图
     protected function parserLangPic($data, $params)
     {
-        $enHtml = isset($data->content_en) ? $data->content_en : '';
-        if (\app\common\I18n::lang() === 'en' && \app\common\I18n::hasMedia($enHtml)) {
+        if (\app\common\I18n::lang() === 'en') {
+            $enHtml = isset($data->content_en) ? $data->content_en : '';
+            if (! \app\common\I18n::hasMedia($enHtml)) {
+                return '';
+            }
             $enHtml = filter_html($enHtml);
             if (function_exists('rewrite_static_urls_in_html')) {
                 $enHtml = rewrite_static_urls_in_html($enHtml);
             }
-            return $enHtml;
+            return '<div class="swiper-slide join-life-pic">' . $enHtml . '</div>';
         }
         $alt = isset($data->title) ? htmlspecialchars((string) $data->title, ENT_QUOTES, 'UTF-8') : '';
         if (! empty($data->ico)) {
@@ -3380,7 +3383,8 @@ class ParserController extends Controller
         } else {
             $src = $this->adjustLabelData($params, STATIC_DIR . '/images/nopic.png');
         }
-        return '<img src="' . htmlspecialchars((string) $src, ENT_QUOTES, 'UTF-8') . '" alt="' . $alt . '"/>';
+        $img = '<img src="' . htmlspecialchars((string) $src, ENT_QUOTES, 'UTF-8') . '" alt="' . $alt . '"/>';
+        return '<div class="swiper-slide join-life-pic">' . $img . '</div>';
     }
 
     // 将站内资源相对路径转为前台 URL（含 CDN 前缀；缩放仍走本地文件）
