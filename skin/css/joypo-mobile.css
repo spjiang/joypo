@@ -1882,4 +1882,60 @@
 		object-fit: cover;
 		background: #0b1c22;
 	}
+
+	/* 标题留在图片上，说明和分类按钮排在图片下面，避免挡住正文 */
+	.banner_n2:has(.box1) {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+
+	.banner_n2:has(.box1) > img {
+		grid-row: 1;
+		grid-column: 1;
+		width: 100%;
+		height: auto !important;
+	}
+
+	.banner_n2:has(.box1) .box1 {
+		display: contents;
+	}
+
+	.banner_n2:has(.box1) .box1 h1 {
+		grid-row: 1;
+		grid-column: 1;
+		align-self: center;
+		justify-self: center;
+		position: relative !important;
+		top: auto !important;
+		left: auto !important;
+		width: min(640px, 88%);
+		margin: 0;
+		transform: none !important;
+		z-index: 2;
+		color: #fff;
+		text-align: center;
+	}
+
+	.banner_n2:has(.box1) .box1 p {
+		grid-row: 2;
+		position: static !important;
+		margin: 18px 20px 0;
+		color: #16323a;
+		text-align: left;
+		background: transparent;
+	}
+
+	.banner_n2:has(.box1) > .blank2 {
+		grid-row: 3;
+	}
+
+	.banner_n2:has(.box1) > .plcen {
+		grid-row: 4;
+		position: static !important;
+		left: auto !important;
+		bottom: auto !important;
+		transform: none !important;
+		justify-self: center;
+		z-index: 2;
+	}
 }
