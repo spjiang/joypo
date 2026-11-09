@@ -1605,31 +1605,8 @@
 	min-height: 350px;
 }
 
-/* 手机上收掉 75px 空档，模块改成一屏滑动 */
+/* 手机上区块改成一屏滑动 */
 @media (max-width: 1199px) {
-	.blank6 {
-		height: 0 !important;
-	}
-
-	.blank2,
-	.blank3 {
-		height: 12px;
-	}
-
-	#w1,
-	#w2,
-	#w3,
-	#w4,
-	#w5,
-	#w6,
-	#w8,
-	#w9,
-	#w10,
-	#w11 {
-		min-height: 0;
-		background-size: cover;
-	}
-
 	#inews_banner {
 		width: 100%;
 		padding-left: 0;
