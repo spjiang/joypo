@@ -328,6 +328,7 @@ class ParserModel extends Model
                 'a.filename',
                 'a.outlink',
                 'a.pic',
+                'a.pic_en',
                 'b.type',
                 'b.urlname'
             );
@@ -339,7 +340,7 @@ class ParserModel extends Model
             $this->sorts = parent::table('ay_content_sort a')->where("a.acode='" . get_lg() . "'")
                 ->join($join)
                 ->column($fields, 'scode');
-            $this->sorts = $this->i18nRows($this->sorts, array('name'));
+            $this->sorts = $this->i18nRows($this->sorts, array('name', 'pic'));
         }
         return $this->sorts;
     }
@@ -1122,7 +1123,7 @@ class ParserModel extends Model
 
     private function i18nSortFields()
     {
-        return array('name', 'subname', 'title', 'keywords', 'description', 'def1', 'def2', 'def3');
+        return array('name', 'subname', 'title', 'keywords', 'description', 'def1', 'def2', 'def3', 'pic');
     }
 
     private function i18nContentFields()

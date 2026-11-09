@@ -302,6 +302,17 @@
 								 </button>
 								 <div id="pic_box" class="pic"></div>
 			                </div>
+
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文栏目大图</label>
+			                     <div class="layui-input-inline">
+			                     	<input type="text" name="pic_en" id="pic_en" placeholder="留空则英文页面仍显示中文大图"  class="layui-input">
+			                     </div>
+			                     <button type="button" class="layui-btn upload" data-des="pic_en">
+								 	 <i class="layui-icon">&#xe67c;</i>上传图片
+								 </button>
+								 <div id="pic_en_box" class="pic"></div>
+			                </div>
 			                
 			                <div class="layui-form-item">
 			                     <label class="layui-form-label">SEO标题</label>
@@ -651,6 +662,17 @@
 							 	 <i class="layui-icon">&#xe67c;</i>上传图片
 							 </button>
 							 <div id="pic_box" class="pic"><dl><dt>{if([$sort->pic])}<img src='{SITE_DIR}{$sort->pic}' data-url="{$sort->pic}"></dt><dd>删除</dd></dl>{/if}</div>
+		                </div>
+
+		                 <div class="layui-form-item">
+		                     <label class="layui-form-label">英文栏目大图</label>
+		                     <div class="layui-input-inline">
+		                     	<input type="text" name="pic_en" id="pic_en" value="{$sort->pic_en}" placeholder="留空则英文页面仍显示中文大图"  class="layui-input">
+		                     </div>
+		                     <button type="button" class="layui-btn upload" data-des="pic_en">
+							 	 <i class="layui-icon">&#xe67c;</i>上传图片
+							 </button>
+							 <div id="pic_en_box" class="pic"><dl><dt>{if([$sort->pic_en])}<img src='{SITE_DIR}{$sort->pic_en}' data-url="{$sort->pic_en}"></dt><dd>删除</dd></dl>{/if}</div>
 		                </div>
 		                
 		                <div class="layui-form-item">

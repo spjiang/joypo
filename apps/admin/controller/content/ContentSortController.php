@@ -157,6 +157,7 @@ class ContentSortController extends Controller
                 $outlink = post('outlink');
                 $ico = post('ico');
                 $pic = post('pic');
+                $pic_en = post('pic_en');
                 $title = post('title');
                 $keywords = post('keywords');
                 $description = post('description');
@@ -248,6 +249,7 @@ class ContentSortController extends Controller
                     'outlink' => $outlink,
                     'ico' => $ico,
                     'pic' => $pic,
+                    'pic_en' => $pic_en,
                     'title' => $title,
                     'title_en' => $title_en,
                     'keywords' => $keywords,
@@ -389,6 +391,7 @@ class ContentSortController extends Controller
             $outlink = post('outlink');
             $ico = post('ico');
             $pic = post('pic');
+            $pic_en = post('pic_en');
             $title = post('title');
             $keywords = post('keywords');
             $description = post('description');
@@ -469,6 +472,7 @@ class ContentSortController extends Controller
                 'outlink' => $outlink,
                 'ico' => $ico,
                 'pic' => $pic,
+                'pic_en' => $pic_en,
                 'title' => $title,
                 'title_en' => $title_en,
                 'keywords' => $keywords,

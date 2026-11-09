@@ -112,7 +112,7 @@ class I18n
         $done = true;
         $map = array(
             'ay_site' => array('title_en', 'subtitle_en', 'keywords_en', 'description_en', 'copyright_en', 'icp_en'),
-            'ay_content_sort' => array('name_en', 'subname_en', 'title_en', 'keywords_en', 'description_en', 'def1_en', 'def2_en', 'def3_en'),
+            'ay_content_sort' => array('name_en', 'subname_en', 'title_en', 'keywords_en', 'description_en', 'def1_en', 'def2_en', 'def3_en', 'pic_en'),
             'ay_content' => array('title_en', 'keywords_en', 'description_en', 'content_en'),
             'ay_company' => array('address_en')
         );
