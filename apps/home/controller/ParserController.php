@@ -3375,11 +3375,17 @@ class ParserController extends Controller
             }
             return '<div class="swiper-slide join-life-pic">' . $enHtml . '</div>';
         }
+        $html = isset($data->content) ? $data->content : '';
+        if (\app\common\I18n::hasMedia($html)) {
+            $html = filter_html($html);
+            if (function_exists('rewrite_static_urls_in_html')) {
+                $html = rewrite_static_urls_in_html($html);
+            }
+            return '<div class="swiper-slide join-life-pic">' . $html . '</div>';
+        }
         $alt = isset($data->title) ? htmlspecialchars((string) $data->title, ENT_QUOTES, 'UTF-8') : '';
         if (! empty($data->ico)) {
             $src = $this->parserAssetUrl($data->ico, $params);
-        } elseif (! empty($data->content) && preg_match('/<img\s+.*?src=\s?[\'|\"](.*?(\.gif|\.jpg|\.jpeg|\.png|\.webp))[\'|\"].*?[\/]?>/i', $data->content, $srcs) && isset($srcs[1])) {
-            $src = $this->parserAssetUrl($srcs[1], $params);
         } else {
             $src = $this->adjustLabelData($params, STATIC_DIR . '/images/nopic.png');
         }
