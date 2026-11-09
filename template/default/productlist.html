@@ -74,7 +74,7 @@ $(document).ready(function() {
 
 </script>
 </head>
-<body>
+<body class="page-cnxt">
 {include file=head.html}
 <!--banner-->
 <div class="banner_n2">
@@ -95,8 +95,6 @@ $(document).ready(function() {
    
 </div>    
 </div>
-<div class="cl blank6"></div>
-<div class="cl blank6"></div>
 <!--内页导航-->
 
 <!--案例-->
@@ -137,7 +135,7 @@ $(document).ready(function() {
 <div class="modal" id="modal-one[list:id]" aria-hidden="true">
   <div class="modal-dialog">
        
-      <a href="" class="btn-close" aria-hidden="true">×</a>
+      <button type="button" class="btn-close" aria-label="关闭">×</button>
    
 <div class="modal_text">
 {if(joypo_lang()=='en')}[list:content]{else}<img src="[list:ext_cpcs]" alt="[list:title]"/>{/if}
@@ -171,8 +169,6 @@ $(document).ready(function() {
 
   </div>
   </div>
- <div class="cl blank6"></div> 
-      <div class="cl blank6"></div> 
         {/pboot:nav}
 
 <div id="w10">

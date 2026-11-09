@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 </script>
 </head>
-<body>
+<body class="page-dlxt">
 {include file=head.html}
 <!--banner-->
 <div class="banner_n2">
@@ -72,8 +72,6 @@ $(document).ready(function() {
    
 </div>    
 </div>
-<div class="cl blank6"></div>
-<div class="cl blank6"></div>
 <!--内页导航-->
 
 <!--案例-->
@@ -97,8 +95,9 @@ $(document).ready(function() {
 
             <ul class="jp-prod-shot">
    <li class="jp-prod-shot-item">
-     <a href="#modal-one[list:id]" class="jp-prod-shot-link">
-       <span class="jp-prod-shot-box">{if(joypo_lang()=='en')}[list:content]{else}<img class="jp-prod-spec" src="[list:ext_cpcs]" alt="[list:title]"/>{/if}</span>
+     <a href="#modal-one[list:id]" target="_self" class="jp-prod-shot-link">
+       <span class="jp-prod-shot-box"><img src="[list:ico]" alt="[list:title]"/></span>
+       <span class="jp-prod-shot-tip">{fun=joypo_t('prod.params')}</span>
      </a>
    </li>
             </ul>
@@ -107,7 +106,7 @@ $(document).ready(function() {
 <div class="modal" id="modal-one[list:id]" aria-hidden="true">
   <div class="modal-dialog">
        
-      <a href="#" class="btn-close" aria-hidden="true">×</a>
+      <button type="button" class="btn-close" aria-label="关闭">×</button>
    
 <div class="modal_text">
 {if(joypo_lang()=='en')}[list:content]{else}<img src="[list:ext_cpcs]" alt="[list:title]"/>{/if}

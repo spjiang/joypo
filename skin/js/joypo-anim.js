@@ -442,7 +442,7 @@
             var y = win.scrollY || 0;
             var solid = y > 80;
             var locked = doc.body.classList.contains('nav-locked');
-            var hovering = header.matches(':hover');
+            var hovering = header.matches(':hover') || !!header.querySelector('.is-nav-open');
             var hide = !locked && !hovering && y > last && y > 140;
             doc.body.classList.toggle('jp-nav-solid', solid);
             doc.body.classList.toggle('jp-nav-hide', hide);
@@ -454,6 +454,75 @@
             doc.body.classList.remove('jp-nav-hide');
         });
         update();
+    }
+
+    function initNavIntent() {
+        if (!win.matchMedia('(min-width: 1200px)').matches) return;
+        $$('.nav-lv1 > li').forEach(function (li) {
+            if (!li.querySelector('.cms-site-submenu')) return;
+            var timer = 0;
+            li.addEventListener('mouseenter', function () {
+                win.clearTimeout(timer);
+                li.classList.add('is-nav-open');
+            });
+            li.addEventListener('mouseleave', function () {
+                win.clearTimeout(timer);
+                timer = win.setTimeout(function () {
+                    li.classList.remove('is-nav-open');
+                }, 320);
+            });
+        });
+    }
+
+    function holdScroll(y) {
+        var until = Date.now() + 500;
+        function keep() {
+            if (Math.abs((win.pageYOffset || 0) - y) > 1) win.scrollTo(0, y);
+        }
+        keep();
+        function guard() {
+            if (Date.now() > until) {
+                win.removeEventListener('scroll', guard);
+                return;
+            }
+            keep();
+        }
+        win.addEventListener('scroll', guard);
+        win.requestAnimationFrame(keep);
+        win.setTimeout(keep, 0);
+        win.setTimeout(keep, 60);
+        win.setTimeout(keep, 180);
+    }
+
+    function initModalClose() {
+        var closeY = null;
+        doc.addEventListener('mousedown', function (e) {
+            var btn = e.target.closest ? e.target.closest('.modal .btn-close') : null;
+            if (!btn) return;
+            closeY = win.pageYOffset || doc.documentElement.scrollTop || 0;
+            e.preventDefault();
+        }, true);
+        doc.addEventListener('click', function (e) {
+            var open = e.target.closest ? e.target.closest('a[href^="#modal-"]') : null;
+            if (open) {
+                $$('.modal.is-shut').forEach(function (modal) {
+                    modal.classList.remove('is-shut');
+                });
+                holdScroll(win.pageYOffset || doc.documentElement.scrollTop || 0);
+            }
+            var btn = e.target.closest ? e.target.closest('.modal .btn-close') : null;
+            if (!btn) return;
+            e.preventDefault();
+            var y = closeY === null ? (win.pageYOffset || doc.documentElement.scrollTop || 0) : closeY;
+            closeY = null;
+            if (btn.blur) btn.blur();
+            var modal = btn.closest('.modal');
+            if (modal) modal.classList.add('is-shut');
+            if (win.history && history.replaceState) {
+                history.replaceState(null, '', location.pathname + location.search);
+            }
+            holdScroll(y);
+        });
     }
 
     /* ================================================================
@@ -510,12 +579,41 @@
             e.preventDefault();
             var src = a.getAttribute('href');
             if (!src) return;
+            var titleNode = a.querySelector('.jp-zoom-title');
+            var descNode = a.querySelector('.jp-zoom-desc');
+            var title = titleNode ? titleNode.textContent.replace(/\s+/g, ' ').trim() : '';
+            var desc = descNode ? descNode.textContent.replace(/\s+/g, ' ').trim() : '';
             var layer = doc.createElement('div');
             layer.className = 'jp-zoom-layer';
-            layer.innerHTML = '<button type="button" aria-label="关闭">×</button><img alt="">';
-            layer.querySelector('img').src = src;
+            var button = doc.createElement('button');
+            button.type = 'button';
+            button.setAttribute('aria-label', '关闭');
+            button.textContent = '×';
+            var panel = doc.createElement('div');
+            panel.className = 'jp-zoom-panel';
+            var img = doc.createElement('img');
+            img.alt = title;
+            img.src = src;
+            panel.appendChild(img);
+            if (title || desc) {
+                var caption = doc.createElement('div');
+                caption.className = 'jp-zoom-caption';
+                if (title) {
+                    var heading = doc.createElement('strong');
+                    heading.textContent = title;
+                    caption.appendChild(heading);
+                }
+                if (desc) {
+                    var copy = doc.createElement('p');
+                    copy.textContent = desc;
+                    caption.appendChild(copy);
+                }
+                panel.appendChild(caption);
+            }
+            layer.appendChild(button);
+            layer.appendChild(panel);
             layer.addEventListener('click', function (ev) {
-                if (ev.target === layer || ev.target.tagName === 'BUTTON') {
+                if (ev.target === layer || ev.target === button) {
                     if (layer.parentNode) layer.parentNode.removeChild(layer);
                 }
             });
@@ -569,6 +667,8 @@
             initProgress();
             initSmoothScroll();
             initHeader();
+            initNavIntent();
+            initModalClose();
             initMouse();
             markCurrentNav();
             watchStages();

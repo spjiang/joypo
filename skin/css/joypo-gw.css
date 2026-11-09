@@ -722,18 +722,32 @@ video.jp-img {
 }
 
 /* 参数弹窗关闭按钮在圆标里居中 */
-.btn-close {
+.modal-dialog > .btn-close {
+	position: sticky;
+	top: 8px;
+	right: auto;
+	float: right;
+	z-index: 6;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 44px;
 	height: 44px;
+	margin: 4px 0 -44px;
 	padding: 0;
-	right: 14px;
-	top: 14px;
+	border: 0;
+	cursor: pointer;
 	font-size: 28px;
 	line-height: 1;
 	text-decoration: none;
+}
+
+.modal.is-shut:target::before,
+.modal.is-shut:target .modal-dialog {
+	display: none !important;
+	visibility: hidden !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
 }
 
 /* 证书整张显示，历程圆图不漂移 */
@@ -822,18 +836,51 @@ video.jp-img {
 	padding: 48px 24px;
 	background: rgba(7, 18, 24, .82);
 }
-.jp-zoom-layer img {
-	max-width: min(1100px, 92vw);
+.jp-zoom-panel {
+	display: flex;
+	flex-direction: column;
+	width: min(1100px, 92vw);
 	max-height: 86vh;
-	width: auto;
+}
+.jp-zoom-layer img,
+.jp-zoom-panel img {
+	display: block;
+	width: 100%;
+	max-width: 100%;
 	height: auto;
+	max-height: min(500px, calc(86vh - 148px));
 	object-fit: contain;
 	background: #fff;
+}
+.jp-zoom-meta {
+	display: none;
+}
+.jp-zoom-caption {
+	flex: 0 0 auto;
+	background: #0d3a44;
+	color: #fff;
+	padding: 16px 22px 18px;
+}
+.jp-zoom-caption strong,
+.jp-zoom-caption p {
+	display: block;
+	margin: 0;
+}
+.jp-zoom-caption strong {
+	font-size: 20px;
+	line-height: 1.4;
+}
+.jp-zoom-caption p {
+	margin-top: 8px;
+	font-size: 15px;
+	line-height: 1.65;
+	color: rgba(255, 255, 255, .88);
 }
 .jp-zoom-layer button {
 	position: absolute;
 	top: 20px;
 	right: 20px;
+	z-index: 2;
 	width: 44px;
 	height: 44px;
 	border: 0;
@@ -843,4 +890,34 @@ video.jp-img {
 	font-size: 28px;
 	line-height: 1;
 	cursor: pointer;
+}
+
+.jp-home-w1 {
+	margin-bottom: 44px;
+}
+
+#case_banner2 .swiper-slide .imWrap img {
+	height: 500px;
+	object-fit: cover;
+	object-position: center;
+}
+
+.page-cnxt .banner_pn,
+.page-dlxt .banner_pn {
+	margin-top: 20px;
+}
+
+.page-dlxt #pro_banner {
+	padding: 1rem 10px;
+}
+
+@media (min-width: 1200px) {
+	.page-cnxt .banner_n2,
+	.page-dlxt .banner_n2 {
+		margin-bottom: 80px;
+	}
+
+	.page-cnxt .banner_pn + .w {
+		margin-bottom: 116px;
+	}
 }
