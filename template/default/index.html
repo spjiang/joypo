@@ -16,7 +16,7 @@
 <!--<script src="{pboot:sitedomain}/skin/js/swiper.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/swipe.min.js"></script> -->
 <script src="{pboot:sitedomain}/skin/css/swiper-bundle.min.js"></script>
-<script src="{pboot:sitedomain}/skin/js/tab.js"></script>
+<script src="{pboot:sitedomain}/skin/js/tab.js?v=20261109a"></script>
 <script src="{pboot:sitedomain}/skin/js/aos.js"></script>
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/iconfont.css">
 
@@ -41,8 +41,6 @@
         </div>
         </div>
    </div>   
-    
-    <div class="cl blank6"></div>
  <!--关于我们-->   
 {pboot:sort scode=1}
  <div id="w1">
@@ -86,7 +84,6 @@
     
         
  </div>
-   	<div class="cl blank6"></div>  
  </div>
  {/pboot:sort}
  <style>
@@ -99,7 +96,6 @@
 
   
 
-<div class="cl blank6"></div>
 		<div class="title" aos="fade-up">
 			<div class="h2">{fun=joypo_t('home.solution')}</div>
             <h2>{fun=joypo_t('home.solution_h')}</h2>
@@ -176,10 +172,12 @@
 <div class="cl blank2"></div>
 </div>-->
  <div class="cl blank3"></div>
-		<div class="title" aos="fade-up">
+		<div class="title jp-news-head" aos="fade-up">
 			<div class="h2">{fun=joypo_t('home.news')}</div>
-           
 		</div>
+		{pboot:sort scode=7}
+		<p class="jp-news-more"><a href="[sort:link]">{fun=joypo_t('home.more')}</a></p>
+		{/pboot:sort}
         
         <div class="swiper mySwiper1" id="inews_banner">
       <div class="swiper-wrapper"> 

@@ -537,6 +537,29 @@
     /* ================================================================
        8. 启动
        ================================================================ */
+    function initVideos() {
+        $$('video').forEach(function (v) {
+            v.muted = true;
+            v.setAttribute('playsinline', '');
+            v.setAttribute('webkit-playsinline', '');
+            var play = function () {
+                var ret = v.play();
+                if (ret && ret.catch) ret.catch(function () {});
+            };
+            play();
+            v.addEventListener('loadeddata', play);
+        });
+        var kicked = false;
+        doc.addEventListener('touchstart', function () {
+            if (kicked) return;
+            kicked = true;
+            $$('video').forEach(function (v) {
+                var ret = v.play();
+                if (ret && ret.catch) ret.catch(function () {});
+            });
+        }, { passive: true });
+    }
+
     function boot() {
         try {
             applyAnimations();
@@ -550,6 +573,7 @@
             markCurrentNav();
             watchStages();
             initZoom();
+            initVideos();
         } catch (e) {
             // 任何异常都要保证内容可见
             $$('.jp-anim, .jp-img').forEach(function (el) {

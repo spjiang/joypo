@@ -52,9 +52,9 @@ $(function() {
      }); 
        }else{
       var galleryTop1 = new Swiper('#inews_banner', {
-      slidesPerView:1.35,
-      spaceBetween:12,
-      centeredSlides: true,
+      slidesPerView:1,
+      spaceBetween:0,
+      centeredSlides: false,
       initialSlide :0,
       loop: true,
       watchOverflow: true,
