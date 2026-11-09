@@ -3361,6 +3361,28 @@ class ParserController extends Controller
         return $content;
     }
 
+    // 英文页优先用英文正文里的图片；没有图片时仍用缩略图
+    protected function parserLangPic($data, $params)
+    {
+        $enHtml = isset($data->content_en) ? $data->content_en : '';
+        if (\app\common\I18n::lang() === 'en' && \app\common\I18n::hasMedia($enHtml)) {
+            $enHtml = filter_html($enHtml);
+            if (function_exists('rewrite_static_urls_in_html')) {
+                $enHtml = rewrite_static_urls_in_html($enHtml);
+            }
+            return $enHtml;
+        }
+        $alt = isset($data->title) ? htmlspecialchars((string) $data->title, ENT_QUOTES, 'UTF-8') : '';
+        if (! empty($data->ico)) {
+            $src = $this->parserAssetUrl($data->ico, $params);
+        } elseif (! empty($data->content) && preg_match('/<img\s+.*?src=\s?[\'|\"](.*?(\.gif|\.jpg|\.jpeg|\.png|\.webp))[\'|\"].*?[\/]?>/i', $data->content, $srcs) && isset($srcs[1])) {
+            $src = $this->parserAssetUrl($srcs[1], $params);
+        } else {
+            $src = $this->adjustLabelData($params, STATIC_DIR . '/images/nopic.png');
+        }
+        return '<img src="' . htmlspecialchars((string) $src, ENT_QUOTES, 'UTF-8') . '" alt="' . $alt . '"/>';
+    }
+
     // 将站内资源相对路径转为前台 URL（含 CDN 前缀；缩放仍走本地文件）
     protected function parserAssetUrl($path, $params = array())
     {
@@ -3696,6 +3718,9 @@ class ParserController extends Controller
                 } else {
                     $content = str_replace($search, $this->adjustLabelData($params, STATIC_DIR . '/images/nopic.png'), $content);
                 }
+                break;
+            case 'langpic':
+                $content = str_replace($search, $this->parserLangPic($data, $params), $content);
                 break;
             case 'isico':
                 if ($data->ico) {

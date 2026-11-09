@@ -57,9 +57,25 @@ class I18n
         if (! is_string($value)) {
             return false;
         }
+        if (self::hasMedia($value)) {
+            return true;
+        }
         $text = trim(html_entity_decode(strip_tags($value), ENT_QUOTES, 'UTF-8'));
         $text = str_replace("\xc2\xa0", '', $text);
+        $text = preg_replace('/\s+/u', '', $text);
         return $text !== '';
+    }
+
+    /**
+     * 富文本里只有图片、没有可见文字时也算有内容。
+     * 编辑器空段落（<p><br></p>、&nbsp;）不算。
+     */
+    public static function hasMedia($value)
+    {
+        if (! is_string($value) || $value === '') {
+            return false;
+        }
+        return (bool) preg_match('/<(?:img|video|audio|iframe|source)\b/i', $value);
     }
 
     /**
@@ -153,15 +169,26 @@ class I18n
                 continue;
             }
             while ($info = $res->fetch_assoc()) {
-                $have[$info['Field']] = true;
+                $have[$info['Field']] = strtolower((string) $info['Type']);
             }
             foreach ($cols as $col) {
+                $ddl = self::mysqlColumnDdl($col);
                 if (! isset($have[$col])) {
-                    $db->query('ALTER TABLE `' . $table . '` ADD COLUMN `' . $col . "` varchar(512) NOT NULL DEFAULT ''");
+                    $db->query('ALTER TABLE `' . $table . '` ADD COLUMN `' . $col . '` ' . $ddl);
+                } elseif ($col === 'content_en' && strpos($have[$col], 'text') === false) {
+                    $db->query('ALTER TABLE `' . $table . '` MODIFY `' . $col . '` ' . $ddl);
                 }
             }
         }
         $db->close();
+    }
+
+    private static function mysqlColumnDdl($col)
+    {
+        if ($col === 'content_en') {
+            return 'MEDIUMTEXT NULL';
+        }
+        return "varchar(512) NOT NULL DEFAULT ''";
     }
 
     private static function packs()
