@@ -89,9 +89,12 @@ class ContentSortModel extends Model
             'a.mcode=b.mcode',
             'LEFT'
         );
+        // 不过滤 outlink：本站子栏目常用站内锚点（如 /?cnxt#p1）做导航，
+        // 若要求 outlink 为空，会导致「家庭储能」等子栏目无法出现在内容栏目下拉中。
+        // 仅排除 http(s) 外部链接栏目，避免把跳转外链的栏目当作可发文栏目。
         $result = parent::table('ay_content_sort a')->field($field)
             ->where('b.type=2')
-            ->where("a.outlink=''")
+            ->where("a.outlink NOT LIKE 'http%'")
             ->where("a.mcode='$mcode'")
             ->where("a.acode='" . session('acode') . "'")
             ->join($join)
