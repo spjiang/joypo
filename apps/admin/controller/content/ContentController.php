@@ -261,7 +261,8 @@ class ContentController extends Controller
             } else {
                 $select = '';
             }
-            $list_html .= "<option value='{$value->scode}' $select>{$this->blank}{$value->name}";
+            // 必须先闭合 option，再输出子栏目；否则父子嵌套时 Layui 下拉会解析失败，显示为空白且无法选择
+            $list_html .= "<option value='{$value->scode}' $select>{$this->blank}{$value->name}</option>";
             // 子菜单处理
             if ($value->son) {
                 $this->blank .= '　　';
