@@ -983,4 +983,25 @@ video.jp-img {
 		background: #e5e5e5 !important;
 		box-shadow: none;
 	}
+
+	/* 该分类下没有产品时，隐藏空的产品区与青色型号条，避免出现空白块 */
+	.page-cnxt .banner_pn + .w:not(:has(.jp-prod-shot)),
+	.page-dlxt .banner_pn + .w:not(:has(.jp-prod-shot)),
+	.page-xfdz .banner_pn + .w:not(:has(.jp-prod-shot)),
+	.page-cnxt #pro_banner:not(:has(.jp-prod-shot)),
+	.page-dlxt #pro_banner:not(:has(.jp-prod-shot)),
+	.page-xfdz #pro_banner:not(:has(.jp-prod-shot)) {
+		display: none !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		min-height: 0 !important;
+	}
+	.page-cnxt .jp-prod-models:not(:has(li)),
+	.page-cnxt .jp-prod-tabs:not(:has(li)),
+	.page-dlxt .jp-prod-models:not(:has(li)),
+	.page-dlxt .jp-prod-tabs:not(:has(li)),
+	.page-xfdz .jp-prod-models:not(:has(li)),
+	.page-xfdz .jp-prod-tabs:not(:has(li)) {
+		display: none !important;
+	}
 }
