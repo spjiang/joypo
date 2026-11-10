@@ -80,9 +80,16 @@
             if (!shots.length) return;
 
             // 找到同一组的型号标签（#tab0N 与 #content0N 同属 #outer0N）
+            // cnxt 用 .jp-prod-models；dlxt/xfdz 用 .jp-prod-tabs
             var wrap = stage.closest('[id^=outer0]');
-            var tabList = wrap ? $('.jp-prod-models', wrap) : null;
-            var models = tabList ? $$('.jp-prod-model', tabList) : [];
+            var tabList = wrap
+                ? ($('.jp-prod-models', wrap) || $('.jp-prod-tabs', wrap))
+                : null;
+            var models = tabList
+                ? ($$('.jp-prod-model', tabList).length
+                    ? $$('.jp-prod-model', tabList)
+                    : $$('li', tabList))
+                : [];
 
             var pairs = Math.min(shots.length, models.length);
             if (!pairs) return;
@@ -132,6 +139,7 @@
         if (!modelIO) {
             if (reduceMotion || !('IntersectionObserver' in win)) {
                 tabList.classList.add('jp-in');
+                models.forEach(function (m) { m.classList.add('is-in'); });
                 return;
             }
             modelIO = new IntersectionObserver(function (entries) {
