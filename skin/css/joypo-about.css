@@ -60,21 +60,26 @@
 
 /* 悬停：大数字保持清晰，不加阴影/抬升 */
 .jp-about-stats ul li{
-	transition:none;
+	transition:none !important;
+	filter:none !important;
 }
 .jp-about-stats ul li:hover{
-	transform:none;
-	filter:none;
+	transform:none !important;
+	filter:none !important;
+	box-shadow:none !important;
 }
 
 .jp-about-stats ul li .timer,
 .jp-about-stats ul li strong{
-	transition:none;
+	transition:none !important;
+	text-shadow:none !important;
+	filter:none !important;
 }
 .jp-about-stats ul li:hover .timer,
 .jp-about-stats ul li:hover strong{
-	color:inherit;
-	text-shadow:none;
+	color:inherit !important;
+	text-shadow:none !important;
+	filter:none !important;
 }
 
 /* ---------------------------------------------------------------------------

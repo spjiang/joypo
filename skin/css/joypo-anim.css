@@ -450,30 +450,56 @@ html.no-js .jp-anim {
     box-shadow: 0 12px 30px rgba(43, 143, 160, .32);
 }
 
-/* 2.4 数据统计数字 —— 悬停不变色、不加阴影，避免大数字看不清 */
+/* 2.4 数据统计数字 —— 悬停不加阴影/发光/抬升，避免大数字看不清 */
 .absj ul li,
-.absj1 ul li {
-    transition: none;
+.absj1 ul li,
+.gw-stats ul.absj > li,
+.jp-about-stats ul li {
+    transition: none !important;
+    filter: none !important;
 }
 
 .absj ul li:hover,
-.absj1 ul li:hover {
-    transform: none;
+.absj1 ul li:hover,
+.gw-stats ul.absj > li:hover,
+.jp-about-stats ul li:hover {
+    transform: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
 }
 
 .absj ul li span,
 .absj ul li b,
+.absj ul li .timer,
 .absj1 ul li span,
-.absj1 ul li strong {
-    transition: none;
+.absj1 ul li strong,
+.absj1 ul li .timer,
+.gw-stats ul.absj > li span,
+.gw-stats ul.absj > li b,
+.gw-stats ul.absj > li strong,
+.jp-about-stats ul li .timer,
+.jp-about-stats ul li strong {
+    transition: none !important;
+    text-shadow: none !important;
+    filter: none !important;
 }
 
 .absj ul li:hover span,
 .absj ul li:hover b,
+.absj ul li:hover .timer,
 .absj1 ul li:hover span,
-.absj1 ul li:hover strong {
-    color: inherit;
-    text-shadow: none;
+.absj1 ul li:hover strong,
+.absj1 ul li:hover .timer,
+.gw-stats ul.absj > li:hover span,
+.gw-stats ul.absj > li:hover b,
+.gw-stats ul.absj > li:hover strong,
+.jp-about-stats ul li:hover .timer,
+.jp-about-stats ul li:hover strong {
+    color: inherit !important;
+    text-shadow: none !important;
+    filter: none !important;
+    -webkit-text-stroke: 0 !important;
 }
 
 /* 2.4b 关于我们文字面板 —— 悬停轻微右移（不改变布局） */
