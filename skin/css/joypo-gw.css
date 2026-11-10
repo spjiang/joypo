@@ -698,19 +698,26 @@ video.jp-img {
 	}
 }
 
-/* 新闻两侧卡片保持原有排版，不再缩小；列表保留阴影 */
+/* 新闻两侧卡片保持原有排版，不再缩小；swiper-slide / 卡片保留阴影 */
 #inews_banner .swiper-slide:not(.swiper-slide-active) .jp-news-card,
 #inews_banner .swiper-slide.swiper-slide-active .jp-news-card,
 #inews_banner .swiper-slide.swiper-slide-active dl.nhover1 .jp-news-card {
 	transform: none;
 	opacity: 1;
 }
-#inews_banner .swiper-slide .jp-news-card {
-	box-shadow: 0 10px 28px rgba(18, 36, 43, .14), 0 2px 8px rgba(18, 36, 43, .08);
+#inews_banner.mySwiper1 .swiper-slide,
+#inews_banner .swiper-slide {
+	overflow: visible;
+	padding: 12px 10px 22px;
+	box-shadow: 0 12px 32px rgba(18, 36, 43, .16), 0 3px 10px rgba(18, 36, 43, .08) !important;
 }
-#inews_banner .swiper-slide.swiper-slide-active .jp-news-card,
-#inews_banner .swiper-slide.swiper-slide-active dl.nhover1 .jp-news-card {
-	box-shadow: 0 14px 34px rgba(18, 36, 43, .18), 0 4px 12px rgba(18, 36, 43, .1);
+#inews_banner.mySwiper1 .swiper-slide.swiper-slide-active,
+#inews_banner .swiper-slide.swiper-slide-active {
+	box-shadow: 0 16px 40px rgba(18, 36, 43, .2), 0 6px 14px rgba(18, 36, 43, .1) !important;
+}
+#inews_banner.mySwiper1 .swiper-slide .jp-news-card,
+#inews_banner .swiper-slide .jp-news-card {
+	box-shadow: none;
 }
 
 /* 中英文切换按钮同样大小 */
@@ -823,37 +830,17 @@ video.jp-img {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+/* cnxt / dlxt / xfdz 产品大图统一尺寸 */
 .jp-prod-shot-box img,
-.jp-prod-spec {
+.jp-prod-spec,
+.page-dlxt .jp-prod-shot-box img,
+.page-xfdz .jp-prod-shot-box img,
+.page-cnxt .jp-prod-shot-box img {
 	display: block;
 	width: 100%;
 	max-width: 980px;
 	height: auto;
 	margin: 0 auto;
-}
-
-/* dlxt / xfdz：一次只显示一个产品大图，尺寸参考旧版收窄后的写法 */
-@media (min-width: 1200px) {
-	.page-dlxt .jp-prod-shot-box,
-	.page-xfdz .jp-prod-shot-box {
-		max-width: 860px;
-		margin: 0 auto;
-	}
-	.page-dlxt .jp-prod-shot-box img,
-	.page-xfdz .jp-prod-shot-box img {
-		width: 100%;
-		max-width: 860px;
-		height: auto;
-		margin: 0 auto;
-	}
-	.page-dlxt #content01 ul.jp-prod-shot,
-	.page-dlxt #content02 ul.jp-prod-shot,
-	.page-dlxt #content03 ul.jp-prod-shot,
-	.page-xfdz #content01 ul.jp-prod-shot,
-	.page-xfdz #content02 ul.jp-prod-shot,
-	.page-xfdz #content03 ul.jp-prod-shot {
-		text-align: center;
-	}
 }
 
 .jp-zoom-layer {
@@ -975,14 +962,20 @@ video.jp-img {
 		margin-bottom: 116px;
 	}
 
-	/* cnxt：文案固定左侧；去掉产品区灰色底 */
-	.page-cnxt .banner_pn .pbox {
+	/* cnxt：文案固定左侧，宽度 300px；去掉产品区灰色底 */
+	.page-cnxt .banner_pn .pbox,
+	.page-cnxt .banner_pn .pbox.wow,
+	.page-cnxt #p1 .pbox {
 		left: 5%;
 		right: auto;
 		top: 26%;
-		max-width: min(480px, 38%);
+		width: 300px !important;
+		max-width: 300px !important;
 		text-align: left;
 		transform: none !important;
+	}
+	.page-cnxt .banner_pn .pbox p {
+		max-width: 100%;
 	}
 	.page-cnxt #pro_banner,
 	.page-dlxt #pro_banner,

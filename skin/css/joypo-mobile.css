@@ -1580,7 +1580,7 @@
 	}
 }
 
-/* 动效不要阴影 */
+/* 动效不要阴影（新闻卡片除外，首页新闻列表需要投影） */
 .title .h1:hover,
 .title .h2:hover,
 .title .h3:hover,
@@ -1589,7 +1589,6 @@
 .inabout dl:hover,
 #honor_banner .swiper-slide a,
 #honor_banner .swiper-slide:hover a,
-#inews_banner .jp-news-card,
 .jp-prod-shot-box,
 .jp-prod-thumb-box,
 .jp-prod-thumb-link:hover .jp-prod-thumb-box {
@@ -1655,6 +1654,7 @@
 	#inews_banner .swiper-slide {
 		padding: 0;
 		width: 100%;
+		box-shadow: none !important;
 	}
 
 	.jp-news-head {
