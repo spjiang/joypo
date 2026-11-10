@@ -962,7 +962,7 @@ video.jp-img {
 		margin-bottom: 116px;
 	}
 
-	/* cnxt：文案固定左侧，宽度 300px；去掉产品区灰色底 */
+	/* cnxt：文案固定左侧，宽度 300px；#pro_banner 背景 #e5e5e5 */
 	.page-cnxt .banner_pn .pbox,
 	.page-cnxt .banner_pn .pbox.wow,
 	.page-cnxt #p1 .pbox {
@@ -980,7 +980,7 @@ video.jp-img {
 	.page-cnxt #pro_banner,
 	.page-dlxt #pro_banner,
 	.page-xfdz #pro_banner {
-		background: transparent !important;
+		background: #e5e5e5 !important;
 		box-shadow: none;
 	}
 }
