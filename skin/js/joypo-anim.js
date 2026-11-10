@@ -19,6 +19,12 @@
 
     /* 新打开的页面回到顶部。后退仍保留原来的阅读位置。 */
     function pinFreshPageToTop() {
+        try {
+            if ('scrollRestoration' in win.history) {
+                win.history.scrollRestoration = 'manual';
+            }
+        } catch (err) {}
+
         var nav = win.performance && win.performance.getEntriesByType
             ? win.performance.getEntriesByType('navigation')[0]
             : null;
@@ -28,13 +34,7 @@
             return !!(nav && nav.type === 'back_forward');
         }
 
-        function hasHashTarget() {
-            if (!location.hash || location.hash === '#') return false;
-            return !!doc.getElementById(location.hash.slice(1));
-        }
-
         function top() {
-            if (hasHashTarget()) return;
             win.scrollTo(0, 0);
             doc.documentElement.scrollTop = 0;
             if (doc.body) doc.body.scrollTop = 0;
@@ -56,7 +56,7 @@
         });
 
         function guard() {
-            if (userMoved || isBack() || hasHashTarget()) return;
+            if (userMoved || isBack()) return;
             if ((win.scrollY || doc.documentElement.scrollTop || 0) > 40) top();
         }
 
@@ -430,29 +430,20 @@
     }
 
     /* ================================================================
-       6c. 导航：滚动后变实，继续下滚收起，上滚再出现
+       6c. 导航：滚动后变实，始终固定在顶部（PC 不下滚隐藏）
        ================================================================ */
     function initHeader() {
         var header = $('.header-main') || $('.header-main01');
         if (!header) return;
 
-        var last = win.scrollY || 0;
-
         function update() {
             var y = win.scrollY || 0;
             var solid = y > 80;
-            var locked = doc.body.classList.contains('nav-locked');
-            var hovering = header.matches(':hover') || !!header.querySelector('.is-nav-open');
-            var hide = !locked && !hovering && y > last && y > 140;
             doc.body.classList.toggle('jp-nav-solid', solid);
-            doc.body.classList.toggle('jp-nav-hide', hide);
-            last = y;
+            doc.body.classList.remove('jp-nav-hide');
         }
 
         win.addEventListener('scroll', update, { passive: true });
-        header.addEventListener('mouseenter', function () {
-            doc.body.classList.remove('jp-nav-hide');
-        });
         update();
     }
 

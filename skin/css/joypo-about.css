@@ -58,24 +58,23 @@
 	to{opacity:1;transform:translate3d(0, 0, 0) scale(1);}
 }
 
-/* 悬停：数字发光 + 整体抬升 */
+/* 悬停：大数字保持清晰，不加阴影/抬升 */
 .jp-about-stats ul li{
-	transition:transform .8s cubic-bezier(.18, 1.25, .4, 1),
-	           filter .4s ease;
+	transition:none;
 }
 .jp-about-stats ul li:hover{
-	transform:translate3d(0, -8px, 0) scale(1.03);
-	filter:drop-shadow(0 10px 20px rgba(93, 194, 208, .35));
+	transform:none;
+	filter:none;
 }
 
 .jp-about-stats ul li .timer,
 .jp-about-stats ul li strong{
-	transition:color .4s ease, text-shadow .4s ease;
+	transition:none;
 }
 .jp-about-stats ul li:hover .timer,
 .jp-about-stats ul li:hover strong{
-	color:#2b8fa0;
-	text-shadow:0 0 24px rgba(93, 194, 208, .55);
+	color:inherit;
+	text-shadow:none;
 }
 
 /* ---------------------------------------------------------------------------

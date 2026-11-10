@@ -450,30 +450,30 @@ html.no-js .jp-anim {
     box-shadow: 0 12px 30px rgba(43, 143, 160, .32);
 }
 
-/* 2.4 数据统计数字 */
+/* 2.4 数据统计数字 —— 悬停不变色、不加阴影，避免大数字看不清 */
 .absj ul li,
 .absj1 ul li {
-    transition: transform .45s cubic-bezier(.22, .61, .36, 1);
+    transition: none;
 }
 
 .absj ul li:hover,
 .absj1 ul li:hover {
-    transform: translateY(-6px);
+    transform: none;
 }
 
 .absj ul li span,
 .absj ul li b,
 .absj1 ul li span,
 .absj1 ul li strong {
-    transition: color .4s ease, text-shadow .4s ease;
+    transition: none;
 }
 
 .absj ul li:hover span,
 .absj ul li:hover b,
 .absj1 ul li:hover span,
 .absj1 ul li:hover strong {
-    color: #5dc2d0;
-    text-shadow: 0 0 22px rgba(93, 194, 208, .55);
+    color: inherit;
+    text-shadow: none;
 }
 
 /* 2.4b 关于我们文字面板 —— 悬停轻微右移（不改变布局） */
@@ -485,47 +485,50 @@ html.no-js .jp-anim {
     transform: translateX(10px);
 }
 
-/* 2.5 按钮 —— 底部填充 + 轻微放大 */
+/* 2.5 按钮 —— 直接改背景色，避免圆角外露白底 */
 .more a,
 .more1 a,
 .morec,
 .morec1 {
     position: relative;
     display: inline-block;
-    overflow: hidden;
-    transition: color .35s ease, border-color .35s ease, transform .35s cubic-bezier(.22, .61, .36, 1),
-                box-shadow .35s ease;
+    overflow: visible;
+    background-clip: padding-box;
+    transition: color .35s ease, border-color .35s ease, background-color .35s ease,
+                transform .35s cubic-bezier(.22, .61, .36, 1), box-shadow .35s ease;
 }
 
 .more a::after,
 .more1 a::after,
 .morec::after,
 .morec1::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: #5dc2d0;
-    transform: scaleY(0);
-    transform-origin: bottom center;
-    transition: transform .4s cubic-bezier(.22, .61, .36, 1);
-    z-index: -1;
+    content: none;
+    display: none;
 }
 
 .more a:hover,
-.more1 a:hover,
-.morec:hover,
-.morec1:hover {
+.more1 a:hover {
     color: #fff;
     border-color: #5dc2d0;
+    background-color: #5dc2d0;
     transform: translateY(-3px);
     box-shadow: 0 10px 24px rgba(93, 194, 208, .32);
 }
 
-.more a:hover::after,
-.more1 a:hover::after,
-.morec:hover::after,
-.morec1:hover::after {
-    transform: scaleY(1);
+.morec:hover {
+    color: #fff;
+    border-color: #5dc2d0;
+    background-color: #5dc2d0;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(93, 194, 208, .32);
+}
+
+.morec1:hover {
+    color: #5dc2d0;
+    border-color: #fff;
+    background-color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(93, 194, 208, .32);
 }
 
 /* 2.6 导航链接 —— 下划线从左展开
@@ -566,8 +569,9 @@ html.no-js .jp-anim {
 
 .header .cms-site-submenu a.nav-item-lv2.is-current,
 .header .cms-site-submenu a.nav-lv3.is-current {
-    color: #fff;
+    color: #5dc2d0;
     background: none;
+    font-weight: 700;
     text-decoration: underline;
     text-decoration-color: #5dc2d0;
     text-decoration-thickness: 2px;

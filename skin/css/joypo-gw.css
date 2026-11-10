@@ -821,9 +821,16 @@ video.jp-img {
 .jp-prod-spec {
 	display: block;
 	width: 100%;
-	max-width: 1100px;
+	max-width: 980px;
 	height: auto;
 	margin: 0 auto;
+}
+
+@media (min-width: 1200px) {
+	.page-dlxt .jp-prod-shot-box img,
+	.page-xfdz .jp-prod-shot-box img {
+		max-width: 760px;
+	}
 }
 
 .jp-zoom-layer {
@@ -837,10 +844,12 @@ video.jp-img {
 	background: rgba(7, 18, 24, .82);
 }
 .jp-zoom-panel {
-	display: flex;
-	flex-direction: column;
+	position: relative;
+	display: block;
 	width: min(1100px, 92vw);
 	max-height: 86vh;
+	overflow: hidden;
+	background: #071218;
 }
 .jp-zoom-layer img,
 .jp-zoom-panel img {
@@ -848,18 +857,26 @@ video.jp-img {
 	width: 100%;
 	max-width: 100%;
 	height: auto;
-	max-height: min(500px, calc(86vh - 148px));
+	max-height: 86vh;
 	object-fit: contain;
-	background: #fff;
+	background: #071218;
 }
 .jp-zoom-meta {
 	display: none;
 }
+/* 标题 + 消息说明叠在图片底部（参考体系优势弹窗示意） */
 .jp-zoom-caption {
-	flex: 0 0 auto;
-	background: #0d3a44;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+	box-sizing: border-box;
+	max-width: 72%;
+	padding: 22px 28px 26px;
+	background: #5dc2d0;
 	color: #fff;
-	padding: 16px 22px 18px;
+	pointer-events: none;
 }
 .jp-zoom-caption strong,
 .jp-zoom-caption p {
@@ -867,14 +884,15 @@ video.jp-img {
 	margin: 0;
 }
 .jp-zoom-caption strong {
-	font-size: 20px;
+	font-size: 22px;
 	line-height: 1.4;
+	font-weight: 700;
 }
 .jp-zoom-caption p {
-	margin-top: 8px;
+	margin-top: 10px;
 	font-size: 15px;
-	line-height: 1.65;
-	color: rgba(255, 255, 255, .88);
+	line-height: 1.7;
+	color: rgba(255, 255, 255, .96);
 }
 .jp-zoom-layer button {
 	position: absolute;
@@ -890,6 +908,19 @@ video.jp-img {
 	font-size: 28px;
 	line-height: 1;
 	cursor: pointer;
+}
+
+@media (max-width: 1199px) {
+	.jp-zoom-caption {
+		max-width: 100%;
+		padding: 16px 18px 18px;
+	}
+	.jp-zoom-caption strong {
+		font-size: 18px;
+	}
+	.jp-zoom-caption p {
+		font-size: 14px;
+	}
 }
 
 .jp-home-w1 {

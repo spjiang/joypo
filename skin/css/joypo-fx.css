@@ -19,9 +19,10 @@ body.jp-nav-solid {
 	--jp-nav: .86;
 }
 
+/* PC 导航始终固定在顶部，不再下滚收起 */
 body.jp-nav-hide .header-main,
 body.jp-nav-hide .header-main01 {
-	top: -80px;
+	top: 0;
 }
 
 /* 首页大标题：进入时自下而上 */

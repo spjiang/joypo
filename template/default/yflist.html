@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper-bundle.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261110a">
 <link type="text/css" rel="stylesheet" href="{pboot:sitedomain}/skin/css/animate.min.css"/>
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -101,7 +101,10 @@
           <div class="imWrap"><img src="[list:ico]" alt="[list:title]"></div>
           <div class="ha1">[list:title]</div>
         </div>
-        <span class="jp-zoom-meta"><span class="jp-zoom-title">[list:title]</span><span class="jp-zoom-desc">[list:description]</span></span>
+        <span class="jp-zoom-meta">
+          <span class="jp-zoom-title">[list:title]</span>
+          <span class="jp-zoom-desc">{if(joypo_lang()=='en')}[list:ext_xxsm_en]{else}[list:ext_xxsm]{/if}</span>
+        </span>
         </a>
        {/pboot:list}
        {pboot:list scode=23 num=5}
@@ -111,7 +114,10 @@
           <div class="imWrap"><img src="[list:ico]" alt="[list:title]"></div>
           <div class="ha1">[list:title]</div>
         </div>
-        <span class="jp-zoom-meta"><span class="jp-zoom-title">[list:title]</span><span class="jp-zoom-desc">[list:description]</span></span>
+        <span class="jp-zoom-meta">
+          <span class="jp-zoom-title">[list:title]</span>
+          <span class="jp-zoom-desc">{if(joypo_lang()=='en')}[list:ext_xxsm_en]{else}[list:ext_xxsm]{/if}</span>
+        </span>
         </a>
        {/pboot:list}
                 
@@ -208,7 +214,7 @@
     var caseNarrow = window.matchMedia("(max-width: 1199px)").matches;
     var swiper = new Swiper(".mySwiper", {
       slidesPerView: caseNarrow ? 1 : "auto",
-      spaceBetween: caseNarrow ? 0 : 10,
+      spaceBetween: caseNarrow ? 0 : 4,
 	  freeMode: !caseNarrow,
   initialSlide : caseNarrow ? 0 : 1,
   	  centeredSlides: !caseNarrow,

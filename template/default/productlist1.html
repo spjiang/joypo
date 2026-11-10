@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261107f">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261110a">
 <link type="text/css" rel="stylesheet" href="{pboot:sitedomain}/skin/css/animate.min.css"/>
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -29,15 +29,14 @@
 
 $(document).ready(function() {
 	jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
-		var $shots = $(tab_conbox).find("> ul.jp-prod-shot");
-		$shots.hide();
+		$(tab_conbox).find("ul").hide();
 		$(tabtit).find("li:first").addClass("current").show();
-		$shots.eq(0).show();
+		$(tab_conbox).find("ul:first").show();
 
 		$(tabtit).find("li").bind(shijian,function(){
 		  $(this).addClass("current").siblings("li").removeClass("current");
 			var activeindex = $(tabtit).find("li").index(this);
-			$shots.hide().eq(activeindex).show();
+			$(tab_conbox).children().eq(activeindex).show().siblings().hide();
 			return false;
 		});
 
@@ -90,14 +89,14 @@ $(document).ready(function() {
 <div id="outer0[nav:i]">
  
    
-    <div id="content0[nav:i]" class="jp-prod-stage">
+    <div id="content0[nav:i]" class="jp-prod-strip">
     {pboot:list scode=[nav:scode] num=9}
 
-            <ul class="jp-prod-shot">
-   <li class="jp-prod-shot-item">
-     <a href="#modal-one[list:id]" target="_self" class="jp-prod-shot-link">
-       <span class="jp-prod-shot-box"><img src="[list:ico]" alt="[list:title]"/></span>
-       <span class="jp-prod-shot-tip">{fun=joypo_t('prod.params')}</span>
+            <ul class="jp-prod-thumbs">
+   <li class="jp-prod-thumb">
+     <a href="#modal-one[list:id]" target="_self" class="jp-prod-thumb-link">
+       <span class="jp-prod-thumb-box"><img src="[list:ico]" alt="[list:title]" loading="lazy"></span>
+       <span class="jp-prod-thumb-name">[list:title]</span>
      </a>
    </li>
             </ul>
