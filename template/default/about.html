@@ -26,29 +26,29 @@
 
 $(document).ready(function() {
 	jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
-		$(tab_conbox).find("ul").hide();
-		$(tabtit).find("li:first").addClass("current").show(); 
-		$(tab_conbox).find("ul:first").show();
-	
-		$(tabtit).find("li").bind(shijian,function(){
-		  $(this).addClass("current").siblings("li").removeClass("current"); 
-			var activeindex = $(tabtit).find("li").index(this);
-			$(tab_conbox).children().eq(activeindex).show().siblings().hide();
+		var $tabs = $(tabtit).find("li");
+		var $panels = $(tab_conbox).children("ul");
+		function activate(index) {
+			$tabs.removeClass("current").eq(index).addClass("current");
+			$panels.eq(index).addClass("is-on").show();
+			$panels.not($panels.eq(index)).removeClass("is-on").hide();
+		}
+		activate(0);
+		$tabs.bind(shijian, function () {
+			activate($tabs.index(this));
 			return false;
 		});
-	
 	};
 	/*调用方法如下：*/
 /*	$.jqtab("#tabs","#tab_conbox","click"); 鼠标经过显示*/
     $.jqtab("#tab1","#content1","mouseenter");
 
-	/* 接管发展历程切换：jqtab 用 jQuery .show()/.hide() 硬切换，
-	   大图瞬间替换、没有过渡。这里在 jqtab 之后补一层淡入缩放动画。
-	   注意 jQuery 3 的 mouseenter 是用 mouseover 模拟的，
-	   原生 mouseenter 收不到，所以监听 mouseover。 */
+	/* 手机端仍保留淡入。电脑端（含 360）不做整图淡入，
+	   否则圆圈会先消失再出现。 */
 	$("#tab1 li").each(function () {
 		var li = this;
 		li.addEventListener("mouseover", function () {
+			if (window.matchMedia && window.matchMedia("(min-width: 1200px)").matches) return;
 			setTimeout(function () {
 				if (window.JoypoProd && window.JoypoProd.playHistory) {
 					window.JoypoProd.playHistory(li);
@@ -62,7 +62,7 @@ $(document).ready(function() {
 </head>
 <body>
 <!--关于久普栏目动效增强-->
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-about.css?v=20261110c">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-about.css?v=20261111a">
 <script src="{pboot:sitedomain}/skin/js/joypo-about.js" defer></script>
 {include file=head.html}
 <!--banner-->

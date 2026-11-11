@@ -1994,3 +1994,60 @@
 		white-space: normal;
 	}
 }
+
+/* 电脑端胶囊按钮：默认实心青底白字，悬停描边青字。
+   不用白底，也不用白色遮罩扫过。360 在圆角上把白底裁切坏，会多出一圈白边。
+   新闻卡片里的「查看详情」文字链不在这里。 */
+@media (min-width: 1200px) {
+	body .title > .h1::after,
+	body .title > .h2::after,
+	body .title > .h3::after,
+	body .title1 > .h3::after {
+		content: none;
+		display: none;
+		background: none;
+		transform: none;
+	}
+
+	body .title > .h1,
+	body .title > .h2,
+	body .title > .h3,
+	body .title1 > .h3,
+	body .more1 > a,
+	body .cona a.morec,
+	body .cona a.morec1,
+	body .lianxi .btn a,
+	body .incase dl dd .more a,
+	body .jp-news-more a {
+		background-color: #5dc2d0;
+		background-image: none;
+		color: #fff;
+		border: 1px solid #5dc2d0;
+		box-shadow: none;
+		background-clip: padding-box;
+		transition: color .2s ease, border-color .2s ease;
+	}
+
+	body .title > .h1:hover,
+	body .title > .h2:hover,
+	body .title > .h3:hover,
+	body .title1 > .h3:hover,
+	body .more1 > a:hover,
+	body .cona a.morec:hover,
+	body .cona a.morec1:hover,
+	body .lianxi .btn a:hover,
+	body .incase dl dd .more a:hover,
+	body .jp-news-more a:hover {
+		background-color: transparent;
+		background-image: none;
+		color: #5dc2d0;
+		border-color: #5dc2d0;
+		box-shadow: none;
+		transform: none;
+	}
+
+	body #w7 .cona a.morec1:hover {
+		color: #5dc2d0;
+		background-color: transparent;
+	}
+}
