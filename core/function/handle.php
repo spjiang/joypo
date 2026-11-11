@@ -1040,7 +1040,7 @@ function content_query_fields()
         'sorting', 'status', 'istop', 'isrecommend', 'isheadline', 'visits',
         'likes', 'oppose', 'create_user', 'update_user', 'create_time',
         'update_time', 'gtype', 'gid', 'gnote',
-        'title_en', 'keywords_en', 'description_en', 'content_en'
+        'title_en', 'keywords_en', 'description_en', 'content_en', 'ico_en'
     );
 }
 

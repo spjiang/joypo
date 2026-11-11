@@ -385,6 +385,17 @@
 								 </button>
 								 <div id="ico_box" class="pic addedit"></div>
 			                </div>
+
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文缩略图</label>
+			                     <div class="layui-input-inline">
+			                     	<input type="text" name="ico_en" id="ico_en" placeholder="留空则英文页面仍显示中文缩略图"  class="layui-input">
+			                     </div>
+			                     <button type="button" class="layui-btn upload watermark" data-des="ico_en">
+								 	 <i class="layui-icon">&#xe67c;</i>上传图片
+								 </button>
+								 <div id="ico_en_box" class="pic addedit"></div>
+			                </div>
 			                
 			                <div class="layui-form-item">
 			                     <label class="layui-form-label">轮播多图</label>
@@ -798,6 +809,17 @@
 								 	 <i class="layui-icon">&#xe67c;</i>上传图片
 								 </button>
 								 <div id="ico_box" class="pic addedit">{if([$content->ico])}<dl><dt><img src="{SITE_DIR}{$content->ico}" data-url="{$content->ico}"></dt><dd>删除</dd></dl>{/if}</div>
+			                </div>
+
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文缩略图</label>
+			                     <div class="layui-input-inline">
+			                     	<input type="text" name="ico_en" id="ico_en" value="{$content->ico_en}" placeholder="留空则英文页面仍显示中文缩略图"  class="layui-input">
+			                     </div>
+			                     <button type="button" class="layui-btn upload watermark" data-des="ico_en">
+								 	 <i class="layui-icon">&#xe67c;</i>上传图片
+								 </button>
+								 <div id="ico_en_box" class="pic addedit">{if([$content->ico_en])}<dl><dt><img src="{SITE_DIR}{$content->ico_en}" data-url="{$content->ico_en}"></dt><dd>删除</dd></dl>{/if}</div>
 			                </div>
 			                
 			                <div class="layui-form-item">

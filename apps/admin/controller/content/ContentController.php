@@ -98,6 +98,7 @@ class ContentController extends Controller
             $outlink = post('outlink');
             $date = post('date');
             $ico = normalize_upload_saved_path(post('ico'));
+            $ico_en = normalize_upload_saved_path(post('ico_en'));
             $pics = normalize_upload_saved_paths(post('pics'));
 
             // 获取多图标题
@@ -150,6 +151,9 @@ class ContentController extends Controller
             if ($ico) {
                 resize_img(ROOT_PATH . $ico, '', $this->config('ico.max_width'), $this->config('ico.max_height'));
             }
+            if ($ico_en) {
+                resize_img(ROOT_PATH . $ico_en, '', $this->config('ico.max_width'), $this->config('ico.max_height'));
+            }
 
             // 检查自定义URL名称
             if ($filename) {
@@ -176,6 +180,7 @@ class ContentController extends Controller
                 'outlink' => $outlink,
                 'date' => $date,
                 'ico' => $ico,
+                'ico_en' => $ico_en,
                 'pics' => $pics,
                 'picstitle' => $picstitle,
                 'content' => $content,
@@ -485,6 +490,7 @@ class ContentController extends Controller
             $outlink = post('outlink');
             $date = post('date');
             $ico = normalize_upload_saved_path(post('ico'));
+            $ico_en = normalize_upload_saved_path(post('ico_en'));
             $pics = normalize_upload_saved_paths(post('pics'));
 
             // 获取多图标题
@@ -537,6 +543,9 @@ class ContentController extends Controller
             if ($ico) {
                 resize_img(ROOT_PATH . $ico, '', $this->config('ico.max_width'), $this->config('ico.max_height'));
             }
+            if ($ico_en) {
+                resize_img(ROOT_PATH . $ico_en, '', $this->config('ico.max_width'), $this->config('ico.max_height'));
+            }
 
             if ($filename) {
                 while ($this->model->checkFilename($filename, "id<>$id")) {
@@ -558,6 +567,7 @@ class ContentController extends Controller
                 'outlink' => $outlink,
                 'date' => $date,
                 'ico' => $ico,
+                'ico_en' => $ico_en,
                 'pics' => $pics,
                 'picstitle' => $picstitle,
                 'content' => $content,

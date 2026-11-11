@@ -414,6 +414,9 @@ class ParserModel extends Model
                         $safe_fields[] = 'a.' . $contentField;
                     }
                 }
+                if (in_array('a.ico', $safe_fields, true)) {
+                    $safe_fields[] = 'a.ico_en';
+                }
                 // 其余非白名单字段丢弃，避免非法列名拼入查询字段列表
             }
             $fields = array_unique($safe_fields);
@@ -433,6 +436,7 @@ class ParserModel extends Model
                 'a.outlink',
                 'a.date',
                 'a.ico',
+                'a.ico_en',
                 'a.pics',
                 'a.content',
                 'a.enclosure',
@@ -801,6 +805,7 @@ class ParserModel extends Model
                 'a.title_en',
                 'a.filename',
                 'a.ico',
+                'a.ico_en',
                 'a.scode',
                 'b.filename as sortfilename',
                 'c.type',
@@ -829,7 +834,7 @@ class ParserModel extends Model
                 ->where("a.date<'" . date('Y-m-d H:i:s') . "'")
                 ->order('a.id DESC')
                 ->find();
-            $this->pre = $this->i18nRows($this->pre, array('title'));
+            $this->pre = $this->i18nRows($this->pre, array('title', 'ico'));
         }
         return $this->pre;
     }
@@ -847,6 +852,7 @@ class ParserModel extends Model
                 'a.title_en',
                 'a.filename',
                 'a.ico',
+                'a.ico_en',
                 'a.scode',
                 'b.filename as sortfilename',
                 'c.type',
@@ -875,7 +881,7 @@ class ParserModel extends Model
                 ->where("a.date<'" . date('Y-m-d H:i:s') . "'")
                 ->order('a.id ASC')
                 ->find();
-            $this->next = $this->i18nRows($this->next, array('title'));
+            $this->next = $this->i18nRows($this->next, array('title', 'ico'));
         }
         return $this->next;
     }
@@ -1128,7 +1134,7 @@ class ParserModel extends Model
 
     private function i18nContentFields()
     {
-        return array('title', 'keywords', 'description', 'content', 'sortname', 'subsortname');
+        return array('title', 'keywords', 'description', 'content', 'ico', 'sortname', 'subsortname');
     }
 
     private function i18nRows($rows, array $fields)
