@@ -943,6 +943,23 @@ video.jp-img {
 	object-position: center;
 }
 
+/* 电脑端体系优势轮播：slide 内图片铺满，去掉 flex 居中留下的白缝 */
+@media (min-width: 1200px) {
+	#case_banner2 .swiper-slide {
+		width: auto;
+		display: block;
+		background: transparent;
+	}
+	#case_banner2 .big,
+	#case_banner2 .swiper-slide .imWrap {
+		width: 100%;
+	}
+	#case_banner2 .swiper-slide .imWrap img {
+		width: 100%;
+		display: block;
+	}
+}
+
 .page-cnxt .banner_pn,
 .page-dlxt .banner_pn {
 	margin-top: 20px;

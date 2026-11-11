@@ -92,7 +92,7 @@
             <h3>{fun=joypo_t('yf.system_h')}<span>{fun=joypo_t('yf.loop')}</span></h3>
 		</div>
     
-    <div class="swiper mySwiper" id="case_banner2" dir="rtl" >
+    <div class="swiper mySwiper" id="case_banner2">
       <div class="swiper-wrapper"> 
  {pboot:list scode=23 num=5}
         
@@ -213,16 +213,18 @@
   <script>
     var caseNarrow = window.matchMedia("(max-width: 1199px)").matches;
     var swiper = new Swiper(".mySwiper", {
-      slidesPerView: caseNarrow ? 1 : "auto",
-      spaceBetween: caseNarrow ? 0 : 4,
-	  freeMode: !caseNarrow,
-  initialSlide : caseNarrow ? 0 : 1,
-  	  centeredSlides: !caseNarrow,
-	  loop: true, 
-	  autoplay: {
-      delay: 2500,
-      disableOnInteraction: false,
-     },
+      /* 电脑端并列约 1.5 张：中间完整，左右各露一部分；间距收紧，避免白缝过大 */
+      slidesPerView: caseNarrow ? 1 : 1.5,
+      spaceBetween: caseNarrow ? 0 : 18,
+      freeMode: false,
+      initialSlide: 0,
+      centeredSlides: true,
+      loop: true,
+      watchOverflow: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
