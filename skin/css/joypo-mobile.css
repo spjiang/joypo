@@ -2014,8 +2014,6 @@
 	body .title > .h3,
 	body .title1 > .h3,
 	body .more1 > a,
-	body .cona a.morec,
-	body .cona a.morec1,
 	body .lianxi .btn a,
 	body .incase dl dd .more a,
 	body .jp-news-more a {
@@ -2033,8 +2031,6 @@
 	body .title > .h3:hover,
 	body .title1 > .h3:hover,
 	body .more1 > a:hover,
-	body .cona a.morec:hover,
-	body .cona a.morec1:hover,
 	body .lianxi .btn a:hover,
 	body .incase dl dd .more a:hover,
 	body .jp-news-more a:hover {
@@ -2046,9 +2042,37 @@
 		transform: none;
 	}
 
+	/* 底部 CTA（#w7 青底）：单独白底主按钮 + 白描边邮箱，避免被全局青底胶囊盖掉 */
+	body #w7 .cona a.morec {
+		background-color: #fff !important;
+		background-image: none !important;
+		color: #5dc2d0 !important;
+		border: 2px solid #fff !important;
+		box-shadow: none !important;
+	}
+
+	body #w7 .cona a.morec1 {
+		background-color: transparent !important;
+		background-image: none !important;
+		color: #fff !important;
+		border: 2px solid #fff !important;
+		box-shadow: none !important;
+	}
+
+	body #w7 .cona a.morec:hover {
+		background-color: #2b8fa0 !important;
+		color: #fff !important;
+		border-color: #2b8fa0 !important;
+		box-shadow: none !important;
+		transform: none;
+	}
+
 	body #w7 .cona a.morec1:hover {
-		color: #5dc2d0;
-		background-color: transparent;
+		background-color: #fff !important;
+		color: #5dc2d0 !important;
+		border-color: #fff !important;
+		box-shadow: none !important;
+		transform: none;
 	}
 }
 
@@ -2320,5 +2344,584 @@
 		font-size: 12px;
 		color: #666;
 		text-align: center;
+	}
+}
+
+/* 手机端：储能/动力/消费电子产品区 + 研发页 */
+@media (max-width: 1199px) {
+	/* 产品大图放大，方便看清 */
+	#pro_banner .w,
+	#pro_banner #content01,
+	#pro_banner #content02,
+	#pro_banner #content03 {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	#pro_banner .jp-prod-shot,
+	#pro_banner .jp-prod-shot-item,
+	#pro_banner .jp-prod-shot-link {
+		display: block;
+		width: 100%;
+		max-width: none;
+		margin: 0;
+	}
+
+	.page-cnxt .jp-prod-shot-box,
+	.page-dlxt .jp-prod-shot-box,
+	.page-xfdz .jp-prod-shot-box,
+	#pro_banner .jp-prod-shot-box {
+		width: 100%;
+		max-width: none;
+	}
+
+	.page-cnxt .jp-prod-shot-box img,
+	.page-dlxt .jp-prod-shot-box img,
+	.page-xfdz .jp-prod-shot-box img,
+	#pro_banner .jp-prod-shot-box img,
+	#content01 .jp-prod-shot-box img,
+	#content02 .jp-prod-shot-box img,
+	#content03 .jp-prod-shot-box img {
+		width: 100% !important;
+		max-width: none !important;
+		height: auto !important;
+		min-height: 58vw !important;
+		object-fit: contain !important;
+	}
+
+	#pro_banner {
+		padding-left: 4px;
+		padding-right: 4px;
+		box-sizing: border-box;
+	}
+
+	/* 「查看产品参数」缩小 */
+	.jp-prod-shot-tip,
+	#content01 .jp-prod-shot-tip,
+	#content02 .jp-prod-shot-tip,
+	#content03 .jp-prod-shot-tip,
+	#pro_banner .jp-prod-shot-tip {
+		font-size: 12px !important;
+		font-weight: 600;
+		letter-spacing: .04em;
+		bottom: 12px;
+		padding: 0;
+		line-height: 1.3;
+		color: #2a3a42 !important;
+	}
+
+	/* 型号名改成横向胶囊，字号收小 */
+	#pro_banner .jp-prod-models,
+	#pro_banner .jp-prod-tabs,
+	#tab01,
+	#tab02,
+	#tab03 {
+		display: flex !important;
+		flex-direction: row !important;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 8px;
+		width: auto;
+		margin: 8px 12px 20px;
+		padding: 4px 2px 8px;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
+
+	#pro_banner .jp-prod-models::-webkit-scrollbar,
+	#pro_banner .jp-prod-tabs::-webkit-scrollbar,
+	#tab01::-webkit-scrollbar,
+	#tab02::-webkit-scrollbar,
+	#tab03::-webkit-scrollbar {
+		display: none;
+	}
+
+	#pro_banner .jp-prod-models li,
+	#pro_banner .jp-prod-tabs li,
+	#tab01 li,
+	#tab02 li,
+	#tab03 li {
+		flex: 0 0 auto;
+		float: none;
+		width: auto !important;
+		min-width: 0;
+		height: auto !important;
+		margin: 0;
+		padding: 7px 12px !important;
+		border-radius: 999px;
+		background: rgba(18, 36, 43, .06);
+		color: #334047 !important;
+		font-size: 12px !important;
+		font-weight: 600;
+		line-height: 1.3 !important;
+		white-space: nowrap;
+		box-sizing: border-box;
+	}
+
+	#pro_banner .jp-prod-models li.is-current,
+	#pro_banner .jp-prod-models li.current,
+	#pro_banner .jp-prod-tabs li.is-current,
+	#pro_banner .jp-prod-tabs li.current,
+	#tab01 li.current,
+	#tab02 li.current,
+	#tab03 li.current {
+		background: #5dc2d0;
+		color: #fff !important;
+		text-shadow: none;
+	}
+
+	#pro_banner .jp-prod-models li span,
+	#pro_banner .jp-prod-tabs li span,
+	#tab01 li span,
+	#tab02 li span,
+	#tab03 li span {
+		display: none;
+	}
+
+	/* 弹窗参数图放大看清 */
+	.modal:target .modal-dialog {
+		width: min(96vw, 720px) !important;
+		max-width: 96vw !important;
+		height: auto !important;
+		max-height: 90vh !important;
+		padding: 10px !important;
+		box-sizing: border-box;
+	}
+
+	.modal_text {
+		height: auto !important;
+		max-height: calc(90vh - 44px);
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.modal_text img {
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		min-height: 0 !important;
+		object-fit: contain !important;
+	}
+
+	/* 研发页：收短背景，文字加底色防被图挡住 */
+	#w2 {
+		min-height: 0 !important;
+		background-size: cover !important;
+		background-position: center top !important;
+		padding: 24px 0 28px;
+	}
+
+	#w2 .cl.blank6,
+	#w2 .cl.blank2 {
+		height: 10px;
+		min-height: 0;
+		margin: 0;
+		padding: 0;
+	}
+
+	#w2 .title h2 {
+		font-size: 20px !important;
+		line-height: 1.4;
+		padding: 0 12px;
+	}
+
+	.inyfzz {
+		padding: 180px 0 8px !important;
+		background-size: min(200px, 56%) auto !important;
+		background-position: center 6px !important;
+		margin: 0 12px 4px;
+		min-height: 0 !important;
+	}
+
+	.inyfzz dl,
+	.inyfzz dl:nth-child(n) {
+		flex: 0 0 calc(100% - 16px) !important;
+		width: calc(100% - 16px) !important;
+		max-width: none !important;
+		margin: 0 8px !important;
+		padding: 18px 16px !important;
+		border-radius: 14px;
+		background: rgba(255, 255, 255, .94) !important;
+		box-shadow: 0 10px 28px rgba(18, 36, 43, .12);
+		color: #1b2733 !important;
+		box-sizing: border-box;
+	}
+
+	.inyfzz dl dt {
+		color: #2b8fa0 !important;
+		font-size: 17px !important;
+		line-height: 1.35;
+		margin-bottom: 6px;
+	}
+
+	.inyfzz dl dd {
+		color: #4a5560 !important;
+		font-size: 13px !important;
+		line-height: 1.65;
+	}
+
+	/* 研发页底部三卡：左右滑 + 小点；背景收短 */
+	#w9 {
+		min-height: 0 !important;
+		background-size: cover !important;
+		background-position: center center !important;
+		padding: 24px 0 32px !important;
+	}
+
+	#w9 .hxcen {
+		position: static !important;
+		left: auto !important;
+		bottom: auto !important;
+		transform: none !important;
+		display: block;
+		width: auto;
+		max-width: none;
+		margin: 0 12px;
+		padding: 0;
+		overflow: hidden;
+		flex-direction: unset;
+		gap: 0;
+	}
+
+	#w9 .hxcen.swiper .swiper-wrapper {
+		align-items: stretch;
+	}
+
+	#w9 .hxcen.swiper .swiper-slide,
+	#w9 .hxcen.swiper dl {
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: flex-start !important;
+		justify-content: flex-start !important;
+		flex: none !important;
+		width: auto;
+		margin: 0;
+		padding: 26px 20px;
+		float: none;
+		box-sizing: border-box;
+	}
+
+	#w9 .hxcen.swiper .swiper-slide dt,
+	#w9 .hxcen.swiper .swiper-slide dd,
+	#w9 .hxcen.swiper dl dt,
+	#w9 .hxcen.swiper dl dd {
+		display: block !important;
+		float: none !important;
+		width: 100% !important;
+		max-width: none !important;
+	}
+
+	#w9 .hxcen.swiper .swiper-slide dt,
+	#w9 .hxcen.swiper dl dt {
+		margin-bottom: 10px;
+		line-height: 1.35 !important;
+		font-size: 20px !important;
+	}
+
+	#w9 .hxcen.swiper .swiper-slide dd,
+	#w9 .hxcen.swiper dl dd {
+		font-size: 14px !important;
+		line-height: 1.6 !important;
+	}
+
+	.jp-hxcen-dots {
+		position: static !important;
+		display: flex !important;
+		justify-content: center;
+		align-items: center;
+		gap: 8px;
+		width: 100%;
+		margin: 14px 0 0;
+		padding: 0;
+		transform: none !important;
+	}
+
+	.jp-hxcen-dots .swiper-pagination-bullet {
+		width: 8px !important;
+		height: 8px !important;
+		margin: 0 !important;
+		opacity: 1 !important;
+		background: rgba(255, 255, 255, .45) !important;
+		border-radius: 50% !important;
+	}
+
+	.jp-hxcen-dots .swiper-pagination-bullet-active {
+		width: 22px !important;
+		border-radius: 6px !important;
+		background: #5dc2d0 !important;
+	}
+
+	/* 去掉研发页 #w9 后多余大留白 */
+	#w9 ~ .cl.blank6 {
+		height: 12px;
+		min-height: 0;
+	}
+
+	#w9 ~ .cl.blank6 + .cl.blank6 {
+		display: none;
+	}
+}
+
+/* 手机端：产品/关于/新闻空白与页脚间距（不影响 PC） */
+@media (max-width: 1199px) {
+	/* 1. 产品页：收掉产品区前后大空白 */
+	.page-cnxt #pro_banner,
+	.page-dlxt #pro_banner,
+	.page-xfdz #pro_banner {
+		margin-top: 0 !important;
+		padding: 6px 0 0 !important;
+	}
+
+	.page-cnxt .banner_pn,
+	.page-dlxt .banner_pn,
+	.page-xfdz .banner_pn {
+		margin: 0;
+		padding: 0;
+	}
+
+	.page-cnxt .banner_pn + .w,
+	.page-dlxt .banner_pn + .w,
+	.page-xfdz .banner_pn + .w {
+		margin: 0;
+		padding: 0;
+	}
+
+	.page-cnxt #content01 ul,
+	.page-cnxt #content02 ul,
+	.page-cnxt #content03 ul,
+	.page-dlxt #content01 ul,
+	.page-dlxt #content02 ul,
+	.page-dlxt #content03 ul,
+	.page-xfdz #content01 ul,
+	.page-xfdz #content02 ul,
+	.page-xfdz #content03 ul {
+		margin-bottom: 6px !important;
+	}
+
+	.page-cnxt #pro_banner .jp-prod-models,
+	.page-cnxt #pro_banner .jp-prod-tabs,
+	.page-dlxt #pro_banner .jp-prod-models,
+	.page-dlxt #pro_banner .jp-prod-tabs,
+	.page-xfdz #pro_banner .jp-prod-models,
+	.page-xfdz #pro_banner .jp-prod-tabs,
+	.page-cnxt #tab01,
+	.page-cnxt #tab02,
+	.page-cnxt #tab03,
+	.page-dlxt #tab01,
+	.page-dlxt #tab02,
+	.page-dlxt #tab03,
+	.page-xfdz #tab01,
+	.page-xfdz #tab02,
+	.page-xfdz #tab03 {
+		margin: 4px 10px 14px !important;
+		padding-bottom: 6px !important;
+	}
+
+	.page-cnxt #w10,
+	.page-dlxt #w10,
+	.page-xfdz #w10,
+	.page-cnxt #w11,
+	.page-dlxt #w11,
+	.page-xfdz #w11 {
+		min-height: 0 !important;
+		padding: 20px 0 24px !important;
+		background-size: cover !important;
+	}
+
+	.page-cnxt #w10 .cl.blank2,
+	.page-dlxt #w10 .cl.blank2,
+	.page-xfdz #w10 .cl.blank2,
+	.page-cnxt #w7 .cl.blank2,
+	.page-dlxt #w7 .cl.blank2,
+	.page-xfdz #w7 .cl.blank2 {
+		height: 10px;
+		min-height: 0;
+	}
+
+	/* 2. copyright 高度收小 */
+	.copy {
+		padding: 8px 12px calc(72px + env(safe-area-inset-bottom)) !important;
+		line-height: 1.4 !important;
+		font-size: 11px !important;
+		min-height: 0 !important;
+	}
+
+	/* 3. 关于页正文避开右侧悬浮钮 */
+	.about1 .about_box,
+	.about1 .about_box .p,
+	.about .about_box,
+	.abvod .about_box {
+		padding-left: 16px !important;
+		padding-right: 58px !important;
+		box-sizing: border-box;
+	}
+
+	/* 4. 发展历程：圆圈完整显示，底部灰空白收短 */
+	#w6 {
+		min-height: 0 !important;
+		background-size: cover !important;
+		background-position: center top !important;
+		padding: 16px 0 20px !important;
+	}
+
+	#outer1 {
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 8px 12px 0;
+		overflow: visible !important;
+		box-sizing: border-box;
+	}
+
+	#outer1 #tab1 {
+		padding: 4px 0 10px;
+		overflow: visible;
+	}
+
+	#outer1 #tab1 li {
+		padding: 22px 14px 6px !important;
+		color: rgba(255, 255, 255, .88);
+	}
+
+	#outer1 #tab1 li i {
+		top: 2px !important;
+		overflow: visible;
+	}
+
+	#outer1 #tab1 li.current i {
+		top: -4px !important;
+	}
+
+	#content1 {
+		width: 100% !important;
+		overflow: visible !important;
+	}
+
+	#content1 ul,
+	.jp-about-history > ul {
+		margin-bottom: 0 !important;
+	}
+
+	#content1 ul img.imgs,
+	.jp-about-history img.imgs {
+		display: block;
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		object-fit: contain;
+		object-position: left center;
+	}
+
+	/* 5. 地图前大空白：收短企业文化区与标题间距 */
+	#w1 {
+		min-height: 0 !important;
+		padding-bottom: 16px !important;
+		background-size: cover !important;
+	}
+
+	#w1 + .cl.blank2,
+	#w1 .cl.blank6,
+	.about1 > .cl.blank6 {
+		height: 12px !important;
+		min-height: 0 !important;
+	}
+
+	.about1 > .cl.blank6 + .cl.blank6 {
+		display: none;
+	}
+
+	.jp-global-head {
+		margin: 8px 16px 12px !important;
+		padding: 0 !important;
+	}
+
+	.jp-global-head + .w {
+		margin-top: 0;
+		padding-top: 0;
+	}
+
+	.jp-global-head + .w video {
+		min-height: 0 !important;
+		aspect-ratio: 16 / 10;
+	}
+
+	#w7 {
+		min-height: 0 !important;
+		padding: 28px 0 32px !important;
+		background-size: cover !important;
+	}
+
+	#w7 .cl.blank6 {
+		height: 10px !important;
+		min-height: 0 !important;
+	}
+
+	/* 6. 全站底部页脚间距收紧 */
+	.foot .box {
+		gap: 16px !important;
+		padding: 20px 16px 12px !important;
+	}
+
+	.foot .box > div[style] {
+		gap: 14px 16px !important;
+	}
+
+	.foot .tel .h1 {
+		margin-top: 10px !important;
+	}
+
+	.foot .footfb {
+		margin-top: 8px !important;
+	}
+
+	.foot .box dl dt {
+		margin-bottom: 4px !important;
+	}
+
+	.foot .box dl dd {
+		line-height: 1.7 !important;
+	}
+
+	/* 7. 新闻列表前后空白 + 分页下移一点 */
+	.incase {
+		margin: 12px 12px 8px !important;
+		padding: 0 !important;
+	}
+
+	.incase + .cl.blank2 {
+		height: 10px !important;
+		min-height: 0 !important;
+	}
+
+	.service_list1 {
+		width: auto !important;
+		margin: 0 12px 8px !important;
+		padding: 0 !important;
+	}
+
+	.service_list1 ul {
+		gap: 14px !important;
+	}
+
+	.service_list1 > ul > li {
+		margin: 0 !important;
+		width: 100% !important;
+	}
+
+	.pagebar {
+		padding: 28px 12px 16px !important;
+		margin: 4px 0 0 !important;
+	}
+
+	.pagebar .pagination {
+		margin-top: 0 !important;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.pagebar + .cl.blank2 {
+		height: 8px !important;
+		min-height: 0 !important;
 	}
 }

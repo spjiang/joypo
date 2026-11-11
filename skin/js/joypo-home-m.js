@@ -1,6 +1,8 @@
 /*!
- * 首页手机端：方案区单卡横滑 + 底部序号切换；
- * 关于卡片只左右滑动、默认第一张、循环。
+ * 手机端首页 / 研发页：
+ * - 首页方案区单卡横滑 + 底部序号
+ * - 首页关于卡只左右滑、默认第一张、循环
+ * - 研发页 #w9 三卡改为左右滑，带小点指示
  * 宽屏不执行，避免影响 PC。
  */
 (function () {
@@ -138,10 +140,48 @@
         }
     }
 
+    function initHxcen() {
+        var box = document.querySelector('#w9 .hxcen');
+        if (!box) return;
+
+        var pager = document.createElement('div');
+        pager.className = 'jp-hxcen-dots swiper-pagination';
+        if (box.parentNode) {
+            box.parentNode.insertBefore(pager, box.nextSibling);
+        }
+
+        var swiper = toSwiper(box, {
+            slidesPerView: 1.12,
+            spaceBetween: 12,
+            centeredSlides: true,
+            loop: true,
+            initialSlide: 0,
+            speed: 420,
+            watchOverflow: true,
+            pagination: {
+                el: pager,
+                clickable: true
+            },
+            on: {
+                init: function () {
+                    equalizeHeights(box);
+                    this.slideToLoop(0, 0);
+                },
+                resize: function () {
+                    equalizeHeights(box);
+                }
+            }
+        });
+        if (swiper) {
+            box.classList.add('jp-hxcen-swiper');
+        }
+    }
+
     function boot() {
         try {
             initCaseBanner();
             initAboutCards();
+            initHxcen();
         } catch (e) {
             if (window.console) window.console.error('[JoypoHomeM]', e);
         }
