@@ -1170,7 +1170,7 @@
 		float: none;
 		width: auto;
 		margin-right: 0;
-		padding-bottom: 16px;
+		padding-bottom: 0;
 	}
 
 	.foot .box > div {
@@ -1179,7 +1179,7 @@
 	}
 
 	.foot .box dl {
-		padding: 8px 0;
+		padding: 0;
 	}
 
 	.copy {
@@ -2049,5 +2049,276 @@
 	body #w7 .cona a.morec1:hover {
 		color: #5dc2d0;
 		background-color: transparent;
+	}
+}
+
+/* 首页手机端：方案区单卡横滑 + 底部序号；关于卡只横滑；背景收短；页脚整理 */
+@media (max-width: 1199px) {
+	#w1,
+	#w3 {
+		min-height: 0 !important;
+		background-size: cover !important;
+		background-position: center center !important;
+		background-repeat: no-repeat !important;
+		padding: 36px 0 40px;
+	}
+
+	#w1 .w,
+	#w3 .w {
+		padding-left: 16px;
+		padding-right: 16px;
+		box-sizing: border-box;
+	}
+
+	#w1 .title h1,
+	#w3 .title h1 {
+		font-size: 28px !important;
+		line-height: 1.35;
+		letter-spacing: 0;
+		padding: 0 8px;
+	}
+
+	#w1 .cl.blank2,
+	#w1 .cl.blank6,
+	#w3 .cl.blank2,
+	#w3 .cl.blank6,
+	#w3 .cl.blank3 {
+		height: 18px;
+		min-height: 0;
+		margin: 0;
+		padding: 0;
+		clear: both;
+	}
+
+	#w3 .abcont {
+		margin-top: 8px;
+	}
+
+	#w3 .more1 {
+		margin-top: 8px;
+	}
+
+	/* 方案三卡：单张横滑 */
+	#case_banner.jp-case-swiper,
+	#case_banner.swiper {
+		display: block;
+		width: 100%;
+		overflow: hidden;
+		flex-direction: unset;
+		flex-wrap: unset;
+		gap: 0;
+	}
+
+	#case_banner.swiper .swiper-wrapper {
+		align-items: stretch;
+	}
+
+	#case_banner.swiper .swiper-slide,
+	#case_banner.swiper dl {
+		width: 100%;
+		margin: 0;
+		float: none;
+	}
+
+	#case_banner.swiper .swiper-slide dt,
+	#case_banner.swiper .swiper-slide img {
+		width: 100%;
+		display: block;
+		border-radius: 18px;
+	}
+
+	#case_banner.swiper .ha1 {
+		left: 16px;
+		right: auto;
+		bottom: 16px;
+		font-size: 28px;
+	}
+
+	.jp-case-tabs {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 8px;
+		width: 100%;
+		margin: 14px 0 6px;
+		padding: 14px 10px 10px;
+		box-sizing: border-box;
+		border-radius: 12px;
+		background: rgba(7, 18, 24, .78);
+		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
+	}
+
+	.jp-case-tabs[hidden] {
+		display: none !important;
+	}
+
+	.jp-case-tab {
+		flex: 1 1 0;
+		min-width: 0;
+		margin: 0;
+		padding: 0 4px 8px;
+		border: 0;
+		border-bottom: 2px solid rgba(255, 255, 255, .28);
+		background: none;
+		color: rgba(255, 255, 255, .72);
+		text-align: left;
+		cursor: pointer;
+		appearance: none;
+		-webkit-appearance: none;
+	}
+
+	.jp-case-tab .jp-case-num {
+		display: block;
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 1.1;
+		letter-spacing: .04em;
+		font-style: italic;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.jp-case-tab .jp-case-label {
+		display: block;
+		margin-top: 4px;
+		font-size: 12px;
+		line-height: 1.25;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.jp-case-tab.is-on {
+		color: #fff;
+		border-bottom-color: #fff;
+		border-bottom-width: 3px;
+	}
+
+	/* 首页关于卡片：关掉原生横向滚动，改由 Swiper 接管，避免上下跟着晃 */
+	#w1.jp-home-w1 .inabout {
+		display: block !important;
+		flex-wrap: unset;
+		gap: 0;
+		width: auto;
+		overflow: hidden !important;
+		margin: 12px 0 8px;
+		padding: 0;
+		scroll-snap-type: none !important;
+		-webkit-overflow-scrolling: auto;
+		background: rgba(245, 247, 248, .94);
+		border-radius: 16px;
+		position: static;
+		transform: none;
+	}
+
+	#w1.jp-home-w1 .inabout.swiper .swiper-wrapper {
+		align-items: stretch;
+	}
+
+	#w1.jp-home-w1 .inabout.swiper .swiper-slide,
+	#w1.jp-home-w1 .inabout.swiper dl,
+	#w1.jp-home-w1 .inabout.swiper dl:nth-child(3) {
+		flex: none !important;
+		width: 100% !important;
+		max-width: none;
+		margin: 0;
+		padding: 28px 22px 32px;
+		float: none;
+		scroll-snap-align: unset;
+		box-sizing: border-box;
+		background: transparent;
+	}
+
+	#w1.jp-home-w1 .inabout.swiper dl dd h1 {
+		color: #2b8fa0;
+	}
+
+	/* 页脚：两列导航，收紧间距，二维码缩小 */
+	.foot {
+		background: #ebebeb;
+	}
+
+	.foot .box {
+		display: flex;
+		flex-direction: column;
+		gap: 22px;
+		width: auto;
+		padding: 28px 20px 20px;
+	}
+
+	.foot .logo {
+		text-align: left;
+	}
+
+	.foot .logo > img {
+		width: min(180px, 58vw);
+		height: auto;
+	}
+
+	.foot .tel .h1 {
+		margin-top: 14px;
+		font-size: 13px;
+		color: #666;
+	}
+
+	.foot .tel .h2,
+	.foot .tel .h3 {
+		font-size: 15px;
+		line-height: 1.55;
+		color: #222;
+	}
+
+	.foot .footfb {
+		display: flex;
+		gap: 12px;
+		margin-top: 12px;
+	}
+
+	.foot .footfb img {
+		width: 36px;
+		height: 36px;
+	}
+
+	.foot .box > div[style] {
+		display: grid !important;
+		grid-template-columns: 1fr 1fr;
+		gap: 18px 20px;
+		float: none !important;
+		width: 100% !important;
+	}
+
+	.foot .box dl {
+		margin: 0;
+		padding: 0;
+	}
+
+	.foot .box dl dt {
+		margin: 0 0 8px;
+		font-size: 15px;
+		font-weight: 700;
+		color: #1b2733;
+		line-height: 1.3;
+	}
+
+	.foot .box dl dd {
+		margin: 0;
+		padding: 0;
+		line-height: 1.85;
+		font-size: 13px;
+	}
+
+	.foot .box dl dd a {
+		color: #4a5560;
+	}
+
+	.foot .code {
+		display: none;
+	}
+
+	.copy {
+		padding: 14px 16px calc(88px + env(safe-area-inset-bottom));
+		font-size: 12px;
+		color: #666;
+		text-align: center;
 	}
 }

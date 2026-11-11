@@ -70,7 +70,7 @@
       
       </dl>
       
-      <dl aos="fade-up">
+      <dl>
        <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
       <dd>
        <h1>{fun=joypo_t('values.title')}</h1>
@@ -106,7 +106,7 @@
         <div id="case_banner" >
       
      {pboot:nav parent={sort:tcode} parent=2 num=6}
-     <dl> 
+     <dl data-tab="[nav:name]"> 
        <a href="[nav:link]">
         <dt>      
       <img src="[nav:ico]" alt="[nav:name]">
@@ -122,6 +122,7 @@
             
        
    </div>
+   <div class="jp-case-tabs" hidden></div>
 
     {/pboot:sort}
     
