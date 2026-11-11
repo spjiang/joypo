@@ -30,8 +30,7 @@ $(document).ready(function() {
 		var $panels = $(tab_conbox).children("ul");
 		function activate(index) {
 			$tabs.removeClass("current").eq(index).addClass("current");
-			$panels.eq(index).addClass("is-on").show();
-			$panels.not($panels.eq(index)).removeClass("is-on").hide();
+			$panels.hide().eq(index).show();
 		}
 		activate(0);
 		$tabs.bind(shijian, function () {
@@ -62,7 +61,7 @@ $(document).ready(function() {
 </head>
 <body>
 <!--关于久普栏目动效增强-->
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-about.css?v=20261111a">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-about.css?v=20261111c">
 <script src="{pboot:sitedomain}/skin/js/joypo-about.js" defer></script>
 {include file=head.html}
 <!--banner-->

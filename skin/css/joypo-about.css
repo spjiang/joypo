@@ -192,7 +192,7 @@
 .jp-about-years li{
 	opacity:1;
 	transition:transform .7s cubic-bezier(.18, 1.25, .4, 1),
-	           color .35s ease, text-shadow .35s ease;
+	           color .35s ease;
 }
 .jp-about-years li.jp-about-anim{
 	animation:jp-about-rise-s .7s cubic-bezier(.18, 1.25, .4, 1) both;
@@ -207,7 +207,7 @@
    否则会被上面的入场终态 transform 覆盖。 */
 .jp-about-years li:hover{
 	transform:translate3d(0, -6px, 0) scale(1.16);
-	text-shadow:0 6px 18px rgba(0, 0, 0, .28);
+	text-shadow:none;
 }
 
 /* 年份圆点：悬停时放大并填充 */
@@ -321,26 +321,13 @@
 /* ---------------------------------------------------------------------------
    8. 无障碍：偏好减少动效时全部直接显示
    --------------------------------------------------------------------------- */
-/* 电脑端发展历程：几张年份图叠在同一格里直接切换，不从透明淡入。
-   360 对 opacity 动画会整张重绘，圆圈会闪一下。图里只有数字不同。 */
+/* 电脑端发展历程：直接换图，不做从透明淡入。
+   淡入会让 360 把整张圆圈重绘闪一下。 */
 @media (min-width: 1200px){
-	#content1{
-		display:grid;
-	}
-	#content1 > ul,
-	#content1 > ul.jp-his-anim{
-		display:block !important;
-		grid-area:1 / 1;
-		position:relative;
-		visibility:hidden;
-		opacity:1 !important;
+	.jp-about-history > ul,
+	.jp-about-history > ul.jp-his-anim{
 		animation:none !important;
-		width:100%;
-		margin:0 0 80px;
-	}
-	#content1 > ul.is-on{
-		visibility:visible;
-		z-index:1;
+		opacity:1 !important;
 	}
 }
 
