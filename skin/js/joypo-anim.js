@@ -627,26 +627,72 @@
        8. 启动
        ================================================================ */
     function initVideos() {
+        function prep(v) {
+            try {
+                v.muted = true;
+                v.defaultMuted = true;
+                v.playsInline = true;
+                v.setAttribute('muted', '');
+                v.setAttribute('autoplay', '');
+                v.setAttribute('playsinline', '');
+                v.setAttribute('webkit-playsinline', '');
+                v.setAttribute('x5-playsinline', '');
+                v.setAttribute('x5-video-player-type', 'h5');
+                v.setAttribute('x5-video-player-fullscreen', 'false');
+                if (!v.getAttribute('preload')) v.setAttribute('preload', 'auto');
+            } catch (e) {}
+        }
+
+        function tryPlay(v) {
+            prep(v);
+            try {
+                var ret = v.play();
+                if (ret && ret.catch) ret.catch(function () {});
+            } catch (e) {}
+        }
+
+        function kickAll() {
+            $$('video').forEach(tryPlay);
+        }
+
         $$('video').forEach(function (v) {
-            v.muted = true;
-            v.setAttribute('playsinline', '');
-            v.setAttribute('webkit-playsinline', '');
-            var play = function () {
-                var ret = v.play();
-                if (ret && ret.catch) ret.catch(function () {});
-            };
-            play();
-            v.addEventListener('loadeddata', play);
+            prep(v);
+            tryPlay(v);
+            v.addEventListener('loadeddata', function () { tryPlay(v); });
+            v.addEventListener('canplay', function () { tryPlay(v); });
+            v.addEventListener('loadedmetadata', function () { tryPlay(v); });
         });
-        var kicked = false;
-        doc.addEventListener('touchstart', function () {
-            if (kicked) return;
-            kicked = true;
-            $$('video').forEach(function (v) {
-                var ret = v.play();
-                if (ret && ret.catch) ret.catch(function () {});
-            });
-        }, { passive: true });
+
+        /* 微信 / 各类 WebView：桥就绪后强制播 */
+        function onBridgeReady() {
+            kickAll();
+            try {
+                if (typeof WeixinJSBridge !== 'undefined' && WeixinJSBridge.invoke) {
+                    WeixinJSBridge.invoke('getNetworkType', {}, function () { kickAll(); });
+                }
+            } catch (e) {}
+        }
+        if (typeof WeixinJSBridge !== 'undefined') {
+            onBridgeReady();
+        } else {
+            doc.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            doc.addEventListener('YixinJSBridgeReady', onBridgeReady, false);
+        }
+
+        /* 华为微信等：首次交互 + 滚动 + 回前台都再试 */
+        ['touchstart', 'touchend', 'click', 'scroll', 'pointerdown'].forEach(function (ev) {
+            doc.addEventListener(ev, kickAll, { passive: true, capture: true });
+        });
+        doc.addEventListener('visibilitychange', function () {
+            if (!doc.hidden) kickAll();
+        });
+        win.addEventListener('pageshow', kickAll);
+
+        var n = 0;
+        var timer = setInterval(function () {
+            kickAll();
+            if (++n >= 25) clearInterval(timer);
+        }, 400);
     }
 
     function boot() {

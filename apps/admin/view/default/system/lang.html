@@ -1,0 +1,72 @@
+{include file='common/head.html'}
+
+<div class="layui-body">
+	<div class="layui-tab layui-tab-brief" lay-filter="tab">
+	  <ul class="layui-tab-title">
+	    <li class="layui-this" lay-id="t1">界面文案</li>
+	  </ul>
+	  <div class="layui-tab-content">
+	  	<div class="layui-tab-item layui-show">
+
+	  		<form class="layui-form" method="get" action="{url./admin/Lang/index}" style="margin-bottom:15px;">
+	  			<div class="layui-inline">
+	  				<select name="grp">
+	  					<option value="">全部分组</option>
+	  					{foreach $group_options(key,value)}
+	  					<option value="[value->code]" {if([$grp]==$value->code)}selected{/if}>[value->label]</option>
+	  					{/foreach}
+	  				</select>
+	  			</div>
+	  			<div class="layui-inline">
+	  				<input type="text" name="keyword" value="{$keyword}" placeholder="搜索键名/中文/英文" class="layui-input" style="width:220px;">
+	  			</div>
+	  			<button class="layui-btn layui-btn-normal">筛选</button>
+	  			<a class="layui-btn layui-btn-primary" href="{url./admin/Lang/index}">重置</a>
+	  		</form>
+
+	  		<form action="{url./admin/Lang/index}" method="post" class="layui-form" style="display:inline-block;margin-bottom:12px;">
+	  			<input type="hidden" name="formcheck" value="{$formcheck}">
+	  			<input type="hidden" name="action" value="sync">
+	  			<button class="layui-btn layui-btn-primary" onclick='return confirm("将从 lang/zh.php、lang/en.php 补齐缺失的键，不会覆盖已有后台修改。继续？")'>从语言包文件同步</button>
+	  		</form>
+	  		<span class="layui-word-aux" style="margin-left:8px;">当前显示 {$lang_count} 条。库中非空文案优先生效，空值回退到语言包文件。</span>
+
+	  		<form action="{url./admin/Lang/index}?grp={$grp}&keyword={$keyword}" method="post" class="layui-form">
+	  			<input type="hidden" name="formcheck" value="{$formcheck}">
+	  			<table class="layui-table">
+	  				<thead>
+	  					<tr>
+	  						<th style="width:160px;">键名</th>
+	  						<th style="width:90px;">分组</th>
+	  						<th>中文</th>
+	  						<th>英文</th>
+	  						<th style="width:140px;">备注</th>
+	  					</tr>
+	  				</thead>
+	  				<tbody>
+	  					{foreach $langs(key,value)}
+	  					<tr>
+	  						<td><code>[value->lang_key]</code></td>
+	  						<td>[value->grp_label]</td>
+	  						<td><textarea name="zh[[value->id]]" class="layui-textarea" rows="2">[value->zh]</textarea></td>
+	  						<td><textarea name="en[[value->id]]" class="layui-textarea" rows="2">[value->en]</textarea></td>
+	  						<td><input type="text" name="remark[[value->id]]" value="[value->remark]" class="layui-input" placeholder="可选"></td>
+	  					</tr>
+	  					{/foreach}
+	  				</tbody>
+	  			</table>
+	  			{if([$langs])}
+	  			<div class="layui-form-item">
+	  				<button class="layui-btn" lay-submit>保存修改</button>
+	  				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	  			</div>
+	  			{else}
+	  			<p class="layui-word-aux">暂无数据。可点击「从语言包文件同步」导入。</p>
+	  			{/if}
+	  		</form>
+	  	</div>
+	  </div>
+	</div>
+</div>
+
+{include file='common/foot.html'}

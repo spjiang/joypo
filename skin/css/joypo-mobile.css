@@ -2260,14 +2260,20 @@
 	/* 页脚：两列导航，收紧间距，二维码缩小 */
 	.foot {
 		background: #ebebeb;
+		padding: 12px 0 0;
 	}
 
 	.foot .box {
 		display: flex;
 		flex-direction: column;
-		gap: 22px;
+		gap: 12px;
 		width: auto;
-		padding: 28px 20px 20px;
+		padding: 4px 16px 4px;
+	}
+
+	.foot .blank6 {
+		height: 8px;
+		min-height: 0;
 	}
 
 	.foot .logo {
@@ -2666,26 +2672,40 @@
 
 /* 手机端：产品/关于/新闻空白与页脚间距（不影响 PC） */
 @media (max-width: 1199px) {
-	/* 1. 产品页：收掉产品区前后大空白 */
+	/* 1. 产品页：去掉类别上下 blank6 大空白，并贴紧产品区 */
+	.page-cnxt > .cl.blank6,
+	.page-dlxt > .cl.blank6,
+	.page-xfdz > .cl.blank6 {
+		display: none !important;
+		height: 0 !important;
+		min-height: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		overflow: hidden !important;
+	}
+
 	.page-cnxt #pro_banner,
 	.page-dlxt #pro_banner,
 	.page-xfdz #pro_banner {
 		margin-top: 0 !important;
-		padding: 6px 0 0 !important;
+		margin-bottom: 0 !important;
+		padding: 0 !important;
 	}
 
 	.page-cnxt .banner_pn,
 	.page-dlxt .banner_pn,
 	.page-xfdz .banner_pn {
-		margin: 0;
-		padding: 0;
+		margin: 0 !important;
+		padding: 0 !important;
 	}
 
 	.page-cnxt .banner_pn + .w,
 	.page-dlxt .banner_pn + .w,
 	.page-xfdz .banner_pn + .w {
-		margin: 0;
-		padding: 0;
+		margin: 0 !important;
+		padding: 0 !important;
+		width: 100% !important;
+		max-width: none !important;
 	}
 
 	.page-cnxt #content01 ul,
@@ -2697,7 +2717,8 @@
 	.page-xfdz #content01 ul,
 	.page-xfdz #content02 ul,
 	.page-xfdz #content03 ul {
-		margin-bottom: 6px !important;
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
 	}
 
 	.page-cnxt #pro_banner .jp-prod-models,
@@ -2715,8 +2736,18 @@
 	.page-xfdz #tab01,
 	.page-xfdz #tab02,
 	.page-xfdz #tab03 {
-		margin: 4px 10px 14px !important;
-		padding-bottom: 6px !important;
+		margin: 2px 10px 8px !important;
+		padding-top: 2px !important;
+		padding-bottom: 4px !important;
+	}
+
+	.page-cnxt .jp-prod-shot-tip,
+	.page-dlxt .jp-prod-shot-tip,
+	.page-xfdz .jp-prod-shot-tip,
+	.page-cnxt #pro_banner .jp-prod-shot-tip,
+	.page-dlxt #pro_banner .jp-prod-shot-tip,
+	.page-xfdz #pro_banner .jp-prod-shot-tip {
+		bottom: 6px !important;
 	}
 
 	.page-cnxt #w10,
@@ -2726,7 +2757,7 @@
 	.page-dlxt #w11,
 	.page-xfdz #w11 {
 		min-height: 0 !important;
-		padding: 20px 0 24px !important;
+		padding: 16px 0 20px !important;
 		background-size: cover !important;
 	}
 
@@ -2736,26 +2767,66 @@
 	.page-cnxt #w7 .cl.blank2,
 	.page-dlxt #w7 .cl.blank2,
 	.page-xfdz #w7 .cl.blank2 {
-		height: 10px;
+		height: 8px;
 		min-height: 0;
 	}
 
-	/* 2. copyright 高度收小 */
-	.copy {
-		padding: 8px 12px calc(72px + env(safe-area-inset-bottom)) !important;
-		line-height: 1.4 !important;
-		font-size: 11px !important;
-		min-height: 0 !important;
+	/* 2. copyright 灰条收矮，不再用 body 白底垫高 */
+	body {
+		padding-bottom: 0 !important;
 	}
 
-	/* 3. 关于页正文避开右侧悬浮钮 */
+	.copy {
+		padding: 8px 12px calc(10px + env(safe-area-inset-bottom)) !important;
+		line-height: 1.35 !important;
+		font-size: 11px !important;
+		min-height: 0 !important;
+		height: auto !important;
+		border: none !important;
+		margin: 0 !important;
+	}
+
+	/* 3. 关于页：标题与正文间距收紧；右侧留白减小 */
+	.about1 .title1,
+	.abvod .title1 {
+		padding: 4px 16px 0 !important;
+		margin: 0 !important;
+	}
+
+	.about1 .title1 .h3,
+	.abvod .title1 .h3 {
+		margin: 0 !important;
+	}
+
 	.about1 .about_box,
 	.about1 .about_box .p,
 	.about .about_box,
 	.abvod .about_box {
+		margin-top: 10px !important;
 		padding-left: 16px !important;
-		padding-right: 58px !important;
+		padding-right: 20px !important;
 		box-sizing: border-box;
+	}
+
+	.about1 .about_box > .cl.blank2,
+	.abvod .about_box + .cl.blank2 {
+		height: 10px !important;
+		min-height: 0 !important;
+	}
+
+	/* 视频不再上移遮住上方文字 */
+	.abvod {
+		margin-top: 0 !important;
+		position: relative;
+		z-index: 1;
+	}
+
+	.abvod > .w > video,
+	.abvod video {
+		display: block;
+		margin: 0 !important;
+		position: relative;
+		z-index: 1;
 	}
 
 	/* 4. 发展历程：圆圈完整显示，底部灰空白收短 */
@@ -2769,19 +2840,38 @@
 	#outer1 {
 		width: 100% !important;
 		margin: 0 !important;
-		padding: 8px 12px 0;
-		overflow: visible !important;
+		padding: 8px 0 0;
+		overflow: visible;
 		box-sizing: border-box;
 	}
 
 	#outer1 #tab1 {
-		padding: 4px 0 10px;
-		overflow: visible;
+		display: flex !important;
+		flex-wrap: nowrap !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		padding: 8px 12px 12px !important;
+		box-sizing: border-box;
+		overflow-x: auto !important;
+		overflow-y: visible !important;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+		scroll-snap-type: x proximity;
+		touch-action: pan-x;
+	}
+
+	#outer1 #tab1::-webkit-scrollbar {
+		display: none;
 	}
 
 	#outer1 #tab1 li {
+		flex: 0 0 auto !important;
+		float: none !important;
 		padding: 22px 14px 6px !important;
 		color: rgba(255, 255, 255, .88);
+		white-space: nowrap;
+		scroll-snap-align: start;
 	}
 
 	#outer1 #tab1 li i {
@@ -2857,22 +2947,46 @@
 		min-height: 0 !important;
 	}
 
-	/* 6. 全站底部页脚间距收紧 */
+	/* 6. 全站底部页脚间距收紧（红框三处空白） */
+	.foot {
+		padding: 12px 0 0 !important;
+		min-width: 0 !important;
+	}
+
 	.foot .box {
-		gap: 16px !important;
-		padding: 20px 16px 12px !important;
+		gap: 12px !important;
+		padding: 4px 16px 4px !important;
+	}
+
+	.foot .logo,
+	.foot .box dl,
+	.foot .code,
+	.foot .box > div {
+		padding-bottom: 0 !important;
+	}
+
+	.foot .blank6 {
+		height: 8px !important;
+		min-height: 0 !important;
 	}
 
 	.foot .box > div[style] {
-		gap: 14px 16px !important;
+		gap: 12px 16px !important;
+		padding-bottom: 0 !important;
+	}
+
+	.foot .tel {
+		margin-top: 8px !important;
 	}
 
 	.foot .tel .h1 {
-		margin-top: 10px !important;
+		margin-top: 8px !important;
+		margin-bottom: 4px !important;
 	}
 
 	.foot .footfb {
-		margin-top: 8px !important;
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
 	}
 
 	.foot .box dl dt {
@@ -2880,7 +2994,18 @@
 	}
 
 	.foot .box dl dd {
-		line-height: 1.7 !important;
+		line-height: 1.55 !important;
+	}
+
+	.foot .clear {
+		height: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		overflow: hidden;
+	}
+
+	.copy {
+		padding: 6px 12px calc(8px + env(safe-area-inset-bottom)) !important;
 	}
 
 	/* 7. 新闻列表前后空白 + 分页下移一点 */
@@ -2923,5 +3048,253 @@
 	.pagebar + .cl.blank2 {
 		height: 8px !important;
 		min-height: 0 !important;
+	}
+}
+
+/* ========== 2026-11-12 手机端补充（不影响 PC） ========== */
+@media (max-width: 1199px) {
+	/* 1) 产品页：标题+说明贴在图片底部，不再挡中间画面 */
+	.banner_n2:has(.box1) {
+		display: grid !important;
+		grid-template-columns: 1fr;
+		position: relative !important;
+		overflow: visible !important;
+	}
+
+	.banner_n2:has(.box1) > img {
+		grid-row: 1;
+		grid-column: 1;
+		width: 100% !important;
+		height: 52vw !important;
+		min-height: 240px !important;
+		max-height: 420px;
+		object-fit: cover !important;
+		display: block;
+	}
+
+	.banner_n2:has(.box1) .box1 {
+		display: block !important;
+		grid-row: 1;
+		grid-column: 1;
+		align-self: end;
+		justify-self: stretch;
+		position: relative !important;
+		top: auto !important;
+		left: auto !important;
+		right: auto !important;
+		bottom: auto !important;
+		width: auto !important;
+		max-width: none !important;
+		margin: 0 12px 12px !important;
+		padding: 14px 16px !important;
+		transform: none !important;
+		text-align: left !important;
+		color: #fff !important;
+		background: rgba(7, 18, 24, .72) !important;
+		border-radius: 12px !important;
+		box-sizing: border-box;
+		z-index: 2;
+	}
+
+	.banner_n2:has(.box1) .box1 h1,
+	.banner_n2:has(.box1) .box1 h1 span,
+	.banner_n2:has(.box1) .box1 p {
+		display: block !important;
+		position: static !important;
+		width: auto !important;
+		margin: 0 !important;
+		color: #fff !important;
+		text-align: left !important;
+		grid-row: auto !important;
+		grid-column: auto !important;
+	}
+
+	.banner_n2:has(.box1) .box1 h1 {
+		font-size: 22px !important;
+		line-height: 1.3 !important;
+		height: auto !important;
+	}
+
+	.banner_n2:has(.box1) .box1 h1 span {
+		margin-top: 6px !important;
+		font-size: 14px !important;
+		line-height: 1.5 !important;
+		color: rgba(255, 255, 255, .88) !important;
+	}
+
+	.banner_n2:has(.box1) .box1 p {
+		margin-top: 8px !important;
+		font-size: 13px !important;
+		line-height: 1.6 !important;
+		color: rgba(255, 255, 255, .9) !important;
+	}
+
+	.banner_n2:has(.box1) > .blank2 {
+		grid-row: 2;
+	}
+
+	.banner_n2:has(.box1) > .plcen {
+		grid-row: 3;
+		position: static !important;
+		transform: none !important;
+	}
+
+	/* 2) 首页/关于：企业文化卡 图标与标题齐平，灰区收矮 */
+	#w1 {
+		min-height: 0 !important;
+		padding: 24px 0 28px !important;
+		background-size: cover !important;
+		background-position: center top !important;
+	}
+
+	#w1 .inabout,
+	#w1.jp-home-w1 .inabout {
+		margin: 8px 0 6px !important;
+		padding: 0 !important;
+		background: rgba(245, 247, 248, .96) !important;
+		border-radius: 14px !important;
+	}
+
+	#w1 .inabout dl,
+	#w1 .inabout dl:nth-child(3),
+	#w1.jp-home-w1 .inabout.swiper .swiper-slide,
+	#w1.jp-home-w1 .inabout.swiper dl,
+	#w1.jp-home-w1 .inabout.swiper dl:nth-child(3) {
+		display: flex !important;
+		flex-direction: row !important;
+		flex-wrap: nowrap !important;
+		align-items: flex-start !important;
+		gap: 14px !important;
+		padding: 16px 16px 14px !important;
+		margin: 0 !important;
+		box-sizing: border-box;
+		background: transparent !important;
+	}
+
+	#w1 .inabout dl dt,
+	#w1.jp-home-w1 .inabout dl dt {
+		flex: 0 0 auto !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		line-height: 0;
+	}
+
+	#w1 .inabout dl dt img,
+	#w1.jp-home-w1 .inabout dl dt img {
+		display: block;
+		width: auto !important;
+		height: 44px !important;
+		margin: 2px 0 0 !important;
+	}
+
+	#w1 .inabout dl dd,
+	#w1.jp-home-w1 .inabout dl dd {
+		flex: 1 1 0 !important;
+		min-width: 0 !important;
+		min-height: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		font-size: 14px !important;
+		line-height: 1.55 !important;
+		text-align: left !important;
+	}
+
+	#w1 .inabout dl dd h1,
+	#w1.jp-home-w1 .inabout dl dd h1 {
+		margin: 0 0 6px !important;
+		padding: 0 !important;
+		font-size: 18px !important;
+		line-height: 1.3 !important;
+		text-align: left !important;
+	}
+
+	#w1 .inabout dl dd p,
+	#w1.jp-home-w1 .inabout dl dd p {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* 首页关于卡底部小点 */
+	.jp-about-dots {
+		position: static !important;
+		display: flex !important;
+		justify-content: center;
+		align-items: center;
+		gap: 8px;
+		width: 100%;
+		margin: 10px 0 0;
+		padding: 0;
+		transform: none !important;
+	}
+
+	.jp-about-dots .swiper-pagination-bullet {
+		width: 8px !important;
+		height: 8px !important;
+		margin: 0 !important;
+		opacity: 1 !important;
+		background: rgba(43, 143, 160, .35) !important;
+		border-radius: 50% !important;
+	}
+
+	.jp-about-dots .swiper-pagination-bullet-active {
+		width: 22px !important;
+		border-radius: 6px !important;
+		background: #5dc2d0 !important;
+	}
+
+	/* 3) about 年份圆圈不被顶部裁切 */
+	#w6 {
+		overflow: visible !important;
+		padding-top: 28px !important;
+	}
+
+	#outer1 {
+		overflow: visible !important;
+		padding-top: 4px !important;
+	}
+
+	#outer1 #tab1 {
+		padding-top: 26px !important;
+		padding-bottom: 14px !important;
+		overflow-x: auto !important;
+		overflow-y: visible !important;
+	}
+
+	#outer1 #tab1 li {
+		padding-top: 26px !important;
+	}
+
+	#outer1 #tab1 li i {
+		top: 0 !important;
+	}
+
+	#outer1 #tab1 li.current i {
+		top: -10px !important;
+		z-index: 2;
+	}
+
+	/* 4) 客户分布地图：铺满加宽，浅底避免华为黑底黑图 */
+	.jp-global-head {
+		margin: 8px 16px 10px !important;
+	}
+
+	.jp-global-head + .w {
+		width: 100% !important;
+		max-width: none !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		background: #dfe7ea !important;
+	}
+
+	.jp-global-head + .w video {
+		display: block !important;
+		width: 100% !important;
+		max-width: none !important;
+		height: auto !important;
+		min-height: 48vw !important;
+		aspect-ratio: 16 / 10 !important;
+		object-fit: contain !important;
+		object-position: center center !important;
+		background: #dfe7ea url(../images/dt.png) center center / contain no-repeat !important;
 	}
 }

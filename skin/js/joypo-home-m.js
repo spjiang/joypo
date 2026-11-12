@@ -114,6 +114,12 @@
         var box = document.querySelector('.jp-home-w1 .inabout');
         if (!box) return;
 
+        var pager = document.createElement('div');
+        pager.className = 'jp-about-dots swiper-pagination';
+        if (box.parentNode) {
+            box.parentNode.insertBefore(pager, box.nextSibling);
+        }
+
         var swiper = toSwiper(box, {
             slidesPerView: 1,
             spaceBetween: 0,
@@ -124,6 +130,10 @@
             autoHeight: false,
             watchOverflow: true,
             resistanceRatio: 0.65,
+            pagination: {
+                el: pager,
+                clickable: true
+            },
             on: {
                 init: function () {
                     equalizeHeights(box);
