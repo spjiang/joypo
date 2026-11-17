@@ -1033,6 +1033,29 @@ video.jp-img {
 		max-width: 16em;
 	}
 
+	/* 2026-11-17 PC：分类入口卡（.plcen）英文行高收紧，减小左右间距以加宽模块 */
+	.page-cnxt .plcen,
+	.page-dlxt .plcen,
+	.page-xfdz .plcen,
+	.plcen {
+		gap: 14px !important;
+	}
+
+	.page-cnxt .plcen dl,
+	.page-dlxt .plcen dl,
+	.page-xfdz .plcen dl,
+	.plcen dl {
+		padding-left: 18px !important;
+		padding-right: 18px !important;
+	}
+
+	html[lang="en"] .page-cnxt .plcen dl dt a,
+	html[lang="en"] .page-dlxt .plcen dl dt a,
+	html[lang="en"] .page-xfdz .plcen dl dt a,
+	html[lang="en"] .plcen dl dt a {
+		line-height: 1.25 !important;
+	}
+
 	/* 2026-11-17 PC：产品列表名单行不换行；背景条按内容收窄，避免过宽留白 */
 	#tab01,
 	#tab02,
