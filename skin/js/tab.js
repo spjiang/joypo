@@ -123,7 +123,7 @@ $(document).ready(function(){
        }else{
       var galleryTop1 = new Swiper('#join_banner1', {
       slidesPerView:1,
-      spaceBetween:10,
+      spaceBetween:0,
       loop: true,
       autoplay:{
         delay:3000,

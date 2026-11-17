@@ -1328,6 +1328,9 @@ padding-bottom:100px; }
 	float: left;
 	margin-right: 150px;
 }
+.foot-nav{
+	float: right;
+}
 .foot .tel{
 	line-height:30px;
 	margin-top: 20px;

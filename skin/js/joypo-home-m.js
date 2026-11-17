@@ -2,7 +2,7 @@
  * 手机端首页 / 研发页：
  * - 首页方案区单卡横滑 + 底部序号
  * - 首页关于卡只左右滑、默认第一张、循环
- * - 研发页 #w9 三卡改为左右滑，带小点指示
+ * - 研发页 #w9 三卡 / .inyfzz 改为左右滑，带小点指示
  * 宽屏不执行，避免影响 PC。
  */
 (function () {
@@ -187,11 +187,87 @@
         }
     }
 
+    function initInyfzz() {
+        var box = document.querySelector('#w2 .inyfzz');
+        if (!box) return;
+
+        var pager = document.createElement('div');
+        pager.className = 'jp-inyfzz-dots swiper-pagination';
+        if (box.parentNode) {
+            box.parentNode.insertBefore(pager, box.nextSibling);
+        }
+
+        var swiper = toSwiper(box, {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            centeredSlides: false,
+            loop: false,
+            initialSlide: 0,
+            speed: 420,
+            autoHeight: true,
+            watchOverflow: true,
+            observer: true,
+            observeParents: true,
+            pagination: {
+                el: pager,
+                clickable: true
+            },
+            on: {
+                init: function () {
+                    equalizeHeights(box);
+                    this.updateAutoHeight(0);
+                    this.slideTo(0, 0);
+                },
+                resize: function () {
+                    equalizeHeights(box);
+                    this.updateAutoHeight(0);
+                },
+                slideChangeTransitionEnd: function () {
+                    equalizeHeights(box);
+                    this.updateAutoHeight(120);
+                }
+            }
+        });
+        if (swiper) {
+            box.classList.add('jp-inyfzz-swiper');
+        }
+    }
+
+    function initJoinLife() {
+        var box = document.getElementById('join_banner1');
+        if (!box) return;
+
+        function apply() {
+            var sw = box.swiper;
+            if (!sw) return false;
+            sw.params.spaceBetween = 0;
+            sw.params.slidesPerView = 1;
+            sw.params.centeredSlides = false;
+            sw.params.watchOverflow = true;
+            try {
+                sw.update();
+                if (typeof sw.slideToLoop === 'function') {
+                    sw.slideToLoop(sw.realIndex || 0, 0);
+                } else {
+                    sw.slideTo(sw.activeIndex || 0, 0);
+                }
+            } catch (e) {}
+            return true;
+        }
+
+        if (!apply()) {
+            setTimeout(apply, 120);
+            setTimeout(apply, 400);
+        }
+    }
+
     function boot() {
         try {
             initCaseBanner();
             initAboutCards();
             initHxcen();
+            initInyfzz();
+            initJoinLife();
         } catch (e) {
             if (window.console) window.console.error('[JoypoHomeM]', e);
         }

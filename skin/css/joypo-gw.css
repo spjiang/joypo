@@ -1021,4 +1021,189 @@ video.jp-img {
 	.page-xfdz .jp-prod-tabs:not(:has(li)) {
 		display: none !important;
 	}
+
+	/* 子类标题长英文：允许换行，避免 nowrap 撑破 */
+	.page-cnxt .pbox h1,
+	.page-dlxt .pbox h1,
+	.page-xfdz .pbox h1,
+	.pbox h1 {
+		white-space: normal !important;
+		font-size: clamp(22px, 2.4vw, 38px) !important;
+		line-height: 1.25 !important;
+		max-width: 16em;
+	}
+
+	/* 2026-11-17 PC：产品列表名单行不换行；背景条按内容收窄，避免过宽留白 */
+	#tab01,
+	#tab02,
+	#tab03,
+	.page-cnxt .jp-prod-tabs,
+	.page-dlxt .jp-prod-tabs,
+	.page-xfdz .jp-prod-tabs,
+	.page-cnxt .jp-prod-models,
+	.page-dlxt .jp-prod-models,
+	.page-xfdz .jp-prod-models {
+		width: max-content !important;
+		max-width: min(90%, 1200px) !important;
+		height: auto !important;
+		min-height: 40px;
+		flex-wrap: nowrap !important;
+		box-sizing: border-box;
+	}
+
+	#tab01 li,
+	#tab02 li,
+	#tab03 li,
+	.page-cnxt .jp-prod-tabs li,
+	.page-dlxt .jp-prod-tabs li,
+	.page-xfdz .jp-prod-tabs li,
+	.page-cnxt .jp-prod-models li,
+	.page-dlxt .jp-prod-models li,
+	.page-xfdz .jp-prod-models li {
+		width: auto !important;
+		flex: 0 0 auto !important;
+		float: none !important;
+		min-width: max-content;
+		max-width: none;
+		height: auto !important;
+		min-height: 40px;
+		line-height: 40px !important;
+		white-space: nowrap !important;
+		word-break: normal !important;
+	}
+
+	#tab01 li span,
+	#tab02 li span,
+	#tab03 li span,
+	.page-cnxt .jp-prod-tabs li span,
+	.page-dlxt .jp-prod-tabs li span,
+	.page-xfdz .jp-prod-tabs li span,
+	.page-cnxt .jp-prod-models li span,
+	.page-dlxt .jp-prod-models li span,
+	.page-xfdz .jp-prod-models li span {
+		bottom: -5px !important;
+		left: 50% !important;
+		transform: translateX(-50%) !important;
+	}
+
+	/* 2026-11-12o PC：地图完整可见，只裁视频上下空白区，拉近与标题间距 */
+	.cl.blank2:has(+ .jp-global-head) {
+		height: 8px !important;
+		min-height: 0 !important;
+	}
+
+	.jp-global-head {
+		margin-top: 20px !important;
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	}
+
+	.jp-global-head .h2 {
+		margin-bottom: 8px !important;
+	}
+
+	.jp-global-head h2 {
+		margin: 0 auto 0 !important;
+		padding: 0 8% !important;
+		max-width: 1100px;
+		line-height: 1.35 !important;
+	}
+
+	.jp-global-head + .w {
+		overflow: hidden !important;
+		height: auto !important;
+		max-height: none !important;
+		margin: 8px auto 0 !important;
+		padding: 0 !important;
+		line-height: 0 !important;
+		background: transparent !important;
+	}
+
+	.jp-global-head + .w video {
+		display: block !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		/* 略收上下留白，并与标题保持一点间距 */
+		margin: -10% 0 -5% !important;
+		object-fit: contain !important;
+		object-position: center center !important;
+		background: transparent !important;
+	}
+
+	.jp-global-head + .w + .cl.blank {
+		height: 8px !important;
+		min-height: 0 !important;
+	}
+
+	/* 2026-11-16 PC：页脚英文导航靠加宽解决换行，不缩小字号 */
+	.foot .box {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 24px 32px;
+		width: min(96%, 1600px);
+		max-width: 1600px;
+	}
+
+	.foot .logo {
+		float: none;
+		margin-right: 0;
+		flex: 0 0 auto;
+		max-width: 260px;
+	}
+
+	.foot-nav {
+		float: none !important;
+		display: flex !important;
+		flex: 1 1 auto;
+		justify-content: flex-end;
+		align-items: flex-start;
+		flex-wrap: nowrap;
+		gap: 12px 36px;
+		min-width: 0;
+	}
+
+	.foot .box dl {
+		float: none;
+		padding: 0 !important;
+		flex: 0 0 auto;
+		min-width: max-content;
+	}
+
+	.foot .box dl dt {
+		white-space: nowrap;
+	}
+
+	.foot .box dl dd a {
+		white-space: nowrap;
+	}
+
+	.foot .code {
+		float: none;
+		flex: 0 0 auto;
+		padding-bottom: 80px;
+	}
+
+	html[lang="en"] .foot .logo {
+		max-width: 220px;
+	}
+
+	html[lang="en"] .foot-nav {
+		gap: 14px 40px;
+	}
+
+	/* 保持原字号，仅保证单行 */
+	html[lang="en"] .foot .box dl dt {
+		font-size: 20px;
+		line-height: 1.35;
+		margin-bottom: 30px;
+		white-space: nowrap;
+	}
+
+	html[lang="en"] .foot .box dl dd a {
+		font-size: inherit;
+		line-height: 30px;
+		white-space: nowrap;
+	}
 }

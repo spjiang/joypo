@@ -15,6 +15,8 @@ class LangController extends Controller
 
     public function __construct()
     {
+        // 与其它后台控制器一致：Kernel 会挂载 AdminController 鉴权；
+        // 此处补齐语言表/菜单，并刷新当前会话侧栏。
         $this->model = new LangModel();
         I18n::ensureLangReady();
         I18n::ensureLangMenu();
@@ -27,7 +29,7 @@ class LangController extends Controller
             if ($action === 'sync') {
                 $n = $this->model->syncFromFiles(session('username') ?: 'admin');
                 I18n::clearLangCache();
-                success('已从语言包文件同步，新增/补全 ' . $n . ' 条。', url('/admin/Lang/index'));
+                success('已从语言包文件同步，新增/补全 ' . $n . ' 条。', $this->langIndexUrl());
             }
 
             $zh = post('zh', 'array', false, '', array());
@@ -61,14 +63,9 @@ class LangController extends Controller
             }
             I18n::clearLangCache();
             $this->log('修改界面文案成功，更新 ' . $updated . ' 条');
-            $qs = '';
-            if ($g = get('grp')) {
-                $qs .= '&grp=' . urlencode($g);
-            }
-            if ($k = get('keyword')) {
-                $qs .= '&keyword=' . urlencode($k);
-            }
-            success('保存成功！', url('/admin/Lang/index') . $qs);
+            $g = trim((string) (post('filter_grp') ?: get('grp', 'var')));
+            $k = trim((string) (post('filter_keyword') ?: get('keyword', 'vars')));
+            success('保存成功！', $this->langIndexUrl($g, $k));
         }
 
         // 首次打开自动从文件补齐缺失 key
@@ -104,5 +101,23 @@ class LangController extends Controller
         $this->assign('langs', $rows);
         $this->assign('lang_count', is_array($rows) ? count($rows) : 0);
         $this->display('system/lang.html');
+    }
+
+    /** 兼容模式已有 ?p=，附加参数只能用 &，禁止再拼 ? */
+    private function langIndexUrl($grp = '', $keyword = '')
+    {
+        $base = url('/admin/Lang/index');
+        $parts = array();
+        if ($grp !== '') {
+            $parts[] = 'grp=' . rawurlencode($grp);
+        }
+        if ($keyword !== '') {
+            $parts[] = 'keyword=' . rawurlencode($keyword);
+        }
+        if (! $parts) {
+            return $base;
+        }
+        $sep = (strpos($base, '?') !== false) ? '&' : '?';
+        return $base . $sep . implode('&', $parts);
     }
 }

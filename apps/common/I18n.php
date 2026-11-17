@@ -82,8 +82,142 @@ class I18n
         $done = true;
         try {
             self::ensureLangTable();
+            self::restoreHeroLineKeys();
         } catch (\Exception $e) {
             return;
+        }
+    }
+
+    /**
+     * 撤销合并：拆回 hero.line1 / hero.line2，并删除 hero.line。
+     */
+    private static function restoreHeroLineKeys()
+    {
+        static $done = false;
+        if ($done) {
+            return;
+        }
+        $done = true;
+        $rows = self::fetchAllRows();
+        if (! $rows) {
+            return;
+        }
+
+        $zhFile = self::loadFile('zh');
+        $enFile = self::loadFile('en');
+        $zh1File = isset($zhFile['hero.line1']) ? (string) $zhFile['hero.line1'] : '以工匠精神打造';
+        $zh2File = isset($zhFile['hero.line2']) ? (string) $zhFile['hero.line2'] : '安全可靠的电池解决方案';
+        $en1File = isset($enFile['hero.line1']) ? (string) $enFile['hero.line1'] : 'Crafted with care';
+        $en2File = isset($enFile['hero.line2']) ? (string) $enFile['hero.line2'] : 'Safe and reliable battery solutions';
+
+        $splitPair = function ($combined, $line1File, $line2File) {
+            $combined = trim((string) $combined);
+            if ($combined === '') {
+                return array($line1File, $line2File);
+            }
+            $parts = preg_split("/\r\n|\n|\r/", $combined);
+            if (is_array($parts) && count($parts) >= 2) {
+                return array(trim((string) $parts[0]), trim((string) $parts[1]));
+            }
+            // 无换行时：按文件中的第二行后缀拆开
+            if ($line2File !== '' && mb_substr($combined, -mb_strlen($line2File)) === $line2File) {
+                $head = trim(mb_substr($combined, 0, mb_strlen($combined) - mb_strlen($line2File)));
+                $head = rtrim($head, " \t\n\r\0\x0B");
+                if ($head !== '') {
+                    return array($head, $line2File);
+                }
+            }
+            return array($line1File, $line2File);
+        };
+
+        $need = isset($rows['hero.line']);
+        // 上次误拆：line1 被写成整句，需纠正
+        if (! $need && isset($rows['hero.line1']['zh'])) {
+            $z1 = (string) $rows['hero.line1']['zh'];
+            if ($zh2File !== '' && $z1 !== $zh1File && mb_substr($z1, -mb_strlen($zh2File)) === $zh2File) {
+                $need = true;
+            }
+        }
+        if (! $need) {
+            return;
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $srcZh = isset($rows['hero.line']['zh']) ? (string) $rows['hero.line']['zh'] : (isset($rows['hero.line1']['zh']) ? (string) $rows['hero.line1']['zh'] : '');
+        $srcEn = isset($rows['hero.line']['en']) ? (string) $rows['hero.line']['en'] : (isset($rows['hero.line1']['en']) ? (string) $rows['hero.line1']['en'] : '');
+        list($zh1, $zh2) = $splitPair($srcZh, $zh1File, $zh2File);
+        list($en1, $en2) = $splitPair($srcEn, $en1File, $en2File);
+
+        $upsert = function ($key, $zh, $en) use ($rows, $now) {
+            if (isset($rows[$key])) {
+                self::updateLangRow($key, array(
+                    'zh' => $zh,
+                    'en' => $en,
+                    'grp' => 'hero',
+                    'update_user' => 'system',
+                    'update_time' => $now
+                ));
+            } else {
+                self::insertLangRow(array(
+                    'lang_key' => $key,
+                    'grp' => 'hero',
+                    'zh' => $zh,
+                    'en' => $en,
+                    'remark' => '',
+                    'sorting' => $key === 'hero.line1' ? 10 : 11,
+                    'create_user' => 'system',
+                    'update_user' => 'system',
+                    'create_time' => $now,
+                    'update_time' => $now
+                ));
+            }
+        };
+
+        $upsert('hero.line1', $zh1, $en1);
+        $upsert('hero.line2', $zh2, $en2);
+        self::deleteLangKey('hero.line');
+        self::clearLangCache();
+    }
+
+    private static function deleteLangKey($key)
+    {
+        $key = (string) $key;
+        if ($key === '') {
+            return false;
+        }
+        try {
+            $type = Config::get('database.type');
+            if ($type === 'mysqli' || $type === 'pdo_mysql') {
+                $cfg = Config::get('database');
+                $db = new \mysqli($cfg['host'], $cfg['user'], $cfg['passwd'], $cfg['dbname'], (int) $cfg['port']);
+                if ($db->connect_errno) {
+                    return false;
+                }
+                $db->set_charset('utf8mb4');
+                $stmt = $db->prepare('DELETE FROM ay_lang WHERE lang_key=?');
+                if (! $stmt) {
+                    $db->close();
+                    return false;
+                }
+                $stmt->bind_param('s', $key);
+                $ok = $stmt->execute();
+                $stmt->close();
+                $db->close();
+                return $ok;
+            }
+            $path = ROOT_PATH . Config::get('database.dbname');
+            if (! is_file($path)) {
+                return false;
+            }
+            $db = new \SQLite3($path);
+            $db->busyTimeout(5000);
+            $stmt = $db->prepare('DELETE FROM ay_lang WHERE lang_key=:k');
+            $stmt->bindValue(':k', $key, SQLITE3_TEXT);
+            $ok = (bool) $stmt->execute();
+            $db->close();
+            return $ok;
+        } catch (\Exception $e) {
+            return false;
         }
     }
 
@@ -335,6 +469,7 @@ class I18n
 
     private static function packs()
     {
+        self::ensureLangReady();
         if (self::$packCache !== null) {
             return self::$packCache;
         }
@@ -502,7 +637,7 @@ class I18n
         self::injectSessionLangPermission($url);
     }
 
-    /** 当前登录会话立即获得访问权（菜单树仍建议重新登录后完整显示） */
+    /** 当前登录会话立即获得访问权，并补齐侧栏菜单树中的「界面文案」 */
     private static function injectSessionLangPermission($url)
     {
         if (! function_exists('session')) {
@@ -515,6 +650,60 @@ class I18n
         if (! in_array($url, $levels, true)) {
             $levels[] = $url;
             session('levels', $levels);
+        }
+        self::injectSessionLangMenu($url);
+    }
+
+    /** 把「界面文案」挂到当前会话 menu_tree（全局配置 M156 下），免重新登录 */
+    private static function injectSessionLangMenu($url)
+    {
+        $tree = session('menu_tree');
+        if (! is_array($tree) || ! $tree) {
+            return;
+        }
+        foreach ($tree as $node) {
+            if (! is_object($node) || empty($node->son) || ! is_array($node->son)) {
+                continue;
+            }
+            foreach ($node->son as $son) {
+                if (is_object($son) && isset($son->url) && $son->url === $url) {
+                    return; // 已有
+                }
+            }
+        }
+        $item = new \stdClass();
+        $item->id = 0;
+        $item->mcode = 'M1091';
+        $item->pcode = 'M156';
+        $item->name = '界面文案';
+        $item->url = $url;
+        $item->shortcut = 1;
+        $item->ico = 'fa-language';
+        $item->sorting = 206;
+        $item->status = 1;
+        $attached = false;
+        foreach ($tree as $node) {
+            if (is_object($node) && isset($node->mcode) && $node->mcode === 'M156') {
+                if (! is_array($node->son)) {
+                    $node->son = array();
+                }
+                $node->son[] = $item;
+                $attached = true;
+                break;
+            }
+        }
+        if (! $attached) {
+            // 找不到父级时，挂到第一个有 son 的节点，避免完全看不见
+            foreach ($tree as $node) {
+                if (is_object($node) && isset($node->son) && is_array($node->son)) {
+                    $node->son[] = $item;
+                    $attached = true;
+                    break;
+                }
+            }
+        }
+        if ($attached) {
+            session('menu_tree', $tree);
         }
     }
 

@@ -14,6 +14,7 @@ return array(
         'admin/Config' => 'admin/system.Config',
         'admin/Upgrade' => 'admin/system.Upgrade',
         'admin/ImageExt' => 'admin/system.ImageExt',
+        'admin/Lang' => 'admin/system.Lang',
 
         // 内容发布模块路由
         'admin/Site' => 'admin/content.Site',

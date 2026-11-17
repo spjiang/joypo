@@ -189,11 +189,16 @@
 	.foot .logo,
 	.foot .box dl,
 	.foot .code,
-	.foot .box > div {
+	.foot .box > div,
+	.foot-nav {
 		float: none;
 		width: auto;
 		margin-right: 0;
 		padding-bottom: 8px;
+	}
+
+	.foot-nav {
+		display: block;
 	}
 
 	.foot .box {
@@ -1626,21 +1631,25 @@
 	min-height: 350px;
 }
 
-/* 分类标题保持一行，避免英文标题折进说明文字 */
-.pbox {
-	width: max-content;
-	max-width: min(760px, 72%);
-}
+/* 分类标题：PC 允许长英文换行；过长时缩小字号，避免撑破 */
+@media (min-width: 1200px) {
+	.pbox {
+		width: max-content;
+		max-width: min(640px, 48%);
+	}
 
-.pbox h1 {
-	height: auto;
-	line-height: 1.25;
-	white-space: nowrap;
-}
+	.pbox h1 {
+		height: auto;
+		line-height: 1.25;
+		white-space: normal;
+		font-size: clamp(22px, 2.4vw, 38px);
+		max-width: 16em;
+	}
 
-.pbox p {
-	max-width: 36em;
-	margin-top: 12px;
+	.pbox p {
+		max-width: 36em;
+		margin-top: 12px;
+	}
 }
 
 /* 手机上区块改成一屏滑动 */
@@ -2927,13 +2936,19 @@
 	}
 
 	.jp-global-head + .w {
-		margin-top: 0;
-		padding-top: 0;
+		margin-top: 0 !important;
+		padding-top: 0 !important;
+		overflow: visible !important;
+		height: auto !important;
 	}
 
 	.jp-global-head + .w video {
 		min-height: 0 !important;
-		aspect-ratio: 16 / 10;
+		aspect-ratio: auto !important;
+		width: 100% !important;
+		height: auto !important;
+		margin: 0 !important;
+		object-fit: contain !important;
 	}
 
 	#w7 {
@@ -3053,7 +3068,7 @@
 
 /* ========== 2026-11-12 手机端补充（不影响 PC） ========== */
 @media (max-width: 1199px) {
-	/* 1) 产品页：标题+说明贴在图片底部，不再挡中间画面 */
+	/* 产品页：标题贴图片最底部（品牌特殊色），说明在图下方 */
 	.banner_n2:has(.box1) {
 		display: grid !important;
 		grid-template-columns: 1fr;
@@ -3073,73 +3088,68 @@
 	}
 
 	.banner_n2:has(.box1) .box1 {
-		display: block !important;
-		grid-row: 1;
-		grid-column: 1;
-		align-self: end;
-		justify-self: stretch;
-		position: relative !important;
-		top: auto !important;
-		left: auto !important;
-		right: auto !important;
-		bottom: auto !important;
-		width: auto !important;
-		max-width: none !important;
-		margin: 0 12px 12px !important;
-		padding: 14px 16px !important;
-		transform: none !important;
-		text-align: left !important;
-		color: #fff !important;
-		background: rgba(7, 18, 24, .72) !important;
-		border-radius: 12px !important;
-		box-sizing: border-box;
-		z-index: 2;
-	}
-
-	.banner_n2:has(.box1) .box1 h1,
-	.banner_n2:has(.box1) .box1 h1 span,
-	.banner_n2:has(.box1) .box1 p {
-		display: block !important;
-		position: static !important;
-		width: auto !important;
+		display: contents !important;
+		background: none !important;
+		padding: 0 !important;
 		margin: 0 !important;
-		color: #fff !important;
-		text-align: left !important;
-		grid-row: auto !important;
-		grid-column: auto !important;
+		transform: none !important;
+		position: static !important;
 	}
 
 	.banner_n2:has(.box1) .box1 h1 {
+		grid-row: 1;
+		grid-column: 1;
+		align-self: end;
+		justify-self: start;
+		position: relative !important;
+		z-index: 2;
+		width: auto !important;
+		max-width: calc(100% - 32px) !important;
+		margin: 0 0 14px 16px !important;
+		padding: 0 !important;
+		box-sizing: border-box;
 		font-size: 22px !important;
 		line-height: 1.3 !important;
 		height: auto !important;
+		color: #fff !important;
+		text-align: left !important;
+		background: none !important;
+		background-color: transparent !important;
+		text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
 	}
 
 	.banner_n2:has(.box1) .box1 h1 span {
-		margin-top: 6px !important;
-		font-size: 14px !important;
-		line-height: 1.5 !important;
-		color: rgba(255, 255, 255, .88) !important;
+		display: block !important;
+		margin-top: 4px !important;
+		font-size: 13px !important;
+		line-height: 1.45 !important;
+		color: rgba(255, 255, 255, .92) !important;
 	}
 
 	.banner_n2:has(.box1) .box1 p {
-		margin-top: 8px !important;
-		font-size: 13px !important;
-		line-height: 1.6 !important;
-		color: rgba(255, 255, 255, .9) !important;
+		grid-row: 2;
+		grid-column: 1;
+		position: static !important;
+		margin: 12px 16px 0 !important;
+		padding: 0 !important;
+		color: #16323a !important;
+		text-align: left !important;
+		font-size: 14px !important;
+		line-height: 1.65 !important;
+		background: none !important;
 	}
 
 	.banner_n2:has(.box1) > .blank2 {
-		grid-row: 2;
+		grid-row: 3;
 	}
 
 	.banner_n2:has(.box1) > .plcen {
-		grid-row: 3;
+		grid-row: 4;
 		position: static !important;
 		transform: none !important;
 	}
 
-	/* 2) 首页/关于：企业文化卡 图标与标题齐平，灰区收矮 */
+	/* 首页/关于：企业文化卡 */
 	#w1 {
 		min-height: 0 !important;
 		padding: 24px 0 28px !important;
@@ -3214,8 +3224,8 @@
 		padding: 0 !important;
 	}
 
-	/* 首页关于卡底部小点 */
-	.jp-about-dots {
+	.jp-about-dots,
+	.jp-inyfzz-dots {
 		position: static !important;
 		display: flex !important;
 		justify-content: center;
@@ -3227,7 +3237,8 @@
 		transform: none !important;
 	}
 
-	.jp-about-dots .swiper-pagination-bullet {
+	.jp-about-dots .swiper-pagination-bullet,
+	.jp-inyfzz-dots .swiper-pagination-bullet {
 		width: 8px !important;
 		height: 8px !important;
 		margin: 0 !important;
@@ -3236,24 +3247,315 @@
 		border-radius: 50% !important;
 	}
 
-	.jp-about-dots .swiper-pagination-bullet-active {
+	.jp-about-dots .swiper-pagination-bullet-active,
+	.jp-inyfzz-dots .swiper-pagination-bullet-active {
 		width: 22px !important;
 		border-radius: 6px !important;
 		background: #5dc2d0 !important;
 	}
 
-	/* 3) about 年份圆圈不被顶部裁切 */
+	/* 首页方案：去掉图与序号条白缝；收紧到新闻间距 */
+	#case_banner.jp-case-swiper,
+	#case_banner.swiper {
+		margin-bottom: 0 !important;
+	}
+
+	#case_banner.swiper .swiper-slide,
+	#case_banner.swiper dl {
+		margin-bottom: 0 !important;
+	}
+
+	#case_banner.swiper .swiper-slide dt,
+	#case_banner.swiper .swiper-slide img {
+		border-radius: 18px 18px 0 0 !important;
+	}
+
+	.jp-case-tabs {
+		margin: 0 0 4px !important;
+		border-radius: 0 0 12px 12px !important;
+	}
+
+	#case_banner + .jp-case-tabs,
+	.w > .jp-case-tabs {
+		margin-top: 0 !important;
+	}
+
+	.w > #case_banner + .jp-case-tabs + .cl.blank2,
+	.w + .cl.blank2,
+	.cl.blank3 {
+		height: 10px !important;
+		min-height: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	.jp-news-head {
+		margin-top: 0 !important;
+		padding-top: 0 !important;
+	}
+
+	/* 首页新闻：去阴影；分页点贴卡片下方 */
+	#inews_banner {
+		padding-bottom: 28px !important;
+		overflow: visible !important;
+	}
+
+	#inews_banner .swiper-slide,
+	#inews_banner .jp-news-card,
+	#inews_banner .swiper-slide .jp-news-card,
+	#inews_banner dl.nhover1,
+	#inews_banner dl.nhover01 {
+		box-shadow: none !important;
+		filter: none !important;
+	}
+
+	#inews_banner .jp-news-pagination,
+	.jp-news-pagination {
+		position: static !important;
+		display: flex !important;
+		justify-content: center;
+		align-items: center;
+		gap: 8px;
+		width: 100%;
+		margin: 12px 0 0 !important;
+		padding: 0 !important;
+		bottom: auto !important;
+		left: auto !important;
+		right: auto !important;
+		transform: none !important;
+	}
+
+	/* 产品子类 pbox：图上仅标题（品牌底），说明在图下 */
+	.banner_pn {
+		display: grid !important;
+		grid-template-columns: 1fr;
+		position: relative !important;
+		overflow: visible !important;
+	}
+
+	.banner_pn > img {
+		grid-row: 1;
+		grid-column: 1;
+		width: 100% !important;
+		height: 48vw !important;
+		min-height: 220px !important;
+		max-height: 380px;
+		object-fit: cover !important;
+		display: block;
+	}
+
+	.banner_pn .pbox {
+		display: contents !important;
+		background: none !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		transform: none !important;
+		position: static !important;
+	}
+
+	.banner_pn .pbox h1 {
+		grid-row: 1;
+		grid-column: 1;
+		align-self: end;
+		justify-self: start;
+		position: relative !important;
+		z-index: 2;
+		width: auto !important;
+		max-width: calc(100% - 32px) !important;
+		margin: 0 0 14px 16px !important;
+		padding: 0 !important;
+		box-sizing: border-box;
+		font-size: clamp(16px, 4.4vw, 28px) !important;
+		line-height: 1.3 !important;
+		height: auto !important;
+		white-space: normal !important;
+		color: #fff !important;
+		text-align: left !important;
+		background: none !important;
+		background-color: transparent !important;
+		border-radius: 0 !important;
+		text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
+	}
+
+	.banner_pn .pbox p {
+		grid-row: 2;
+		grid-column: 1;
+		position: static !important;
+		margin: 12px 16px 0 !important;
+		padding: 0 !important;
+		max-width: none !important;
+		color: #16323a !important;
+		text-align: left !important;
+		font-size: 14px !important;
+		line-height: 1.65 !important;
+		white-space: normal !important;
+		background: none !important;
+	}
+
+	/* 内页横幅：去黑底，标题靠左贴图 */
+	.banner_n,
+	.banner_n2:not(:has(.box1)) {
+		position: relative !important;
+		overflow: hidden;
+	}
+
+	.banner_n .box,
+	.banner_n2:not(:has(.box1)) .box {
+		position: absolute !important;
+		top: auto !important;
+		left: 16px !important;
+		right: auto !important;
+		bottom: 18px !important;
+		width: auto !important;
+		max-width: calc(100% - 32px) !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		transform: none !important;
+		text-align: left !important;
+		background: none !important;
+		border-radius: 0 !important;
+		box-shadow: none !important;
+		color: #fff !important;
+	}
+
+	.banner_n .box .h1,
+	.banner_n2:not(:has(.box1)) .box .h1,
+	.banner_n .box .h2,
+	.banner_n2:not(:has(.box1)) .box span,
+	.banner_n2:not(:has(.box1)) .box .curbar {
+		color: #fff !important;
+		text-align: left !important;
+		text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
+	}
+
+	.banner_n .box .h1,
+	.banner_n2:not(:has(.box1)) .box .h1 {
+		font-size: 28px !important;
+		line-height: 1.25 !important;
+		font-weight: 600;
+	}
+
+	.banner_n .box .cl.blank2,
+	.banner_n2:not(:has(.box1)) .box .cl.blank2 {
+		height: 6px !important;
+		min-height: 0 !important;
+	}
+
+	/* yfzz：研发卡 swiper 基础（宽度交给末尾 12e 规则） */
+	#w2 .inyfzz.swiper {
+		display: block !important;
+		overflow: hidden !important;
+		margin: 0 12px 4px !important;
+	}
+
+	/* yfzz：质控文字贴图片底部，品牌色 */
+	#zlgl_banner .swiper-slide {
+		position: relative !important;
+	}
+
+	#zlgl_banner .swiper-slide .text {
+		position: absolute !important;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		width: auto !important;
+		margin: 0 !important;
+		padding: 14px 16px !important;
+		border-radius: 0 !important;
+		background: rgba(93, 194, 208, .92) !important;
+		color: #fff !important;
+		text-align: left !important;
+		box-sizing: border-box;
+	}
+
+	#zlgl_banner .swiper-slide .text span,
+	#zlgl_banner .swiper-slide .text span b,
+	#zlgl_banner .swiper-slide .text .p {
+		color: #fff !important;
+		-webkit-text-fill-color: #fff !important;
+		background: none !important;
+		text-align: left !important;
+	}
+
+	#zlgl_banner .swiper-slide .text .p {
+		margin-top: 6px !important;
+		font-size: 13px !important;
+		line-height: 1.55 !important;
+		opacity: .95;
+	}
+
+	/* yfzz：#w9 区块下移收矮，少挡背景图 */
+	#w9 {
+		min-height: 0 !important;
+		padding: 56vw 0 24px !important;
+		background-size: cover !important;
+		background-position: center top !important;
+		display: flex !important;
+		flex-direction: column !important;
+		justify-content: flex-end !important;
+	}
+
+	#w9 .hxcen.swiper .swiper-slide,
+	#w9 .hxcen.swiper dl {
+		padding: 16px 16px !important;
+		min-height: 0 !important;
+	}
+
+	#w9 .hxcen.swiper .swiper-slide dt,
+	#w9 .hxcen.swiper dl dt {
+		font-size: 18px !important;
+		margin-bottom: 6px !important;
+	}
+
+	#w9 .hxcen.swiper .swiper-slide dd,
+	#w9 .hxcen.swiper dl dd {
+		font-size: 13px !important;
+		line-height: 1.5 !important;
+	}
+
+	/* about：横幅已在上方处理；视频上移遮灰区 */
+	.abvod {
+		margin-top: -36px !important;
+		position: relative;
+		z-index: 2;
+	}
+
+	.abvod > .w > video,
+	.abvod video {
+		display: block;
+		margin: 0 !important;
+		position: relative;
+		z-index: 2;
+	}
+
+	.about1 > .cl.blank6 + .cl.blank6 {
+		display: none !important;
+	}
+
+	.about1 > .cl.blank6 {
+		height: 8px !important;
+		min-height: 0 !important;
+	}
+
+	/* about：年份区在图下，圆圈不被裁 */
 	#w6 {
 		overflow: visible !important;
-		padding-top: 28px !important;
+		padding-top: 20px !important;
 	}
 
 	#outer1 {
+		display: flex !important;
+		flex-direction: column !important;
 		overflow: visible !important;
 		padding-top: 4px !important;
 	}
 
+	#outer1 #content1 {
+		order: 1;
+	}
+
 	#outer1 #tab1 {
+		order: 2;
 		padding-top: 26px !important;
 		padding-bottom: 14px !important;
 		overflow-x: auto !important;
@@ -3273,28 +3575,673 @@
 		z-index: 2;
 	}
 
-	/* 4) 客户分布地图：铺满加宽，浅底避免华为黑底黑图 */
+	/* contact：文本域字距/行高，避免 placeholder 重叠 */
+	.lianxi textarea,
+	.lianxi .wb1,
+	.message textarea {
+		letter-spacing: .04em !important;
+		line-height: 1.7 !important;
+		font-size: 15px !important;
+		padding: 12px 14px !important;
+		min-height: 120px !important;
+		resize: vertical;
+	}
+
+	.lianxi textarea::placeholder,
+	.lianxi .wb1::placeholder,
+	.message textarea::placeholder {
+		letter-spacing: .04em !important;
+		line-height: 1.7 !important;
+		opacity: .7;
+		white-space: normal !important;
+	}
+
+	/* gbook/join：正文收边距；图放大 */
+	.about .joincon,
+	.joincon {
+		padding-left: 12px !important;
+		padding-right: 12px !important;
+		box-sizing: border-box;
+	}
+
+	.joincon > p,
+	.joincon .title + p,
+	#w4 .joincon > p {
+		width: auto !important;
+		max-width: none !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		padding: 0 4px !important;
+		box-sizing: border-box;
+	}
+
+	.joincon > img {
+		display: block !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		margin: 12px 0 0 !important;
+		border-radius: 10px;
+		object-fit: cover;
+	}
+
+	#join_banner,
+	#join_banner1 {
+		margin-top: 8px !important;
+	}
+
+	#join_banner .swiper-slide img,
+	#join_banner1 .swiper-slide img {
+		display: block !important;
+		width: 100% !important;
+		height: auto !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		object-fit: contain !important;
+		border-radius: 0;
+	}
+
+	/* news：灰色/主区块居中，收紧下方间距 */
+	.incase,
+	#newlist_banner {
+		margin-left: auto !important;
+		margin-right: auto !important;
+		width: calc(100% - 24px) !important;
+		max-width: 720px !important;
+		box-sizing: border-box;
+	}
+
+	.incase + .cl.blank2,
+	.w > .cl.blank2 {
+		height: 10px !important;
+		min-height: 0 !important;
+	}
+
+	.service_list1 {
+		padding-left: 12px !important;
+		padding-right: 12px !important;
+		box-sizing: border-box;
+	}
+
+	/* gongsi/新闻列表：标题贴上品牌色条，正文收左右距 */
+	.service_list1 > ul > li a h3 {
+		display: block !important;
+		margin: 0 0 8px !important;
+		padding: 10px 12px !important;
+		background: rgba(93, 194, 208, .92) !important;
+		color: #fff !important;
+		border-radius: 8px 8px 0 0;
+		box-sizing: border-box;
+	}
+
+	.incase dl {
+		background: none !important;
+		box-shadow: none !important;
+	}
+
+	.service_list1 > ul > li {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+
+	.service_list1 ul li a .date,
+	.service_list1 ul li a .date p {
+		padding-left: 4px !important;
+		padding-right: 4px !important;
+		box-sizing: border-box;
+	}
+
+	.service_list1 > ul > li > a {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+
+	/* 客户分布地图（手机）：不往上移，避免遮挡标题；完整显示 */
+	.cl.blank2:has(+ .jp-global-head),
+	.about .cl.blank2:has(+ .jp-global-head) {
+		height: 8px !important;
+		min-height: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
 	.jp-global-head {
-		margin: 8px 16px 10px !important;
+		margin: 8px 16px 6px !important;
+		padding: 0 !important;
+	}
+
+	.jp-global-head .h2,
+	.jp-global-head h2 {
+		margin-top: 0 !important;
+		margin-bottom: 8px !important;
+		padding-bottom: 0 !important;
 	}
 
 	.jp-global-head + .w {
 		width: 100% !important;
 		max-width: none !important;
+		height: auto !important;
+		max-height: none !important;
+		min-height: 0 !important;
 		margin: 0 !important;
 		padding: 0 !important;
-		background: #dfe7ea !important;
+		overflow: visible !important;
+		line-height: 0 !important;
+		background: transparent !important;
+		background-color: transparent !important;
 	}
 
 	.jp-global-head + .w video {
 		display: block !important;
 		width: 100% !important;
-		max-width: none !important;
+		max-width: 100% !important;
 		height: auto !important;
-		min-height: 48vw !important;
-		aspect-ratio: 16 / 10 !important;
+		min-height: 0 !important;
+		aspect-ratio: auto !important;
+		margin: 0 !important;
 		object-fit: contain !important;
 		object-position: center center !important;
-		background: #dfe7ea url(../images/dt.png) center center / contain no-repeat !important;
+		background: transparent !important;
+		background-color: transparent !important;
+		transform: none !important;
+	}
+
+	.jp-global-head + .w + .cl.blank,
+	.jp-global-head + .w + .cl.blank2,
+	.jp-global-head + .w + .cl.blank6 {
+		height: 8px !important;
+		min-height: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		display: block !important;
+	}
+}
+
+/* ========== 2026-11-12d 按 lmq 反馈修正 ========== */
+@media (max-width: 1199px) {
+	/* 首页新闻：去阴影（覆盖 joypo-gw 更高优先级）；分页点上移贴卡片 */
+	#inews_banner.mySwiper1 .swiper-slide,
+	#inews_banner .swiper-slide,
+	#inews_banner.mySwiper1 .swiper-slide.swiper-slide-active,
+	#inews_banner .swiper-slide.swiper-slide-active {
+		box-shadow: none !important;
+		padding-bottom: 8px !important;
+	}
+
+	#inews_banner .jp-news-card,
+	#inews_banner .swiper-slide .jp-news-card {
+		box-shadow: none !important;
+	}
+
+	#inews_banner {
+		padding-bottom: 8px !important;
+	}
+
+	#inews_banner .jp-news-pagination,
+	.jp-news-pagination {
+		margin: 2px 0 0 !important;
+		padding: 0 !important;
+	}
+
+	#inews_banner .jp-news-body {
+		padding-bottom: 8px !important;
+	}
+
+	/* yfzz：单卡横滑；清掉 PC absolute/nth-child，避免后几页错乱 */
+	#w2 .inyfzz,
+	#w2 .inyfzz.swiper {
+		padding: 150px 12px 8px !important;
+		background-size: min(200px, 56%) auto !important;
+		background-position: center 8px !important;
+		background-repeat: no-repeat !important;
+		overflow: hidden !important;
+		height: auto !important;
+		min-height: 0 !important;
+		max-width: none !important;
+		width: auto !important;
+		box-sizing: border-box !important;
+	}
+
+	#w2 .inyfzz.swiper .swiper-wrapper {
+		align-items: stretch !important;
+		height: auto !important;
+		display: flex !important;
+	}
+
+	/* 必须覆盖 style.css 里 dl:nth-child(2~7) 的 absolute/left/width */
+	#w2 .inyfzz.swiper .swiper-slide,
+	#w2 .inyfzz.swiper dl,
+	#w2 .inyfzz.swiper dl:nth-child(1),
+	#w2 .inyfzz.swiper dl:nth-child(2),
+	#w2 .inyfzz.swiper dl:nth-child(3),
+	#w2 .inyfzz.swiper dl:nth-child(4),
+	#w2 .inyfzz.swiper dl:nth-child(5),
+	#w2 .inyfzz.swiper dl:nth-child(6),
+	#w2 .inyfzz.swiper dl:nth-child(7),
+	#w2 .inyfzz.swiper dl:nth-child(n) {
+		display: block !important;
+		position: relative !important;
+		float: none !important;
+		left: auto !important;
+		right: auto !important;
+		top: auto !important;
+		bottom: auto !important;
+		/* slidesPerView:1 + spaceBetween:0，强制满宽，压过旧的 calc(100%-16px) */
+		width: 100% !important;
+		max-width: none !important;
+		min-width: 0 !important;
+		flex: none !important;
+		margin: 0 !important;
+		margin-right: 0 !important;
+		padding: 22px 20px !important;
+		text-align: left !important;
+		background: #fff !important;
+		border-radius: 16px !important;
+		box-shadow: 0 8px 24px rgba(18, 36, 43, .12) !important;
+		box-sizing: border-box !important;
+		overflow: hidden !important;
+		height: auto !important;
+		max-height: none !important;
+		min-height: 0 !important;
+		transform: none;
+	}
+
+	#w2 .inyfzz.swiper .swiper-slide dt,
+	#w2 .inyfzz.swiper dl dt {
+		display: block !important;
+		float: none !important;
+		width: auto !important;
+		max-width: none !important;
+		color: #2b8fa0 !important;
+		font-size: 20px !important;
+		font-weight: 700 !important;
+		line-height: 1.4 !important;
+		margin: 0 0 10px !important;
+		padding: 0 !important;
+		white-space: normal !important;
+		overflow: visible !important;
+		text-overflow: clip !important;
+	}
+
+	#w2 .inyfzz.swiper .swiper-slide dd,
+	#w2 .inyfzz.swiper dl dd {
+		display: block !important;
+		float: none !important;
+		width: auto !important;
+		max-width: none !important;
+		color: #4a5560 !important;
+		font-size: 15px !important;
+		font-weight: 400 !important;
+		line-height: 1.7 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		white-space: normal !important;
+		overflow: visible !important;
+		max-height: none !important;
+	}
+
+	.jp-inyfzz-dots {
+		margin: 14px 0 4px !important;
+	}
+
+	/* about / contact：横幅文字上移；contact 导航改白色 */
+	.banner_n .box,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box {
+		top: 28% !important;
+		bottom: auto !important;
+		left: 16px !important;
+		transform: none !important;
+	}
+
+	.banner_n .box .h1,
+	.banner_n .box .h2,
+	.banner_n .box .h2 a,
+	.banner_n .box a,
+	.banner_n2:not(:has(.box1)) .box .h1,
+	.banner_n2:not(:has(.box1)) .box .curbar,
+	.banner_n2:not(:has(.box1)) .box .curbar a,
+	.banner_n2:not(:has(.box1)) .box span,
+	.banner_n2:not(:has(.box1)) .box a {
+		color: #fff !important;
+	}
+
+	/* news 列表：恢复灰色底；图上字下 */
+	.incase {
+		margin: 12px 12px 8px !important;
+	}
+
+	.incase dl {
+		display: flex !important;
+		flex-direction: column !important;
+		background-color: #e5e5e5 !important;
+		background: #e5e5e5 !important;
+		border-radius: 10px !important;
+		overflow: hidden !important;
+		box-shadow: none !important;
+		position: relative !important;
+	}
+
+	.incase dl dt {
+		order: 1 !important;
+		float: none !important;
+		max-width: 100% !important;
+		width: 100% !important;
+		margin: 0 !important;
+		max-height: none !important;
+		box-shadow: none !important;
+		border-radius: 0 !important;
+		display: block !important;
+	}
+
+	.incase dl dt img {
+		display: block !important;
+		width: 100% !important;
+		min-width: 0 !important;
+		height: auto !important;
+		max-height: 52vw !important;
+		object-fit: cover !important;
+		border-radius: 0 !important;
+		box-shadow: none !important;
+	}
+
+	.incase dl dd {
+		order: 2 !important;
+		position: static !important;
+		left: auto !important;
+		bottom: auto !important;
+		width: auto !important;
+		padding: 14px 16px 16px !important;
+		box-sizing: border-box;
+	}
+
+	.incase dl dd .h1 {
+		font-size: 17px !important;
+		line-height: 1.4 !important;
+		margin: 0 0 6px !important;
+	}
+
+	.incase dl dd .more a {
+		white-space: nowrap !important;
+		font-size: 15px !important;
+		height: 36px !important;
+		line-height: 34px !important;
+		padding: 0 14px !important;
+		margin-top: 12px !important;
+	}
+
+	/* gongsi 详情：标题上移到品牌色条；正文收左右距 */
+	.banner_n2:has(.nbox) {
+		position: relative !important;
+	}
+
+	.banner_n2 .nbox {
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: auto !important;
+		width: 100% !important;
+		max-width: none !important;
+		margin: 0 !important;
+		padding: 16px 16px 14px !important;
+		transform: none !important;
+		text-align: left !important;
+		background: rgba(93, 194, 208, .94) !important;
+		box-sizing: border-box;
+		z-index: 2;
+		line-height: 1.35 !important;
+	}
+
+	.banner_n2 .nbox .h2 {
+		font-size: 22px !important;
+		line-height: 1.35 !important;
+		text-align: left !important;
+		font-weight: 700 !important;
+		color: #fff !important;
+		text-shadow: none !important;
+	}
+
+	.banner_n2 .nbox span,
+	.banner_n2 .nbox span.time {
+		display: block !important;
+		margin-top: 8px !important;
+		font-size: 13px !important;
+		color: rgba(255, 255, 255, .92) !important;
+		letter-spacing: .02em !important;
+		text-align: left !important;
+	}
+
+	.banner_n2 .nbox .icfont {
+		display: none !important;
+	}
+
+	.prductinfo.w,
+	.new_conter,
+	.new_conter_p,
+	.probody {
+		width: auto !important;
+		max-width: none !important;
+		margin: 0 !important;
+		padding: 8px 10px 12px !important;
+		box-sizing: border-box;
+	}
+
+	.prductinfo {
+		padding-top: 4px !important;
+	}
+
+	#here {
+		height: auto !important;
+		min-height: 0 !important;
+		margin: 0 !important;
+		padding: 8px 10px !important;
+		box-sizing: border-box;
+	}
+
+	#here .w {
+		width: auto !important;
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	.new_conter_p.probody p,
+	.new_conter_p p {
+		padding: 6px 0 !important;
+		margin: 0 !important;
+	}
+}
+
+/* ========== 2026-11-12g lmq：news铺满 / gbook图完整 / 横幅标题上移面包屑下移 ========== */
+@media (max-width: 1199px) {
+	/* news：swiper 左右无间距，100% 铺满 */
+	body .w:has(> .incase) {
+		width: 100% !important;
+		max-width: none !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	.incase,
+	#newlist_banner,
+	.w > .incase,
+	body .incase {
+		width: 100% !important;
+		max-width: none !important;
+		margin: 0 !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	.incase dl {
+		border-radius: 0 !important;
+		margin: 0 !important;
+	}
+
+	.service_list1 {
+		width: auto !important;
+		margin: 12px 12px 8px !important;
+		padding: 0 !important;
+	}
+
+	/* gbook：丰富生活斜切图左右完整显示（勿 cover 裁切） */
+	#w4 {
+		overflow: hidden !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+
+	#w4 .w,
+	#w4 .joincon {
+		width: 100% !important;
+		max-width: none !important;
+		margin: 0 !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	#w4 .joincon > p {
+		padding-left: 16px !important;
+		padding-right: 16px !important;
+		box-sizing: border-box;
+	}
+
+	#join_banner1 {
+		width: 100% !important;
+		max-width: none !important;
+		margin: 8px 0 0 !important;
+		padding: 0 !important;
+		overflow: hidden !important;
+	}
+
+	#join_banner1 .swiper-wrapper {
+		align-items: center !important;
+	}
+
+	#join_banner1 .swiper-slide,
+	#join_banner1 .swiper-slide.join-life-pic {
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		overflow: hidden !important;
+		background: transparent !important;
+		box-sizing: border-box !important;
+	}
+
+	#join_banner1 .swiper-slide p {
+		margin: 0 !important;
+		padding: 0 !important;
+		line-height: 0 !important;
+	}
+
+	#join_banner1 .swiper-slide img,
+	#join_banner1 .join-life-pic img {
+		display: block !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		object-fit: contain !important;
+		object-position: center center !important;
+		border-radius: 0 !important;
+		margin: 0 !important;
+	}
+
+	/* about / contact / gbook：标题留在图上更靠上；面包屑移到图下 */
+	.banner_n,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) {
+		display: grid !important;
+		grid-template-columns: 1fr;
+		position: relative !important;
+		overflow: visible !important;
+	}
+
+	.banner_n > img,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) > img {
+		grid-row: 1;
+		grid-column: 1;
+		display: block !important;
+		width: 100% !important;
+		height: auto !important;
+	}
+
+	.banner_n .box,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box {
+		display: contents !important;
+		background: none !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		transform: none !important;
+		position: static !important;
+		width: auto !important;
+		max-width: none !important;
+	}
+
+	.banner_n .box .h1,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box .h1 {
+		grid-row: 1;
+		grid-column: 1;
+		align-self: start;
+		justify-self: start;
+		z-index: 2;
+		margin: 6% 0 0 16px !important;
+		padding: 0 !important;
+		color: #fff !important;
+		text-align: left !important;
+		font-size: 28px !important;
+		line-height: 1.25 !important;
+		font-weight: 600;
+		text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
+		background: none !important;
+	}
+
+	.banner_n .box .cl.blank2,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box .cl.blank2 {
+		display: none !important;
+		height: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	.banner_n .box .h2,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box .curbar,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box span.curbar {
+		grid-row: 2;
+		grid-column: 1;
+		display: block !important;
+		position: static !important;
+		width: auto !important;
+		max-width: none !important;
+		margin: 8px 16px 0 !important;
+		padding: 0 !important;
+		color: #666 !important;
+		font-size: 13px !important;
+		line-height: 1.4 !important;
+		text-align: left !important;
+		text-shadow: none !important;
+		background: none !important;
+		white-space: nowrap !important;
+		overflow: hidden !important;
+		text-overflow: ellipsis;
+	}
+
+	.banner_n .box .h2 a,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box .curbar a,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box span.curbar a {
+		display: inline !important;
+		position: static !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		color: #666 !important;
+		font-size: 13px !important;
+		line-height: 1.4 !important;
+		white-space: nowrap !important;
+		background: none !important;
+		float: none !important;
 	}
 }
