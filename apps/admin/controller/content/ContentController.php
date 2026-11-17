@@ -109,6 +109,7 @@ class ContentController extends Controller
 
             $content = normalize_richtext_for_storage(post('content'));
             $tags = str_replace('，', ',', post('tags'));
+            $tags_en = str_replace('，', ',', post('tags_en'));
             $enclosure = normalize_upload_saved_path(post('enclosure'));
             $keywords = post('keywords');
             $description = post('description');
@@ -186,6 +187,7 @@ class ContentController extends Controller
                 'content' => $content,
                 'content_en' => normalize_richtext_for_storage(post('content_en')),
                 'tags' => $tags,
+                'tags_en' => $tags_en,
                 'enclosure' => $enclosure,
                 'keywords' => $keywords,
                 'keywords_en' => post('keywords_en'),
@@ -501,6 +503,7 @@ class ContentController extends Controller
 
             $content = normalize_richtext_for_storage(post('content'));
             $tags = str_replace('，', ',', post('tags'));
+            $tags_en = str_replace('，', ',', post('tags_en'));
             $enclosure = normalize_upload_saved_path(post('enclosure'));
             $keywords = post('keywords');
             $description = post('description');
@@ -573,6 +576,7 @@ class ContentController extends Controller
                 'content' => $content,
                 'content_en' => normalize_richtext_for_storage(post('content_en')),
                 'tags' => $tags,
+                'tags_en' => $tags_en,
                 'enclosure' => $enclosure,
                 'keywords' => $keywords,
                 'keywords_en' => post('keywords_en'),

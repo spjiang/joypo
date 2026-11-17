@@ -910,6 +910,29 @@ function joypo_html_lang()
     return \app\common\I18n::lang() === 'en' ? 'en' : 'zh-CN';
 }
 
+/**
+ * 产品图右侧标签：逗号分隔 → HTML 胶囊列表。
+ */
+function joypo_prod_tags_html($tags)
+{
+    if (! is_string($tags) || trim($tags) === '') {
+        return '';
+    }
+    $parts = preg_split('/[,，]+/u', $tags);
+    $items = array();
+    foreach ($parts as $part) {
+        $text = trim(html_entity_decode($part, ENT_QUOTES, 'UTF-8'));
+        if ($text === '') {
+            continue;
+        }
+        $items[] = '<span class="jp-prod-tag">' . htmlspecialchars($text, ENT_QUOTES, 'UTF-8') . '</span>';
+    }
+    if (! $items) {
+        return '';
+    }
+    return '<span class="jp-prod-tags">' . implode('', $items) . '</span>';
+}
+
 if (defined('ROOT_PATH')) {
     try {
         \app\common\I18n::boot();

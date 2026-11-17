@@ -3729,6 +3729,10 @@ class ParserController extends Controller
                     $content = str_replace($search, $this->adjustLabelData($params, STATIC_DIR . '/images/nopic.png'), $content);
                 }
                 break;
+            case 'taglist':
+                $tagsCsv = isset($data->tags) ? $data->tags : '';
+                $content = str_replace($search, joypo_prod_tags_html($tagsCsv), $content);
+                break;
             case 'langpic':
                 $content = str_replace($search, $this->parserLangPic($data, $params), $content);
                 break;

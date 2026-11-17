@@ -95,6 +95,41 @@
 	transform:scale(1.035);
 }
 
+/* 产品图右侧标签（后台「标签 / 英文标签」配置，样式对齐原图上胶囊） */
+.jp-prod-tags{
+	position:absolute;
+	right:6%;
+	top:50%;
+	transform:translateY(-50%);
+	display:flex;
+	flex-direction:column;
+	align-items:flex-end;
+	gap:18px;
+	z-index:3;
+	pointer-events:none;
+}
+
+.jp-prod-tag{
+	display:inline-block;
+	padding:10px 26px;
+	border:1px solid #5dc2d0;
+	border-radius:999px;
+	color:#5dc2d0;
+	font-size:18px;
+	font-weight:500;
+	line-height:1.35;
+	letter-spacing:.04em;
+	white-space:nowrap;
+	background:rgba(255,255,255,.28);
+	box-sizing:border-box;
+}
+
+html[lang="en"] .jp-prod-tag{
+	font-size:15px;
+	padding:9px 18px;
+	letter-spacing:0;
+}
+
 /* 「查看产品参数」：默认隐藏，悬停才显示，无背景色；深色字适配浅灰底 */
 .jp-prod-shot-tip{
 	position:absolute;

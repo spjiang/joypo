@@ -1033,20 +1033,37 @@ video.jp-img {
 		max-width: 16em;
 	}
 
-	/* 2026-11-17 PC：分类入口卡（.plcen）英文行高收紧，减小左右间距以加宽模块 */
+	/* 2026-11-17 PC：分类入口卡（.plcen）略加宽整排，卡内左右留一点距；中文居中不换行 */
 	.page-cnxt .plcen,
 	.page-dlxt .plcen,
 	.page-xfdz .plcen,
 	.plcen {
-		gap: 14px !important;
+		width: 96% !important;
+		max-width: 1520px !important;
+		gap: 10px !important;
 	}
 
 	.page-cnxt .plcen dl,
 	.page-dlxt .plcen dl,
 	.page-xfdz .plcen dl,
 	.plcen dl {
-		padding-left: 18px !important;
-		padding-right: 18px !important;
+		padding-left: 10px !important;
+		padding-right: 10px !important;
+	}
+
+	.page-cnxt .plcen dl dt,
+	.page-dlxt .plcen dl dt,
+	.page-xfdz .plcen dl dt,
+	.plcen dl dt {
+		text-align: center !important;
+	}
+
+	.page-cnxt .plcen dl dt a,
+	.page-dlxt .plcen dl dt a,
+	.page-xfdz .plcen dl dt a,
+	.plcen dl dt a {
+		text-align: center !important;
+		white-space: nowrap !important;
 	}
 
 	html[lang="en"] .page-cnxt .plcen dl dt a,
@@ -1054,6 +1071,7 @@ video.jp-img {
 	html[lang="en"] .page-xfdz .plcen dl dt a,
 	html[lang="en"] .plcen dl dt a {
 		line-height: 1.25 !important;
+		white-space: normal !important;
 	}
 
 	/* 2026-11-17 PC：产品列表名单行不换行；背景条按内容收窄，避免过宽留白 */
@@ -1228,5 +1246,73 @@ video.jp-img {
 		font-size: inherit;
 		line-height: 30px;
 		white-space: nowrap;
+	}
+}
+
+/* 宽度 <1300：分类卡再往下一点，避免压住上方英文；≥1300 仍用原 -60px */
+@media (min-width: 1200px) and (max-width: 1299px) {
+	.page-cnxt .plcen,
+	.page-dlxt .plcen,
+	.page-xfdz .plcen,
+	.plcen {
+		bottom: -110px !important;
+	}
+
+	.page-cnxt .banner_n2,
+	.page-dlxt .banner_n2,
+	.page-xfdz .banner_n2,
+	.banner_n2 {
+		margin-bottom: 130px !important;
+	}
+}
+
+/* 窄屏 PC（如 1178）：分类卡保持横排；真手机（<1100）仍用竖排，互不影响 */
+@media (min-width: 1100px) and (max-width: 1199px) {
+	.page-cnxt .plcen,
+	.page-dlxt .plcen,
+	.page-xfdz .plcen,
+	.plcen {
+		flex-direction: row !important;
+		align-items: stretch !important;
+		width: 96% !important;
+		max-width: 1520px !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+		gap: 10px !important;
+	}
+
+	.page-cnxt .plcen dl,
+	.page-dlxt .plcen dl,
+	.page-xfdz .plcen dl,
+	.plcen dl {
+		width: 33% !important;
+		padding-left: 10px !important;
+		padding-right: 10px !important;
+		box-sizing: border-box;
+	}
+
+	.page-cnxt .plcen dl dt,
+	.page-dlxt .plcen dl dt,
+	.page-xfdz .plcen dl dt,
+	.plcen dl dt {
+		text-align: center !important;
+	}
+
+	.page-cnxt .plcen dl dt a,
+	.page-dlxt .plcen dl dt a,
+	.page-xfdz .plcen dl dt a,
+	.plcen dl dt a {
+		text-align: center !important;
+		white-space: nowrap !important;
+		font-size: clamp(16px, 1.6vw, 24px) !important;
+		line-height: 1.35 !important;
+	}
+
+	html[lang="en"] .page-cnxt .plcen dl dt a,
+	html[lang="en"] .page-dlxt .plcen dl dt a,
+	html[lang="en"] .page-xfdz .plcen dl dt a,
+	html[lang="en"] .plcen dl dt a {
+		white-space: normal !important;
+		line-height: 1.25 !important;
 	}
 }

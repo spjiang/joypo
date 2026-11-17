@@ -355,9 +355,16 @@
 			                </div>
 			                
 			                <div class="layui-form-item">
-			                     <label class="layui-form-label">tags</label>
+			                     <label class="layui-form-label">标签</label>
 			                     <div class="layui-input-block">
-			                     	<input type="text" name="tags" placeholder="请输入文章tag，英文逗号隔开" class="layui-input">
+			                     	<input type="text" name="tags" placeholder="产品图右侧标签，英文逗号隔开，如：应急备电,轻量化便携,灵活移动" class="layui-input">
+			                     </div>
+			                </div>
+
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文标签</label>
+			                     <div class="layui-input-block">
+			                     	<input type="text" name="tags_en" placeholder="留空则英文页仍显示中文标签；英文逗号隔开" class="layui-input">
 			                     </div>
 			                </div>
 			                
@@ -780,9 +787,16 @@
 			                </div>
 			                
 			                <div class="layui-form-item">
-			                     <label class="layui-form-label">tags</label>
+			                     <label class="layui-form-label">标签</label>
 			                     <div class="layui-input-block">
-			                     	<input type="text" name="tags" placeholder="请输入文章tag，英文逗号隔开" value="{$content->tags}" class="layui-input">
+			                     	<input type="text" name="tags" placeholder="产品图右侧标签，英文逗号隔开，如：应急备电,轻量化便携,灵活移动" value="{$content->tags}" class="layui-input">
+			                     </div>
+			                </div>
+
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">英文标签</label>
+			                     <div class="layui-input-block">
+			                     	<input type="text" name="tags_en" placeholder="留空则英文页仍显示中文标签；英文逗号隔开" value="{$content->tags_en}" class="layui-input">
 			                     </div>
 			                </div>
 			                
