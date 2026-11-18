@@ -43,11 +43,14 @@ $(document).ready(function() {
 		});
 
 	};
-	/*调用方法如下：*/
-/*	$.jqtab("#tabs","#tab_conbox","click"); 鼠标经过显示*/
-    $.jqtab("#tab01","#content01","mouseenter");
-	$.jqtab("#tab02","#content02","mouseenter");
-	$.jqtab("#tab03","#content03","mouseenter");
+	/* 按页面实际子分类数量初始化（勿写死 01–03，第 4、5 组会两个产品同时显示） */
+	$("[id^=tab0]").each(function () {
+		var tabId = this.id;
+		var contentId = tabId.replace(/^tab0/, "content0");
+		if (document.getElementById(contentId)) {
+			$.jqtab("#" + tabId, "#" + contentId, "mouseenter");
+		}
+	});
 });
 
 </script>

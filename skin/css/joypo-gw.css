@@ -970,6 +970,21 @@ video.jp-img {
 }
 
 @media (min-width: 1200px) {
+	/* 首页方案双图：总宽拉满 1400，中间留 24px */
+	#case_banner {
+		width: 100%;
+		max-width: 1400px;
+		gap: 24px;
+		box-sizing: border-box;
+	}
+
+	#case_banner dl {
+		width: auto;
+		flex: 1 1 0;
+		max-width: none;
+		min-width: 0;
+	}
+
 	.page-cnxt .banner_n2,
 	.page-dlxt .banner_n2 {
 		margin-bottom: 80px;
