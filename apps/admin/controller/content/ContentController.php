@@ -110,6 +110,7 @@ class ContentController extends Controller
             $content = normalize_richtext_for_storage(post('content'));
             $tags = str_replace('，', ',', post('tags'));
             $tags_en = str_replace('，', ',', post('tags_en'));
+            $subtitle_en = post('subtitle_en');
             $enclosure = normalize_upload_saved_path(post('enclosure'));
             $keywords = post('keywords');
             $description = post('description');
@@ -175,6 +176,7 @@ class ContentController extends Controller
                 'title_en' => post('title_en'),
                 'titlecolor' => $titlecolor,
                 'subtitle' => $subtitle,
+                'subtitle_en' => isset($subtitle_en) ? $subtitle_en : post('subtitle_en'),
                 'filename' => $filename,
                 'author' => $author,
                 'source' => $source,
@@ -504,6 +506,7 @@ class ContentController extends Controller
             $content = normalize_richtext_for_storage(post('content'));
             $tags = str_replace('，', ',', post('tags'));
             $tags_en = str_replace('，', ',', post('tags_en'));
+            $subtitle_en = post('subtitle_en');
             $enclosure = normalize_upload_saved_path(post('enclosure'));
             $keywords = post('keywords');
             $description = post('description');
@@ -564,6 +567,7 @@ class ContentController extends Controller
                 'title_en' => post('title_en'),
                 'titlecolor' => $titlecolor,
                 'subtitle' => $subtitle,
+                'subtitle_en' => isset($subtitle_en) ? $subtitle_en : post('subtitle_en'),
                 'filename' => $filename,
                 'author' => $author,
                 'source' => $source,

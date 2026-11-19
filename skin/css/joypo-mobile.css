@@ -198,7 +198,11 @@
 	}
 
 	.foot-nav {
-		display: block;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 14px 20px;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
 	.foot .box {
@@ -2266,7 +2270,7 @@
 		color: #2b8fa0;
 	}
 
-	/* 页脚：两列导航，收紧间距，二维码缩小 */
+	/* 页脚：菜单两列并列，收紧间距，二维码缩小 */
 	.foot {
 		background: #ebebeb;
 		padding: 12px 0 0;
@@ -2318,6 +2322,15 @@
 		height: 36px;
 	}
 
+	.foot-nav {
+		display: grid !important;
+		grid-template-columns: 1fr 1fr !important;
+		gap: 16px 24px !important;
+		float: none !important;
+		width: 100% !important;
+		box-sizing: border-box;
+	}
+
 	.foot .box > div[style] {
 		display: grid !important;
 		grid-template-columns: 1fr 1fr;
@@ -2326,7 +2339,8 @@
 		width: 100% !important;
 	}
 
-	.foot .box dl {
+	.foot .box dl,
+	.foot-nav dl {
 		margin: 0;
 		padding: 0;
 	}
@@ -2941,6 +2955,23 @@
 		object-position: left center;
 	}
 
+	.jp-his-copy {
+		left: 48% !important;
+		top: 30% !important;
+		max-width: 48% !important;
+		padding-right: 4px;
+	}
+
+	.jp-his-copy h3 {
+		margin-bottom: 6px !important;
+		font-size: clamp(16px, 4.2vw, 22px) !important;
+	}
+
+	.jp-his-copy p {
+		font-size: clamp(11px, 3vw, 14px) !important;
+		line-height: 1.4 !important;
+	}
+
 	/* 5. 地图前大空白：收短企业文化区与标题间距 */
 	#w1 {
 		min-height: 0 !important;
@@ -3012,6 +3043,13 @@
 	.foot .blank6 {
 		height: 8px !important;
 		min-height: 0 !important;
+	}
+
+	.foot-nav {
+		display: grid !important;
+		grid-template-columns: 1fr 1fr !important;
+		gap: 12px 20px !important;
+		width: 100% !important;
 	}
 
 	.foot .box > div[style] {

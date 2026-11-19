@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261110c">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261118a">
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
 <script src="{pboot:sitedomain}/skin/js/main.js"></script>
@@ -61,7 +61,7 @@ $(document).ready(function() {
 </head>
 <body>
 <!--关于久普栏目动效增强-->
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-about.css?v=20261111c">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-about.css?v=20261118a">
 <script src="{pboot:sitedomain}/skin/js/joypo-about.js" defer></script>
 {include file=head.html}
 <!--banner-->
@@ -185,32 +185,30 @@ $(document).ready(function() {
   </div>  
         	{/pboot:sort}
 
+{pboot:sort scode=29}
 <div id="w6">
 <div class="cl blank2"></div>
  <div id="outer1" class="jp-about-outer">
     <div id="content1" class="jp-about-history">
-     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz1.png"/></ul>
-     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz2.png"/></ul>
-     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz3.png"/></ul>
-     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz4.png"/></ul>
-     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz5.png"/></ul>
-     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz6.png"/></ul>
-     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz7.png"/></ul>
-     <ul><img class="imgs" src="{pboot:sitedomain}/skin/images/fz8.png"/></ul>
+    {pboot:list scode=[sort:scode] num=20 order=sorting}
+     <ul class="jp-his-panel">
+       <img class="imgs" src="[list:ico]" alt="[list:title]"/>
+       <div class="jp-his-copy">
+         <h3>[list:subtitle]</h3>
+         <p>[list:description]</p>
+       </div>
+     </ul>
+    {/pboot:list}
 </div>
     <ul id="tab1" class="jp-about-years">
-      <li><i></i>2026</li>
-<li><i></i>2025</li>
-<li><i></i>2024</li>
-<li><i></i>2023</li>
-<li><i></i>2022</li>
-<li><i></i>2021</li>
-<li><i></i>2020</li>
-<li><i></i>2019</li>
+    {pboot:list scode=[sort:scode] num=20 order=sorting}
+      <li><i></i>[list:title]</li>
+    {/pboot:list}
  </ul>
 </div>
 
 </div>
+{/pboot:sort}
 
 
  <div id="w1">

@@ -420,6 +420,9 @@ class ParserModel extends Model
                 if (in_array('a.tags', $safe_fields, true)) {
                     $safe_fields[] = 'a.tags_en';
                 }
+                if (in_array('a.subtitle', $safe_fields, true)) {
+                    $safe_fields[] = 'a.subtitle_en';
+                }
                 // 产品图右侧标签：列表默认带上，便于 [list:taglist]
                 if (! in_array('a.tags', $safe_fields, true)) {
                     $safe_fields[] = 'a.tags';
@@ -452,6 +455,7 @@ class ParserModel extends Model
                 'a.description',
                 'a.tags',
                 'a.tags_en',
+                'a.subtitle_en',
                 'a.title_en',
                 'a.keywords_en',
                 'a.description_en',
@@ -1144,7 +1148,7 @@ class ParserModel extends Model
 
     private function i18nContentFields()
     {
-        return array('title', 'keywords', 'description', 'content', 'ico', 'tags', 'sortname', 'subsortname');
+        return array('title', 'subtitle', 'keywords', 'description', 'content', 'ico', 'tags', 'sortname', 'subsortname');
     }
 
     private function i18nRows($rows, array $fields)

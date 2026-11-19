@@ -985,6 +985,12 @@ video.jp-img {
 		min-width: 0;
 	}
 
+	#case_banner dl dt img {
+		height: 500px;
+		object-fit: cover;
+		object-position: center;
+	}
+
 	.page-cnxt .banner_n2,
 	.page-dlxt .banner_n2 {
 		margin-bottom: 80px;
@@ -1089,10 +1095,13 @@ video.jp-img {
 		white-space: normal !important;
 	}
 
-	/* 2026-11-17 PC：产品列表名单行不换行；背景条按内容收窄，避免过宽留白 */
+	/* 2026-11-17 PC：产品列表名单行不换行；背景条按内容收窄，避免过宽留白（含 tab04/05） */
 	#tab01,
 	#tab02,
 	#tab03,
+	#tab04,
+	#tab05,
+	[id^="tab0"],
 	.page-cnxt .jp-prod-tabs,
 	.page-dlxt .jp-prod-tabs,
 	.page-xfdz .jp-prod-tabs,
@@ -1110,6 +1119,9 @@ video.jp-img {
 	#tab01 li,
 	#tab02 li,
 	#tab03 li,
+	#tab04 li,
+	#tab05 li,
+	[id^="tab0"] li,
 	.page-cnxt .jp-prod-tabs li,
 	.page-dlxt .jp-prod-tabs li,
 	.page-xfdz .jp-prod-tabs li,
@@ -1131,6 +1143,9 @@ video.jp-img {
 	#tab01 li span,
 	#tab02 li span,
 	#tab03 li span,
+	#tab04 li span,
+	#tab05 li span,
+	[id^="tab0"] li span,
 	.page-cnxt .jp-prod-tabs li span,
 	.page-dlxt .jp-prod-tabs li span,
 	.page-xfdz .jp-prod-tabs li span,

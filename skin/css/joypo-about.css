@@ -227,6 +227,44 @@
 	transform:none;
 }
 
+/* 发展历程：右侧标题+描述由后台配置（副标题/描述，支持英文） */
+.jp-his-panel{
+	position:relative;
+}
+.jp-his-copy{
+	position:absolute;
+	left:52%;
+	top:36%;
+	max-width:38%;
+	z-index:2;
+	pointer-events:none;
+	text-align:left;
+}
+.jp-his-copy:has(h3:empty):has(p:empty){
+	display:none;
+}
+.jp-his-copy h3{
+	margin:0 0 14px;
+	font-size:clamp(28px, 3.2vw, 52px);
+	font-weight:700;
+	line-height:1.2;
+	color:#666;
+	letter-spacing:.02em;
+}
+.jp-his-copy p{
+	margin:0;
+	font-size:clamp(14px, 1.5vw, 24px);
+	line-height:1.55;
+	color:#777;
+}
+html[lang="en"] .jp-his-copy h3{
+	font-size:clamp(22px, 2.6vw, 40px);
+	letter-spacing:0;
+}
+html[lang="en"] .jp-his-copy p{
+	font-size:clamp(13px, 1.3vw, 20px);
+}
+
 /* 切换动画：jqtab 完成 .show() 后，给新显示的那张加 jp-his-in 播放淡入。
    注意：这里绝不能用 opacity:0 静态隐藏所有 ul ——
    jqtab 初始化时只显示第一个（2026），静态隐藏会让「首屏加载时没有图片」，

@@ -2445,13 +2445,15 @@ border-radius:15px;
 box-shadow:none;
 }
 
-#outer01, #outer02, #outer03{
+#outer01, #outer02, #outer03, #outer04, #outer05,
+[id^="outer0"]{
 	width:100%;
 	position:relative;
 	margin:0 auto;
 }
 
-#tab01,#tab02,#tab03{
+#tab01,#tab02,#tab03,#tab04,#tab05,
+.jp-prod-tabs{
 position:absolute;
 bottom:-96px;
 	left:50%;
@@ -2470,7 +2472,8 @@ bottom:-96px;
 z-index:5;
 }
 
-#tab01 li,#tab02 li,#tab03 li{
+#tab01 li,#tab02 li,#tab03 li,#tab04 li,#tab05 li,
+.jp-prod-tabs li{
 	color:#333;
 	font-size:24px;
 	display:inline-block;
@@ -2483,7 +2486,8 @@ z-index:5;
 	width:33%;
 	position:relative;
 }
-#tab01 li span, #tab02 li span, #tab03 li span{
+#tab01 li span, #tab02 li span, #tab03 li span, #tab04 li span, #tab05 li span,
+.jp-prod-tabs li span{
 	display:block;
 	width:100px;
 	height:2px;
@@ -2495,19 +2499,25 @@ z-index:5;
 	}
 
 
-#tab01 li.current, #tab02 li.current, #tab03 li.current {
+#tab01 li.current, #tab02 li.current, #tab03 li.current, #tab04 li.current, #tab05 li.current,
+.jp-prod-tabs li.current,
+.jp-prod-tabs li.is-current {
 	color:#fff;
 }
-#tab01 li.current span, #tab02 li.current span, #tab03 li.current span{
+#tab01 li.current span, #tab02 li.current span, #tab03 li.current span, #tab04 li.current span, #tab05 li.current span,
+.jp-prod-tabs li.current span,
+.jp-prod-tabs li.is-current span{
 	background-color:#fff;
 	}
-#content01, #content02, #content03{
+#content01, #content02, #content03, #content04, #content05,
+[id^="content0"].jp-prod-stage{
 width:100%;
 overflow:visible;
 position:relative;
 
 }
-#content01 ul img, #content02 ul img, #content03 ul img{
+#content01 ul img, #content02 ul img, #content03 ul img, #content04 ul img, #content05 ul img,
+[id^="content0"].jp-prod-stage ul img{
 	max-width:100%;
 	}
 /* 原为 display:none —— 缩略图列表被整体隐藏，
@@ -2516,7 +2526,8 @@ position:relative;
    该版式里每个 <ul> 承载一个产品大图，需要居中且保持块级，
    所以这里不再用 flex（flex 会让 <a> 变成 flex item 变形）。
    具体的切换动效与样式在 skin/css/joypo-prod.css 里按 .jp-prod-shot 精准控制。 */
-#content01 ul, #content02 ul, #content03 ul{
+#content01 ul, #content02 ul, #content03 ul, #content04 ul, #content05 ul,
+[id^="content0"].jp-prod-stage > ul.jp-prod-shot{
 	display:block;
 	color:#FFF;
 	margin-bottom:40px;
