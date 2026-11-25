@@ -68,6 +68,7 @@ class I18n
         }
         // 清空进程内静态缓存
         self::$packCache = null;
+        self::$renderCache = array();
     }
 
     /**
@@ -303,15 +304,213 @@ class I18n
 
     public static function t($key)
     {
+        return self::cachedRender('html', $key, function ($raw) {
+            return self::renderHtml($raw);
+        });
+    }
+
+    /** 属性、占位符：去掉样式标签，只留可见文字 */
+    public static function tAttr($key)
+    {
+        return self::cachedRender('attr', $key, function ($raw) {
+            return htmlspecialchars(self::plainText($raw), ENT_QUOTES, 'UTF-8');
+        });
+    }
+
+    /** 脚本字符串：返回带引号的 JSON，避免引号或标签把页面脚本截断 */
+    public static function tJs($key)
+    {
+        return self::cachedRender('js', $key, function ($raw) {
+            return json_encode(self::plainText($raw), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+        });
+    }
+
+    /**
+     * 界面文案入库前收成行内样式。
+     * 文案会嵌在标题、段落、按钮里，段落标签改成换行，避免再套一层块级元素。
+     *
+     * @param string $html 已解码的编辑器 HTML
+     * @return string 未转义的安全 HTML；纯文本保持原样
+     */
+    public static function normalizeRichText($html)
+    {
+        if (! is_string($html) || $html === '') {
+            return '';
+        }
+        $html = str_replace(array("\r\n", "\r"), "\n", $html);
+        if (strpos($html, '<') === false) {
+            $text = str_replace("\xc2\xa0", ' ', $html);
+            $visible = preg_replace('/\s+/u', '', $text);
+            return $visible === '' ? '' : trim($text);
+        }
+
+        $html = preg_replace('/<br\b[^>]*>/i', "\n", $html);
+        // 段落上的对齐改挂到行内元素，避免拆掉块标签时样式丢失
+        $guard = 0;
+        $prev = null;
+        while ($prev !== $html && $guard < 20) {
+            $prev = $html;
+            $guard ++;
+            $html = preg_replace_callback('/<(p|div|li|h[1-6])\b([^>]*)>(.*?)<\/\1>/is', function ($m) {
+                $inner = $m[3];
+                if (preg_match('/text-align\s*:\s*(center|right|justify)/i', $m[2], $am)) {
+                    return '<span style="display:inline-block;width:100%;text-align:' . strtolower($am[1]) . '">' . $inner . "</span>\n";
+                }
+                return $inner . "\n";
+            }, $html);
+        }
+        $html = preg_replace('/<\/\s*(?:p|div|h[1-6]|li|tr|blockquote)\s*>/i', "\n", $html);
+        $html = preg_replace('/<\s*(?:p|div|h[1-6]|li|tr|ul|ol|table|tbody|thead|blockquote)\b[^>]*>/i', '', $html);
+        $html = self::keepInlineTags($html);
+        $html = str_replace("\xc2\xa0", ' ', $html);
+        $html = preg_replace("/[ \t]+\n/", "\n", $html);
+        $html = preg_replace("/\n{3,}/", "\n\n", $html);
+        $html = trim($html);
+        $visible = preg_replace('/\s+/u', '', strip_tags(str_replace("\n", '', $html)));
+        if ($visible === '') {
+            return '';
+        }
+        $html = str_replace("\n", '<br>', $html);
+        $html = preg_replace('/^(?:<br>)+|(?:<br>)+$/i', '', $html);
+        return $html;
+    }
+
+    private static function cachedRender($bucket, $key, $builder)
+    {
+        $id = $bucket . "\0" . self::lang() . "\0" . (string) $key;
+        if (isset(self::$renderCache[$id])) {
+            return self::$renderCache[$id];
+        }
+        $raw = self::lookup($key);
+        $decoded = decode_string($raw);
+        if (! is_string($decoded)) {
+            $decoded = (string) $raw;
+        }
+        $html = $builder($decoded);
+        self::$renderCache[$id] = $html;
+        return $html;
+    }
+
+    private static function lookup($key)
+    {
+        $key = (string) $key;
         $packs = self::packs();
         $lang = self::lang();
         if (isset($packs[$lang][$key]) && $packs[$lang][$key] !== '') {
-            return $packs[$lang][$key];
+            return (string) $packs[$lang][$key];
         }
         if (isset($packs['zh'][$key])) {
-            return $packs['zh'][$key];
+            return (string) $packs['zh'][$key];
         }
         return $key;
+    }
+
+    /** $decoded 已是 decode_string 之后的文案。纯文本再解数字实体，避免 &#91; 被二次转义成可见字符。 */
+    private static function renderHtml($decoded)
+    {
+        if (! preg_match('/<(?:span|strong|b|em|i|u|a|br|sub|sup|font)\b/i', $decoded)) {
+            $text = html_entity_decode($decoded, ENT_QUOTES, 'UTF-8');
+            return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+        }
+        return self::rebuildInline($decoded, true);
+    }
+
+    private static function plainText($decoded)
+    {
+        $text = preg_replace('/<br\b[^>]*>/i', ' ', (string) $decoded);
+        $text = html_entity_decode(strip_tags($text), ENT_QUOTES, 'UTF-8');
+        $text = str_replace("\xc2\xa0", ' ', $text);
+        $text = preg_replace('/\s+/u', ' ', $text);
+        return trim($text);
+    }
+
+    /** 只保留行内标签，并洗掉事件属性。文本先不转义。 */
+    private static function keepInlineTags($html)
+    {
+        $html = filter_html($html);
+        $html = strip_tags($html, '<span><strong><b><em><i><u><a><sub><sup><font>');
+        $html = html_entity_decode($html, ENT_QUOTES, 'UTF-8');
+        $html = filter_html($html);
+        $html = strip_tags($html, '<span><strong><b><em><i><u><a><sub><sup><font>');
+        return self::rebuildInline($html, false);
+    }
+
+    private static function rebuildInline($html, $escapeText)
+    {
+        $allowed = 'span|strong|b|em|i|u|br|a|sub|sup|font';
+        $parts = preg_split('/(<\/?(?:' . $allowed . ')\b[^>]*>)/i', (string) $html, -1, PREG_SPLIT_DELIM_CAPTURE);
+        if (! is_array($parts)) {
+            return $escapeText ? htmlspecialchars((string) $html, ENT_QUOTES, 'UTF-8') : (string) $html;
+        }
+        $out = '';
+        foreach ($parts as $part) {
+            if (preg_match('/^<\/?(?:' . $allowed . ')\b/i', $part)) {
+                $out .= self::sanitizeInlineTag($part);
+            } else {
+                $out .= $escapeText ? htmlspecialchars($part, ENT_QUOTES, 'UTF-8') : $part;
+            }
+        }
+        return $out;
+    }
+
+    private static function sanitizeInlineTag($tagHtml)
+    {
+        if (! preg_match('/^<\s*(\/)?\s*([a-z0-9]+)\b([^>]*)>$/i', trim($tagHtml), $m)) {
+            return '';
+        }
+        $close = $m[1] === '/';
+        $tag = strtolower($m[2]);
+        $allowed = array('span', 'strong', 'b', 'em', 'i', 'u', 'br', 'a', 'sub', 'sup', 'font');
+        if (! in_array($tag, $allowed, true)) {
+            return '';
+        }
+        if ($close) {
+            return $tag === 'br' ? '' : '</' . $tag . '>';
+        }
+        if ($tag === 'br') {
+            return '<br>';
+        }
+        $attrs = $m[3];
+        $keep = '';
+        if (preg_match('/\sstyle\s*=\s*("|\')(.*?)\1/is', $attrs, $sm)) {
+            $css = filter_inline_style_attr($sm[2]);
+            $css = str_replace(array('"', '<', '>'), array("'", '', ''), $css);
+            if ($css !== '') {
+                $keep .= ' style="' . $css . '"';
+            }
+        }
+        if ($tag === 'a' && preg_match('/\shref\s*=\s*("|\')(.*?)\1/is', $attrs, $hm)) {
+            $href = self::safeHref($hm[2]);
+            if ($href !== '') {
+                $keep .= ' href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '"';
+            }
+        }
+        if ($tag === 'font') {
+            foreach (array('color', 'size', 'face') as $name) {
+                if (preg_match('/\s' . $name . '\s*=\s*("|\')(.*?)\1/i', $attrs, $fm)) {
+                    $val = preg_replace('/[^a-zA-Z0-9#,\.\-\s]/', '', $fm[2]);
+                    if ($val !== '') {
+                        $keep .= ' ' . $name . '="' . $val . '"';
+                    }
+                }
+            }
+        }
+        return '<' . $tag . $keep . '>';
+    }
+
+    private static function safeHref($href)
+    {
+        $href = trim(html_entity_decode((string) $href, ENT_QUOTES, 'UTF-8'));
+        if ($href === '' || preg_match('/[\s\x00-\x1f]/', $href)) {
+            return '';
+        }
+        if (preg_match('#^(https?:|mailto:|tel:)#i', $href)) {
+            return $href;
+        }
+        if ($href[0] === '/' || $href[0] === '#') {
+            return $href;
+        }
+        return '';
     }
 
     public static function url($lang)
@@ -466,6 +665,8 @@ class I18n
     }
 
     private static $packCache = null;
+
+    private static $renderCache = array();
 
     private static function packs()
     {

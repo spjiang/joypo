@@ -387,3 +387,32 @@ html[lang="en"] .jp-his-copy p{
 		animation:none !important;
 	}
 }
+
+/* 笔记本宽度下历程图不要固定 1500px，否则右侧英文会被容器裁掉 */
+#content1{
+	width:100%;
+	max-width:1500px;
+}
+html[lang="en"] .jp-his-copy{
+	left:46%;
+	right:4%;
+	top:16%;
+	max-width:none;
+	width:auto;
+	box-sizing:border-box;
+}
+
+/* 年份文字落在时间轴线下方，选中的蓝色年份不再盖住那条线 */
+#tab1{
+	height:auto;
+	overflow:visible;
+	background-position:left 12px;
+}
+#tab1 li{
+	height:auto;
+	padding-top:40px;
+	line-height:1.15;
+}
+.jp-about-years li:hover{
+	transform:none;
+}

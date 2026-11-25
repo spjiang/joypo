@@ -52,7 +52,7 @@
 		<div class="search">
 			<form id="comment_form" name="formsearch" action="{pboot:scaction}"  method="get">
 				<input type="hidden" name="scode" value="2">
-				<input type="text" class="text" name="keyword" id="k" placeholder="{fun=joypo_t('search.placeholder')}">
+				<input type="text" class="text" name="keyword" id="k" placeholder="{fun=joypo_t_attr('search.placeholder')}">
 				<input type="submit" class="submit" value="">
 			</form>
 			<div class="clear"></div>
@@ -65,20 +65,20 @@
 		<form action="{pboot:msgaction}" method="post">
 		<div class="input">
 			<span class="h1">{fun=joypo_t('message.name')}</span>
-			<input type="text" placeholder="{fun=joypo_t('message.name_ph')}" class="text" name="contacts" id="name">
+			<input type="text" placeholder="{fun=joypo_t_attr('message.name_ph')}" class="text" name="contacts" id="name">
 		</div>
 		<div class="input">
 			<span class="h1">{fun=joypo_t('message.phone')}</span>
-			<input type="text" placeholder="{fun=joypo_t('message.phone_ph')}" class="text" name="mobile" id="tel">
+			<input type="text" placeholder="{fun=joypo_t_attr('message.phone_ph')}" class="text" name="mobile" id="tel">
 		</div>
 		<div class="input">
 			<span class="h1">{fun=joypo_t('message.email')}</span>
-			<input type="text" placeholder="{fun=joypo_t('message.email_ph')}" class="text" name="email" id="">
+			<input type="text" placeholder="{fun=joypo_t_attr('message.email_ph')}" class="text" name="email" id="">
 		</div>
 		<div class="clear">
 		</div>
-		<textarea name="content" id="lx_content" placeholder="{fun=joypo_t('message.body_ph')}"></textarea>
-		<input type="submit" value="{fun=joypo_t('message.submit')}" class="submit feedback_submit2" id="tj">
+		<textarea name="content" id="lx_content" placeholder="{fun=joypo_t_attr('message.body_ph')}"></textarea>
+		<input type="submit" value="{fun=joypo_t_attr('message.submit')}" class="submit feedback_submit2" id="tj">
 		</form>
 	</div>
 </div>
@@ -87,9 +87,9 @@
 	$(function(){
 		$('#tj').click(function(){
 			//alert(1)
-			if($('#name').val()==''){alert('{fun=joypo_t('message.alert_name')}'); $("#name").focus(); return false;}
-			if ($("#tel").val() == "") { alert("{fun=joypo_t('message.alert_phone')}"); $("#tel").focus(); return false; } 
-			if (!$("#tel").val().match(/^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1})|(19[0-9]{1}))+\d{8})$/)) { alert("{fun=joypo_t('message.alert_phone_fmt')}"); $("#tel").focus(); return false;} 
+			if($('#name').val()==''){alert({fun=joypo_t_js('message.alert_name')}); $("#name").focus(); return false;}
+			if ($("#tel").val() == "") { alert({fun=joypo_t_js('message.alert_phone')}); $("#tel").focus(); return false; } 
+			if (!$("#tel").val().match(/^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1})|(19[0-9]{1}))+\d{8})$/)) { alert({fun=joypo_t_js('message.alert_phone_fmt')}); $("#tel").focus(); return false;} 
 		})
 	})
 </script>

@@ -1,15 +1,15 @@
 <!--Joypo 动效增强层：滚动载入 + 悬停动效（仅用 transform/opacity，不改布局）-->
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-anim.css?v=20261111a">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-anim.css?v=20261120d">
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-fx.css?v=20261110a">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-gw.css?v=20261125r">
-<script src="{pboot:sitedomain}/skin/js/joypo-anim.js?v=20261112i" defer></script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-gw.css?v=20261125w">
+<script src="{pboot:sitedomain}/skin/js/joypo-anim.js?v=20261120e" defer></script>
 <script src="{pboot:sitedomain}/skin/js/joypo-gw.js?v=20261107r" defer></script>
-<script src="{pboot:sitedomain}/skin/js/joypo-home-m.js?v=20261125g" defer></script>
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-mobile.css?v=20261125v">
+<script src="{pboot:sitedomain}/skin/js/joypo-home-m.js?v=20261125h" defer></script>
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-mobile.css?v=20261125w">
 <!--页头-->
 <!--导航-->
 <header class="cms-site-head" id="header" data-tcode="{sort:tcode}" data-scode="{sort:scode}" data-pcode="{sort:pcode}">
-    <button type="button" class="nav-backdrop" aria-label="{fun=joypo_t('nav.menu_close')}"></button>
+    <button type="button" class="nav-backdrop" aria-label="{fun=joypo_t_attr('nav.menu_close')}"></button>
     <div class="header-main">
         <div class="cms-site-inner limit-width wrapper">
             <div class="cms-site-logo header-logo">
@@ -18,7 +18,7 @@
                     <img class="mouseLogo" src="{pboot:sitedomain}/skin/images/logo1.webp" >
                 </a>
             </div>
-            <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="{fun=joypo_t('nav.menu_open')}">
+            <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="{fun=joypo_t_attr('nav.menu_open')}">
                 <span class="nav-toggle-bar"></span>
                 <span class="nav-toggle-bar"></span>
                 <span class="nav-toggle-bar"></span>
@@ -30,7 +30,7 @@
                      {pboot:nav num=5}
 		<li data-scode="[nav:scode]"><a href="[nav:link]">[nav:name]</a>
           {pboot:if([nav:soncount]>0)}
-        <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-label="{fun=joypo_t('nav.submenu_open')}"></button>
+        <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-label="{fun=joypo_t_attr('nav.submenu_open')}"></button>
         <ul class="cms-site-submenu">
       
            {pboot:2nav parent=[nav:scode]}
@@ -58,18 +58,18 @@
                 </nav>
                  <div class="head_icon"> 
                  <div class="top_search">
-      <button type="button" class="top_search_btn" aria-label="{fun=joypo_t('search.open')}">
+      <button type="button" class="top_search_btn" aria-label="{fun=joypo_t_attr('search.open')}">
         <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.25" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M15.2 15.2L20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
       </button>
       <div class="search_con">
         <form action="{pboot:scaction}" method="get" id="form3">
-          <input class="input1" name="keyword" value="" placeholder="{fun=joypo_t('search.placeholder')}">
+          <input class="input1" name="keyword" value="" placeholder="{fun=joypo_t_attr('search.placeholder')}">
           <input type="submit" class="bnts" value="">
         </form>
         <script type="text/javascript">
    function checktop(nForm){
    if(nForm.title.value=="Search")
-   { alert("{fun=joypo_t('search.required')}");
+   { alert({fun=joypo_t_js('search.required')});
     nForm.title.focus();
     return false;
    }
@@ -115,7 +115,7 @@
         function setNavOpen(open) {
             siteHead.classList.toggle('is-nav-open', open);
             navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-            navToggle.setAttribute('aria-label', open ? "{fun=joypo_t('nav.menu_close')}" : "{fun=joypo_t('nav.menu_open')}");
+            navToggle.setAttribute('aria-label', open ? {fun=joypo_t_js('nav.menu_close')} : {fun=joypo_t_js('nav.menu_open')});
             document.body.classList.toggle('nav-locked', open);
         }
 
@@ -123,7 +123,7 @@
             var buttons = siteHead.querySelectorAll('.nav-sub-toggle');
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].setAttribute('aria-expanded', 'false');
-                buttons[i].setAttribute('aria-label', "{fun=joypo_t('nav.submenu_open')}");
+                buttons[i].setAttribute('aria-label', {fun=joypo_t_js('nav.submenu_open')});
                 buttons[i].parentNode.classList.remove('is-sub-open');
             }
         }
@@ -151,7 +151,7 @@
                         if (!navMq.matches) return;
                         var open = li.classList.toggle('is-sub-open');
                         subBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-                        subBtn.setAttribute('aria-label', open ? "{fun=joypo_t('nav.submenu_close')}" : "{fun=joypo_t('nav.submenu_open')}");
+                        subBtn.setAttribute('aria-label', open ? {fun=joypo_t_js('nav.submenu_close')} : {fun=joypo_t_js('nav.submenu_open')});
                     });
                 } else if (topLink) {
                     topLink.addEventListener('click', function () {

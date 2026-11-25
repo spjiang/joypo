@@ -59,6 +59,22 @@ class ContentSortController extends Controller
         $this->display('content/contentsort.html');
     }
 
+    // 分配一个尚未使用的栏目编号。从指定编号或最新一条开始，占用则继续加一
+    private function nextScode($from = null)
+    {
+        $scode = $from;
+        if ($scode === null) {
+            $scode = $this->model->getLastCode();
+        }
+        for ($i = 0; $i < 1000; $i ++) {
+            $scode = get_auto_code($scode);
+            if ($scode !== '' && $scode !== null && ! $this->model->checkSort("scode='" . addslashes($scode) . "'")) {
+                return $scode;
+            }
+        }
+        alert_back('无法分配栏目编号，请检查栏目数据！');
+    }
+
     // 生成无限级内容栏目列表
     private function makeSortList($tree)
     {
@@ -114,9 +130,9 @@ class ContentSortController extends Controller
                 }
                 
                 $names = explode(',', $multiplename);
-                $lastcode = $this->model->getLastCode();
-                $scode = get_auto_code($lastcode);
+                $scode = null;
                 foreach ($names as $key => $value) {
+                    $scode = $this->nextScode($scode);
                     $data[] = array(
                         'acode' => session('acode'),
                         'pcode' => $pcode,
@@ -140,11 +156,10 @@ class ContentSortController extends Controller
                         'create_user' => session('username'),
                         'update_user' => session('username')
                     );
-                    $scode = get_auto_code($scode);
                 }
             } else {
-                // 获取数据
-                $scode = get_auto_code($this->model->getLastCode()); // 自动编码;
+                // 获取数据。编号按已有栏目往后找空号，避免最新一条不是最大编号时直接撞车
+                $scode = $this->nextScode();
                 $pcode = post('pcode', 'var');
                 $name = post('name');
                 $type = post('type');
@@ -158,6 +173,7 @@ class ContentSortController extends Controller
                 $ico = post('ico');
                 $pic = post('pic');
                 $pic_en = post('pic_en');
+                $home_pics = post('home_pics');
                 $title = post('title');
                 $keywords = post('keywords');
                 $description = post('description');
@@ -250,6 +266,7 @@ class ContentSortController extends Controller
                     'ico' => $ico,
                     'pic' => $pic,
                     'pic_en' => $pic_en,
+                    'home_pics' => $home_pics,
                     'title' => $title,
                     'title_en' => $title_en,
                     'keywords' => $keywords,
@@ -392,6 +409,7 @@ class ContentSortController extends Controller
             $ico = post('ico');
             $pic = post('pic');
             $pic_en = post('pic_en');
+            $home_pics = post('home_pics');
             $title = post('title');
             $keywords = post('keywords');
             $description = post('description');
@@ -473,6 +491,7 @@ class ContentSortController extends Controller
                 'ico' => $ico,
                 'pic' => $pic,
                 'pic_en' => $pic_en,
+                'home_pics' => $home_pics,
                 'title' => $title,
                 'title_en' => $title_en,
                 'keywords' => $keywords,

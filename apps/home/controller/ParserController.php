@@ -528,6 +528,7 @@ class ParserController extends Controller
                             }
                         }
                     }
+                    $one_html = $this->expandHomePics($one_html, $value);
                     $key++;
                     $out_html .= $one_html;
                 }
@@ -544,6 +545,34 @@ class ParserController extends Controller
             }
         }
         return $content;
+    }
+
+    // 首页配图：有多图则每张一张卡片，链接仍是该栏目；未上传则用栏目缩略图
+    private function expandHomePics($html, $value)
+    {
+        $pattern = '/\{pboot:homepic\}([\s\S]*?)\{\/pboot:homepic\}/';
+        if (! preg_match($pattern, $html)) {
+            return $html;
+        }
+        $pics = array();
+        if (! empty($value['home_pics'])) {
+            foreach (explode(',', $value['home_pics']) as $pic) {
+                $pic = trim($pic);
+                if ($pic !== '') {
+                    $pics[] = $pic;
+                }
+            }
+        }
+        if (! $pics && ! empty($value['ico'])) {
+            $pics[] = $value['ico'];
+        }
+        return preg_replace_callback($pattern, function ($matches) use ($pics) {
+            $out = '';
+            foreach ($pics as $pic) {
+                $out .= str_replace('[homepic:src]', $this->parserAssetUrl($pic), $matches[1]);
+            }
+            return $out;
+        }, $html);
     }
 
     // 解析当前位置

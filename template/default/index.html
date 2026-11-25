@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper.min.css">-->
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/css.css">
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261110c">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/style.css?v=20261124a">
 <link rel="stylesheet" href="{pboot:sitedomain}/skin/css/aos.css" />
 <link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/swiper-bundle.min.css">
 <script src="{pboot:sitedomain}/skin/js/jquery-3.7.0.min.js"></script>
@@ -30,7 +30,7 @@
 {include file=head.html}
 <!--banner-->
 <div class="inbanner">
-<video width="100%" preload="auto" poster="{pboot:sitedomain}/skin/images/poster_index.jpg" playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="false" autoplay muted loop>
+<video width="100%" preload="auto" poster="{pboot:sitedomain}/skin/images/poster_index.jpg?v=20261124" playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="false" autoplay muted loop>
             <source src="{pboot:sitedomain}/skin/images/index.mp4?v=20261125b" type="video/mp4">
             {fun=joypo_t('video.unsupported')}
         </video>
@@ -53,7 +53,7 @@
         
       <div class="inabout">
       <dl>
-      <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
+      <dt><img alt="{fun=joypo_t_attr('mission.title')}" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
       <dd><h1>{fun=joypo_t('mission.title')}</h1>
     
       <p>{fun=joypo_t('mission.text')}</p>
@@ -62,7 +62,7 @@
       </dl>
       
       <dl>
-      <dt><img alt="{fun=joypo_t('vision.title')}" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
+      <dt><img alt="{fun=joypo_t_attr('vision.title')}" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
       <dd>
       <h1>{fun=joypo_t('vision.title')}</h1>
       <p>{fun=joypo_t('vision.text')}</p>
@@ -71,7 +71,7 @@
       </dl>
       
       <dl>
-       <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
+       <dt><img alt="{fun=joypo_t_attr('mission.title')}" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
       <dd>
        <h1>{fun=joypo_t('values.title')}</h1>
       <p>{fun=joypo_t('values.text')}</p>
@@ -106,10 +106,11 @@
         <div id="case_banner" >
       
      {pboot:nav parent={sort:tcode} parent=2 num=6}
+     {pboot:homepic}
      <dl data-tab="[nav:name]"> 
        <a href="[nav:link]">
         <dt>      
-      <img src="[nav:ico]" alt="[nav:name]">
+      <img src="[homepic:src]" alt="[nav:name]">
       
       <div class="ha1">[nav:subname]</div>
       </dt>
@@ -118,6 +119,7 @@
    
         </a>
      </dl>
+     {/pboot:homepic}
         {/pboot:nav}
             
        

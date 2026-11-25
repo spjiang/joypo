@@ -51,7 +51,7 @@
 		<div class="search">
 			<form id="comment_form" name="formsearch" action="{pboot:scaction}"  method="get">
 				<input type="hidden" name="scode" value="2">
-				<input type="text" class="text" name="keyword" id="k" placeholder="{fun=joypo_t('search.placeholder')}">
+				<input type="text" class="text" name="keyword" id="k" placeholder="{fun=joypo_t_attr('search.placeholder')}">
 				<input type="submit" class="submit" value="">
 			</form>
 			<div class="clear"></div>
@@ -79,12 +79,12 @@
 	{pboot:if({page:rows}>0)}
 <div class="pagebar">
 <div class="pagination">
-<a class="page-item page-link hidden-sm" href="{page:index}" title="{fun=joypo_t('nav.home')}">{fun=joypo_t('nav.home')}</a>
-<a class="page-item page-link st" href="{page:pre}" title="{fun=joypo_t('pager.prev')}"><<</a>
+<a class="page-item page-link hidden-sm" href="{page:index}" title="{fun=joypo_t_attr('nav.home')}">{fun=joypo_t('nav.home')}</a>
+<a class="page-item page-link st" href="{page:pre}" title="{fun=joypo_t_attr('pager.prev')}"><<</a>
 {page:numbar}
-<a class="page-item page-link" href="javascript:;" title="{fun=joypo_t('pager.status')}">{page:current}/{page:count}</a>
-<a class="page-item page-link st" href="{page:next}" title="{fun=joypo_t('pager.next')}">>></a>
-<a class="page-item page-link hidden-sm" href="{page:last}" title="{fun=joypo_t('pager.last')}">{fun=joypo_t('pager.last')}</a>
+<a class="page-item page-link" href="javascript:;" title="{fun=joypo_t_attr('pager.status')}">{page:current}/{page:count}</a>
+<a class="page-item page-link st" href="{page:next}" title="{fun=joypo_t_attr('pager.next')}">>></a>
+<a class="page-item page-link hidden-sm" href="{page:last}" title="{fun=joypo_t_attr('pager.last')}">{fun=joypo_t('pager.last')}</a>
 </div>
 </div>	
 {else}

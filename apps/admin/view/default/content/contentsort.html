@@ -291,6 +291,17 @@
 								 </button>
 								 <div id="ico_box" class="pic"></div>
 			                </div>
+
+			                <div class="layui-form-item">
+			                     <label class="layui-form-label">首页配图</label>
+			                     <div class="layui-input-inline">
+			                     	<input type="text" name="home_pics" id="home_pics" placeholder="可上传多张，首页解决方案按顺序展示，链接仍是本栏目" class="layui-input">
+			                     </div>
+			                     <button type="button" class="layui-btn uploads" data-des="home_pics">
+								 	 <i class="layui-icon">&#xe67c;</i>上传多图
+								 </button>
+								 <div id="home_pics_box" class="pic"><dl></dl></div>
+			                </div>
 			                
 			                <div class="layui-form-item">
 			                     <label class="layui-form-label">栏目大图</label>
@@ -652,6 +663,29 @@
 							 </button>
 							 <div id="ico_box" class="pic"><dl><dt>{if([$sort->ico])}<img src='{SITE_DIR}{$sort->ico}' data-url="{$sort->ico}"></dt><dd>删除</dd></dl>{/if}</div>
 		                </div>
+
+		                <div class="layui-form-item">
+		                     <label class="layui-form-label">首页配图</label>
+		                     <div class="layui-input-inline">
+		                     	<input type="text" name="home_pics" id="home_pics" value="{$sort->home_pics}" placeholder="可上传多张，首页解决方案按顺序展示，链接仍是本栏目" class="layui-input">
+		                     </div>
+		                     <button type="button" class="layui-btn uploads" data-des="home_pics">
+							 	 <i class="layui-icon">&#xe67c;</i>上传多图
+							 </button>
+							 <div id="home_pics_box" class="pic">
+							 	 <dl></dl>
+								 {php}
+								    if([$sort->home_pics]){
+	                					$home_pics=explode(',',[$sort->home_pics]);
+	                				}else{
+	                					$home_pics = array();
+	                				}
+	                				foreach ($home_pics as $key=>$value) {
+	                					echo "<dl><dt><img src='".SITE_DIR.$value."' data-url='".$value."'></dt><dd>删除</dd></dl>";
+          							}
+         						 {/php}
+       						 </div>
+		                </div>
 		                
 		                 <div class="layui-form-item">
 		                     <label class="layui-form-label">栏目大图</label>
@@ -730,4 +764,21 @@
 	{/if} 
 </div>
 
+<style>.placeHolder {border:dashed 2px gray; }</style>
+<script type="text/javascript" src="{APP_THEME_DIR}/js/jquery.dragsort-0.5.2.min.js"></script>
+<script type="text/javascript">
+if ($("#home_pics_box").length) $("#home_pics_box").dragsort({
+	dragSelector: "dl",
+	dragSelectorExclude: "input,textarea,dd",
+	dragBetween: false,
+	dragEnd: saveHomePicsOrder,
+	placeHolderTemplate: "<dl class='placeHolder'><dt></dt></dl>"
+});
+function saveHomePicsOrder() {
+	var data = $("#home_pics_box dl dt img").map(function() {
+		return $(this).data("url");
+	}).get();
+	$("input[name=home_pics]").val(data.join(","));
+}
+</script>
 {include file='common/foot.html'}

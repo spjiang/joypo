@@ -228,13 +228,19 @@
         var box = document.querySelector('#w2 .inyfzz');
         if (!box) return;
 
-        /* PC 左右分栏在手机端拆平，保证 swiper 仍吃到直接子 dl */
-        Array.prototype.slice.call(box.querySelectorAll(':scope > .inyfzz-col')).forEach(function (col) {
-            while (col.firstChild) {
-                box.insertBefore(col.firstChild, col);
-            }
-            box.removeChild(col);
-        });
+        /* 桌面左右分列；手机横滑仍按原来的 1–7 顺序，一卡一条 */
+        var dls = Array.prototype.slice.call(box.querySelectorAll('dl'));
+        if (box.querySelector('.inyfzz-col') && dls.length) {
+            dls.sort(function (a, b) {
+                return (parseInt(a.getAttribute('data-ord'), 10) || 0) - (parseInt(b.getAttribute('data-ord'), 10) || 0);
+            });
+            dls.forEach(function (dl) {
+                box.appendChild(dl);
+            });
+            Array.prototype.slice.call(box.querySelectorAll('.inyfzz-col')).forEach(function (col) {
+                if (col.parentNode) col.parentNode.removeChild(col);
+            });
+        }
 
         var pager = document.createElement('div');
         pager.className = 'jp-inyfzz-dots swiper-pagination';
@@ -308,7 +314,6 @@
 
     function boot() {
         try {
-            initCaseBanner();
             initAboutCards();
             initHxcen();
             initInyfzz();
