@@ -890,6 +890,18 @@ function joypo_t($key)
     return \app\common\I18n::t($key);
 }
 
+/** 属性、占位符用：去掉样式，只输出可见文字 */
+function joypo_t_attr($key)
+{
+    return \app\common\I18n::tAttr($key);
+}
+
+/** 页面脚本用：带引号的 JSON 字符串 */
+function joypo_t_js($key)
+{
+    return \app\common\I18n::tJs($key);
+}
+
 function joypo_lang()
 {
     return \app\common\I18n::lang();

@@ -130,7 +130,6 @@
         ['#w1 .title', 'up', 0, 0],
         ['#w1 .inabout dl', 'pop', 0.18, 0],
         ['.title .h2', 'zoom', 0, 0],
-        ['#case_banner dl', 'up', 0.1, 0],
         // 新闻中心 —— 注意：swiper 用 transform 定位 slide，
         // 入场动画若也用 transform 会覆盖 swiper 的定位导致轮播错乱，
         // 因此 swiper 内部一律只用 opacity 淡入
@@ -250,7 +249,7 @@
 
         $$('img, video').forEach(function (img) {
             if (img.classList.contains('jp-img')) return;
-            if (img.closest && img.closest('.cms-site-head, header, .foot, .modal, .full, .contus, .top_search, .copy, .swiper, .swiper-container, #honor_banner, .jp-about-history')) return;
+            if (img.closest && img.closest('.cms-site-head, header, .foot, .modal, .full, .contus, .top_search, .copy, .swiper, .swiper-container, #honor_banner, .jp-about-history, #case_banner')) return;
 
             img.classList.add('jp-img');
             var pos = win.getComputedStyle(img).position;
@@ -319,9 +318,8 @@
         var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) play(entry.target);
-                else reset(entry.target);
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0, rootMargin: '0px 0px 220px 0px' });
 
         targets.forEach(function (el) { io.observe(el); });
 

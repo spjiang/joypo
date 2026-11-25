@@ -31,9 +31,9 @@
 	  			<input type="hidden" name="action" value="sync">
 	  			<button type="submit" class="layui-btn layui-btn-primary" onclick='return confirm("将从 lang/zh.php、lang/en.php 补齐缺失的键，不会覆盖已有后台修改。继续？")'>从语言包文件同步</button>
 	  		</form>
-	  		<span class="layui-word-aux" style="margin-left:8px;">当前显示 {$lang_count} 条。库中非空文案优先生效，空值回退到语言包文件。</span>
+	  		<span class="layui-word-aux" style="margin-left:8px;">当前显示 {$lang_count} 条。点中文或英文即可用富文本改加粗、颜色、字号。库中非空文案优先生效，空值回退到语言包文件。按钮文字、输入框提示只显示纯文字。</span>
 
-	  		<form action="admin.php?p=/Lang/index" method="post" class="layui-form">
+	  		<form action="admin.php?p=/Lang/index" method="post" class="layui-form" id="lang-save-form">
 	  			<input type="hidden" name="formcheck" value="{$formcheck}">
 	  			<input type="hidden" name="filter_grp" value="{$grp}">
 	  			<input type="hidden" name="filter_keyword" value="{$keyword}">
@@ -52,8 +52,16 @@
 	  					<tr>
 	  						<td><code>[value->lang_key]</code></td>
 	  						<td>[value->grp_label]</td>
-	  						<td><textarea name="zh[[value->id]]" class="layui-textarea" rows="2">[value->zh]</textarea></td>
-	  						<td><textarea name="en[[value->id]]" class="layui-textarea" rows="2">[value->en]</textarea></td>
+	  						<td class="lang-cell">
+	  							<textarea name="zh[[value->id]]" class="lang-src" data-lang="中文" data-key="[value->lang_key]">[value->zh]</textarea>
+	  							<div class="lang-preview" title="点击编辑样式"></div>
+	  							<button type="button" class="layui-btn layui-btn-xs layui-btn-primary lang-edit">编辑样式</button>
+	  						</td>
+	  						<td class="lang-cell">
+	  							<textarea name="en[[value->id]]" class="lang-src" data-lang="英文" data-key="[value->lang_key]">[value->en]</textarea>
+	  							<div class="lang-preview" title="点击编辑样式"></div>
+	  							<button type="button" class="layui-btn layui-btn-xs layui-btn-primary lang-edit">编辑样式</button>
+	  						</td>
 	  						<td><input type="text" name="remark[[value->id]]" value="[value->remark]" class="layui-input" placeholder="可选"></td>
 	  					</tr>
 	  					{/foreach}
@@ -73,4 +81,198 @@
 	</div>
 </div>
 
+<style>
+.lang-cell { position: relative; min-width: 220px; vertical-align: top; }
+.lang-src {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+.lang-preview {
+	min-height: 64px;
+	max-height: 140px;
+	overflow: auto;
+	padding: 6px 8px;
+	border: 1px solid #e6e6e6;
+	background: #fff;
+	cursor: pointer;
+	line-height: 1.6;
+	word-break: break-word;
+	white-space: pre-wrap;
+}
+.lang-preview:hover { border-color: #1E9FFF; }
+.lang-preview.is-empty { color: #bbb; }
+.lang-edit { margin-top: 6px; }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+	var langUeOpt = {
+		toolbars: [[
+			'source', '|',
+			'bold', 'italic', 'underline', 'strikethrough', 'removeformat', '|',
+			'forecolor', 'backcolor', '|',
+			'fontfamily', 'fontsize', '|',
+			'justifyleft', 'justifycenter', 'justifyright', '|',
+			'link', 'unlink', '|',
+			'insertorderedlist', 'insertunorderedlist'
+		]],
+		maximumWords: 10000,
+		initialFrameHeight: 280,
+		initialFrameWidth: '100%',
+		autoHeightEnabled: false,
+		autoFloatEnabled: false,
+		elementPathEnabled: false,
+		wordCount: false,
+		enableAutoSave: false,
+		enterTag: 'br',
+		allowDivTransToP: false,
+		zIndex: 19999999
+	};
+	var activeArea = null;
+	var editorReady = false;
+
+	// 裸 & 补成实体，避免编辑器把 R&D 截断
+	function htmlForEditor(val) {
+		if (!val) return '';
+		if (val.indexOf('<') === -1) {
+			return val.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		}
+		return val.replace(/&(?![a-zA-Z]+;|#\d+;|#x[\da-fA-F]+;)/g, '&amp;');
+	}
+
+	// 段落收成换行，和入库规则一致，预览才不会多出一块空白
+	function toInline(html) {
+		html = html || '';
+		html = html.replace(/<br\b[^>]*>/gi, '\n');
+		var guard = 0;
+		var prev = null;
+		while (prev !== html && guard < 20) {
+			prev = html;
+			guard++;
+			html = html.replace(/<(p|div|li|h[1-6])\b([^>]*)>([\s\S]*?)<\/\1>/gi, function (all, tag, attrs, inner) {
+				var align = /text-align\s*:\s*(center|right|justify)/i.exec(attrs || '');
+				if (align) {
+					return '<span style="display:inline-block;width:100%;text-align:' + align[1].toLowerCase() + '">' + inner + '</span>\n';
+				}
+				return inner + '\n';
+			});
+		}
+		html = html.replace(/<\/(p|div|h[1-6]|li|blockquote)>/gi, '\n');
+		html = html.replace(/<(p|div|h[1-6]|li|ul|ol|blockquote)\b[^>]*>/gi, '');
+		html = html.replace(/\n{3,}/g, '\n\n').replace(/^\s+|\s+$/g, '');
+		var text = html.replace(/<[^>]+>/g, '').replace(/\u00a0/g, '').replace(/\s+/g, '');
+		if (!text) return '';
+		return html.replace(/\n/g, '<br>');
+	}
+
+	function paint(area) {
+		var preview = area.parentNode.querySelector('.lang-preview');
+		if (!preview) return;
+		var val = area.value || '';
+		preview.classList.remove('is-empty');
+		if (!val.replace(/\s+/g, '')) {
+			preview.textContent = '点击编辑样式';
+			preview.classList.add('is-empty');
+			return;
+		}
+		if (val.indexOf('<') === -1) {
+			preview.textContent = val;
+			return;
+		}
+		preview.innerHTML = htmlForEditor(val)
+			.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+			.replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+	}
+
+	function paintAll() {
+		var areas = document.querySelectorAll('#lang-save-form .lang-src');
+		for (var i = 0; i < areas.length; i++) {
+			paint(areas[i]);
+		}
+	}
+
+	function closeEditor() {
+		editorReady = false;
+		if (typeof UE !== 'undefined' && UE.delEditor) {
+			UE.delEditor('lang_style_editor');
+		}
+	}
+
+	function openEditor(area) {
+		if (typeof UE === 'undefined' || typeof layui === 'undefined') return;
+		activeArea = area;
+		var current = area.value || '';
+		var title = (area.getAttribute('data-lang') || '') + ' · ' + (area.getAttribute('data-key') || '');
+		editorReady = false;
+		closeEditor();
+		layui.layer.open({
+			type: 1,
+			title: title,
+			area: ['920px', '560px'],
+			shadeClose: false,
+			content: '<div style="padding:12px 16px 0;"><textarea id="lang_style_editor" style="width:100%;height:320px;"></textarea></div>',
+			btn: ['确定', '取消'],
+			success: function () {
+				var ue = UE.getEditor('lang_style_editor', langUeOpt);
+				ue.ready(function () {
+					ue.setContent(htmlForEditor(current));
+					editorReady = true;
+				});
+			},
+			yes: function (index) {
+				if (!editorReady) {
+					layui.layer.msg('编辑器还在加载，请稍候');
+					return false;
+				}
+				var ue = UE.getEditor('lang_style_editor');
+				if (typeof exitSourceModeWithNormalize === 'function') {
+					exitSourceModeWithNormalize(ue);
+				}
+				var html = '';
+				try {
+					html = ue.getContent() || '';
+				} catch (e) {
+					html = '';
+				}
+				closeEditor();
+				if (activeArea) {
+					activeArea.value = toInline(html);
+					paint(activeArea);
+				}
+				layui.layer.close(index);
+			},
+			btn2: function () {
+				closeEditor();
+			},
+			cancel: function () {
+				closeEditor();
+			},
+			end: function () {
+				closeEditor();
+			}
+		});
+	}
+
+	paintAll();
+	document.getElementById('lang-save-form').addEventListener('click', function (event) {
+		var node = event.target;
+		if (!node || !node.closest) return;
+		var hit = node.closest('.lang-preview, .lang-edit');
+		if (!hit) return;
+		event.preventDefault();
+		var cell = hit.closest('.lang-cell');
+		if (!cell) return;
+		openEditor(cell.querySelector('.lang-src'));
+	});
+	document.getElementById('lang-save-form').addEventListener('reset', function () {
+		setTimeout(paintAll, 0);
+	});
+});
+</script>
+{include file='common/ueditor.html'}
 {include file='common/foot.html'}

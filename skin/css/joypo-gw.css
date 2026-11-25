@@ -986,9 +986,30 @@ video.jp-img {
 	}
 
 	#case_banner dl dt img {
-		height: 500px;
-		object-fit: cover;
+		height: auto;
+		object-fit: contain;
 		object-position: center;
+	}
+
+	/* 方案图完整显示，不做裁切放大和悬停动画 */
+	#case_banner dl,
+	#case_banner dl:hover,
+	#case_banner dl dt,
+	#case_banner dl:hover dt,
+	#case_banner dl dt img,
+	#case_banner dl a:hover dt img,
+	#case_banner dl:hover dt img,
+	#case_banner img.jp-img,
+	#case_banner img.jp-img--zoom,
+	#case_banner img.jp-img.jp-in,
+	#case_banner img.jp-img--zoom.jp-done,
+	#case_banner img.jp-img.jp-done {
+		transform: none !important;
+		animation: none !important;
+		transition: none !important;
+		clip-path: none !important;
+		filter: none !important;
+		opacity: 1 !important;
 	}
 
 	.page-cnxt .banner_n2,
@@ -1202,6 +1223,15 @@ video.jp-img {
 		background: transparent !important;
 	}
 
+	/* 英文地图没有中文版那种上下留白，负边距会裁掉地图边缘 */
+	.jp-global-head + .w:has(> video.jp-map-en) {
+		overflow: visible !important;
+	}
+
+	.jp-global-head + .w video.jp-map-en {
+		margin: 0 !important;
+	}
+
 	.jp-global-head + .w + .cl.blank {
 		height: 8px !important;
 		min-height: 0 !important;
@@ -1345,4 +1375,30 @@ video.jp-img {
 		white-space: normal !important;
 		line-height: 1.25 !important;
 	}
+}
+
+/* 首页方案图：手机同样完整显示，不要裁切和动画 */
+#case_banner dl,
+#case_banner dl:hover,
+#case_banner dl dt,
+#case_banner dl:hover dt,
+#case_banner dl dt img,
+#case_banner dl a:hover dt img,
+#case_banner dl:hover dt img,
+#case_banner img.jp-img,
+#case_banner img.jp-img--zoom,
+#case_banner img.jp-img.jp-in,
+#case_banner img.jp-img--zoom.jp-done,
+#case_banner img.jp-img.jp-done {
+	transform: none !important;
+	animation: none !important;
+	transition: none !important;
+	clip-path: none !important;
+	filter: none !important;
+	opacity: 1 !important;
+}
+
+#case_banner dl dt img {
+	height: auto !important;
+	object-fit: contain !important;
 }

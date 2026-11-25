@@ -74,7 +74,7 @@
          
 
               <div class="date">
-              <p>[list:content len=50 drophtml=1]</p>             
+              <p>[list:content drophtml=1 len=50]</p>             
                 <span class="fl">[list:date style=Y-m-d]</span><span class="fr"><i class="icfont icon-jiantou_you"></i></span>
                
               </div>  
@@ -95,12 +95,12 @@
 	{pboot:if({page:rows}>0)}
 <div class="pagebar">
 <div class="pagination">
-<!--<a class="page-item page-link hidden-sm" href="{page:index}" title="{fun=joypo_t('nav.home')}">{fun=joypo_t('nav.home')}</a>-->
-<a class="page-item page-link st" href="{page:pre}" title="{fun=joypo_t('pager.prev')}"><span aria-hidden="true">‹</span></a>
+<!--<a class="page-item page-link hidden-sm" href="{page:index}" title="{fun=joypo_t_attr('nav.home')}">{fun=joypo_t('nav.home')}</a>-->
+<a class="page-item page-link st" href="{page:pre}" title="{fun=joypo_t_attr('pager.prev')}"><span aria-hidden="true">‹</span></a>
 {page:numbar}
-<!--<a class="page-item page-link" href="javascript:;" title="{fun=joypo_t('pager.status')}">{page:current}/{page:count}</a>-->
-<a class="page-item page-link st" href="{page:next}" title="{fun=joypo_t('pager.next')}"><span aria-hidden="true">›</span></a>
-<!--<a class="page-item page-link hidden-sm" href="{page:last}" title="{fun=joypo_t('pager.last')}">{fun=joypo_t('pager.last')}</a>-->
+<!--<a class="page-item page-link" href="javascript:;" title="{fun=joypo_t_attr('pager.status')}">{page:current}/{page:count}</a>-->
+<a class="page-item page-link st" href="{page:next}" title="{fun=joypo_t_attr('pager.next')}"><span aria-hidden="true">›</span></a>
+<!--<a class="page-item page-link hidden-sm" href="{page:last}" title="{fun=joypo_t_attr('pager.last')}">{fun=joypo_t('pager.last')}</a>-->
 </div>
 </div>	
 {else}

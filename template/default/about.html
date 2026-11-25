@@ -61,7 +61,7 @@ $(document).ready(function() {
 </head>
 <body>
 <!--关于久普栏目动效增强-->
-<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-about.css?v=20261118a">
+<link rel="stylesheet" type="text/css" href="{pboot:sitedomain}/skin/css/joypo-about.css?v=20261120f">
 <script src="{pboot:sitedomain}/skin/js/joypo-about.js" defer></script>
 {include file=head.html}
 <!--banner-->
@@ -221,7 +221,7 @@ $(document).ready(function() {
         
       <div class="inabout">
       <dl>
-      <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
+      <dt><img alt="{fun=joypo_t_attr('mission.title')}" src="{pboot:sitedomain}/skin/images/ico1.png"/></dt>
       <dd><h1>{fun=joypo_t('mission.title')}</h1>
     
       <p>{fun=joypo_t('mission.text')}</p>
@@ -230,7 +230,7 @@ $(document).ready(function() {
       </dl>
       
       <dl>
-      <dt><img alt="{fun=joypo_t('vision.title')}" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
+      <dt><img alt="{fun=joypo_t_attr('vision.title')}" src="{pboot:sitedomain}/skin/images/ico2.png"/></dt>
       <dd>
       <h1>{fun=joypo_t('vision.title')}</h1>
       <p>{fun=joypo_t('vision.text')}</p>
@@ -239,7 +239,7 @@ $(document).ready(function() {
       </dl>
       
       <dl>
-       <dt><img alt="{fun=joypo_t('mission.title')}" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
+       <dt><img alt="{fun=joypo_t_attr('mission.title')}" src="{pboot:sitedomain}/skin/images/ico3.png"/></dt>
       <dd>
        <h1>{fun=joypo_t('values.title')}</h1>
       <p>{fun=joypo_t('values.text')}</p>
@@ -262,11 +262,17 @@ $(document).ready(function() {
             <h2>{fun=joypo_t('about.global_h')}</h2>
 		</div>
          <div class="w">
-         <video width="100%" preload="auto" playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="false" poster="{pboot:sitedomain}/skin/images/dt.png?v=20261120" autoplay muted loop>
-            <source src="{pboot:sitedomain}/skin/images/dt.mp4?v=20261120" type="video/mp4">
+         {if(joypo_lang()=='en')}
+         <video class="jp-map-en" width="100%" preload="auto" playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="false" poster="{pboot:sitedomain}/skin/images/dt-en.png?v=20261120c" autoplay muted loop>
+            <source src="{pboot:sitedomain}/skin/images/dt-en.mp4?v=20261120b" type="video/mp4">
             {fun=joypo_t('video.unsupported')}
         </video>
-        
+         {else}
+         <video width="100%" preload="auto" playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="false" poster="{pboot:sitedomain}/skin/images/dt.png?v=20261120b" autoplay muted loop>
+            <source src="{pboot:sitedomain}/skin/images/dt.mp4?v=20261120b" type="video/mp4">
+            {fun=joypo_t('video.unsupported')}
+        </video>
+         {/if}
          </div>
     <div class="cl blank"></div>
 <div id="w7">

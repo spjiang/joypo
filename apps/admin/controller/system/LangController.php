@@ -52,8 +52,8 @@ class LangController extends Controller
                     continue;
                 }
                 $data = array(
-                    'zh' => isset($zh[$id]) ? (string) $zh[$id] : '',
-                    'en' => isset($en[$id]) ? (string) $en[$id] : '',
+                    'zh' => escape_string(I18n::normalizeRichText(decode_string(isset($zh[$id]) ? (string) $zh[$id] : ''))),
+                    'en' => escape_string(I18n::normalizeRichText(decode_string(isset($en[$id]) ? (string) $en[$id] : ''))),
                     'remark' => isset($remark[$id]) ? (string) $remark[$id] : '',
                     'update_user' => session('username') ?: 'admin'
                 );

@@ -1,6 +1,6 @@
 /*!
  * 手机端首页 / 研发页：
- * - 首页方案区单卡横滑 + 底部序号
+ * - 首页方案区在手机平板由样式换行，这里不再改成轮播
  * - 首页关于卡只左右滑、默认第一张、循环
  * - 研发页 #w9 三卡 / .inyfzz 改为左右滑，带小点指示
  * 宽屏不执行，避免影响 PC。
@@ -191,6 +191,20 @@
         var box = document.querySelector('#w2 .inyfzz');
         if (!box) return;
 
+        /* 桌面左右分列；手机横滑仍按原来的 1–7 顺序，一卡一条 */
+        var dls = Array.prototype.slice.call(box.querySelectorAll('dl'));
+        if (box.querySelector('.inyfzz-col') && dls.length) {
+            dls.sort(function (a, b) {
+                return (parseInt(a.getAttribute('data-ord'), 10) || 0) - (parseInt(b.getAttribute('data-ord'), 10) || 0);
+            });
+            dls.forEach(function (dl) {
+                box.appendChild(dl);
+            });
+            Array.prototype.slice.call(box.querySelectorAll('.inyfzz-col')).forEach(function (col) {
+                if (col.parentNode) col.parentNode.removeChild(col);
+            });
+        }
+
         var pager = document.createElement('div');
         pager.className = 'jp-inyfzz-dots swiper-pagination';
         if (box.parentNode) {
@@ -263,7 +277,6 @@
 
     function boot() {
         try {
-            initCaseBanner();
             initAboutCards();
             initHxcen();
             initInyfzz();

@@ -387,6 +387,12 @@
 		padding-right: 0;
 	}
 
+	.header_top_lan {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
 	.header_top_lan a {
 		min-width: 36px;
 		height: 32px;
@@ -1673,6 +1679,10 @@
 	.jp-news-head {
 		padding-left: 16px !important;
 		padding-right: 16px !important;
+	}
+
+	.inyfzz-col {
+		display: contents;
 	}
 
 	#w1 .inabout,
@@ -4310,5 +4320,767 @@
 		white-space: nowrap !important;
 		background: none !important;
 		float: none !important;
+	}
+}
+
+/* 首页数据区（手机）：英文换行后高度跟着撑开，两列对齐 */
+@media (max-width: 1199px) {
+	#w3 {
+		height: auto !important;
+		min-height: 0 !important;
+		overflow: visible !important;
+		padding: 32px 0 40px !important;
+		background-size: cover !important;
+		background-position: center center !important;
+	}
+
+	#w3 .w,
+	#w3 .abcont,
+	#w3 .absj,
+	#w3 .absj ul {
+		height: auto !important;
+		min-height: 0 !important;
+		overflow: visible !important;
+	}
+
+	#w3 .title h1 {
+		height: auto !important;
+		margin: 0 !important;
+		padding: 0 18px !important;
+		font-size: 22px !important;
+		line-height: 1.4 !important;
+		letter-spacing: 0 !important;
+		white-space: normal !important;
+		overflow: visible !important;
+	}
+
+	#w3 .absj {
+		width: 100% !important;
+	}
+
+	#w3 .absj ul {
+		display: grid !important;
+		grid-template-columns: 1fr 1fr;
+		align-items: start;
+		gap: 32px 12px;
+		margin: 8px 0 0 !important;
+		padding: 0 !important;
+	}
+
+	#w3 .absj ul li {
+		float: none !important;
+		width: auto !important;
+		margin: 0 !important;
+		padding: 0 8px !important;
+		box-sizing: border-box;
+		text-align: center !important;
+		color: #fff !important;
+		font-size: 14px !important;
+		line-height: 1.35 !important;
+		letter-spacing: 0 !important;
+	}
+
+	#w3 .absj ul li span,
+	#w3 .absj ul li b {
+		display: inline !important;
+		color: #fff !important;
+		font-size: 32px !important;
+		font-weight: 700 !important;
+		line-height: 1.05 !important;
+		letter-spacing: 0 !important;
+		white-space: nowrap;
+	}
+
+	#w3 .absj ul li strong {
+		display: inline !important;
+		color: #fff !important;
+		padding-left: 1px !important;
+		font-size: 20px !important;
+		font-weight: 700 !important;
+		line-height: 1 !important;
+		white-space: nowrap;
+	}
+
+	html[lang="en"] #w3 .title h1 {
+		font-size: 20px !important;
+	}
+
+	html[lang="en"] #w3 .absj ul {
+		gap: 36px 10px;
+	}
+
+	html[lang="en"] #w3 .absj ul li {
+		font-size: 13px !important;
+		line-height: 1.3 !important;
+	}
+
+	#w3 .more1 {
+		clear: both;
+		margin-top: 28px !important;
+	}
+
+	#w3 .more1 a {
+		display: inline-flex !important;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		height: 44px !important;
+		min-height: 0 !important;
+		padding: 0 26px !important;
+		font-size: 16px !important;
+		line-height: 1 !important;
+		letter-spacing: 0 !important;
+	}
+}
+
+/* 关于页数据：手机两列等宽，说明在各自格子里换行，不再叠字 */
+@media (max-width: 1199px) {
+	.absj1.jp-about-stats ul {
+		display: grid !important;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		align-items: start;
+		gap: 28px 16px;
+		margin: 8px 0 0 !important;
+		padding: 0 !important;
+	}
+
+	.absj1.jp-about-stats ul li,
+	.absj1.jp-about-stats ul li:nth-child(3),
+	.absj1.jp-about-stats ul li:last-child {
+		width: auto !important;
+		min-width: 0 !important;
+		margin: 0 !important;
+		padding: 0 4px !important;
+		box-sizing: border-box;
+		text-align: center !important;
+		color: #8a8a8a !important;
+		font-size: 14px !important;
+		font-weight: 600 !important;
+		line-height: 1.35 !important;
+		letter-spacing: 0 !important;
+		overflow-wrap: break-word;
+	}
+
+	.absj1.jp-about-stats ul li::after {
+		content: none !important;
+		display: none !important;
+	}
+
+	.absj1.jp-about-stats ul li span,
+	.absj1.jp-about-stats ul li strong {
+		white-space: nowrap;
+		color: #5dc2d0 !important;
+		font-weight: 700 !important;
+		line-height: 1.05 !important;
+	}
+
+	.absj1.jp-about-stats ul li span {
+		font-size: 32px !important;
+	}
+
+	.absj1.jp-about-stats ul li strong {
+		font-size: 18px !important;
+		padding-left: 2px !important;
+	}
+
+	html[lang="en"] .absj1.jp-about-stats ul li {
+		font-size: 13px !important;
+		line-height: 1.3 !important;
+	}
+}
+
+/* 关于页数据：大屏四列等宽，数字对齐，说明在列内换行 */
+@media (min-width: 1200px) {
+	.absj1.jp-about-stats ul {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		align-items: start;
+		justify-content: stretch;
+		gap: 12px 32px;
+	}
+
+	.absj1.jp-about-stats ul li,
+	.absj1.jp-about-stats ul li:nth-child(3),
+	.absj1.jp-about-stats ul li:last-child {
+		width: auto;
+		min-width: 0;
+		text-align: center;
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 1.4;
+		letter-spacing: 0;
+	}
+
+	.absj1.jp-about-stats ul li::after {
+		content: none;
+		display: none;
+	}
+
+	.absj1.jp-about-stats ul li span,
+	.absj1.jp-about-stats ul li strong {
+		white-space: nowrap;
+		line-height: 1.05;
+	}
+
+	.absj1.jp-about-stats ul li span {
+		font-size: 52px;
+	}
+
+	.absj1.jp-about-stats ul li strong {
+		font-size: 28px;
+		padding-left: 4px;
+	}
+}
+
+/* 新闻详情（手机）：标题条随文字增高，日期不被裁；面包屑和正文行距按英文收紧 */
+@media (max-width: 1199px) {
+	.banner_n2:has(.nbox) {
+		height: auto !important;
+		min-height: 0 !important;
+		overflow: visible !important;
+	}
+
+	.banner_n2:has(.nbox) > img {
+		display: none !important;
+	}
+
+	.banner_n2 .nbox {
+		position: relative !important;
+		top: auto !important;
+		right: auto !important;
+		bottom: auto !important;
+		left: auto !important;
+		width: 100% !important;
+		height: auto !important;
+		overflow: visible !important;
+		margin: 0 !important;
+		padding: 18px 16px 16px !important;
+		transform: none !important;
+		line-height: 1.35 !important;
+	}
+
+	.banner_n2 .nbox .cl.blank2 {
+		display: none !important;
+		height: 0 !important;
+		min-height: 0 !important;
+		margin: 0 !important;
+	}
+
+	.banner_n2 .nbox .h2 {
+		height: auto !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		font-size: 22px !important;
+		line-height: 1.35 !important;
+		letter-spacing: 0 !important;
+		overflow: visible !important;
+	}
+
+	.banner_n2 .nbox span.time {
+		display: block !important;
+		margin: 10px 0 0 !important;
+		padding: 0 !important;
+		font-size: 14px !important;
+		line-height: 1.4 !important;
+		letter-spacing: 0 !important;
+		color: rgba(255, 255, 255, .95) !important;
+	}
+
+	#here {
+		height: auto !important;
+		min-height: 0 !important;
+		margin: 0 !important;
+		padding: 12px 16px !important;
+		line-height: 1.45 !important;
+		font-size: 14px !important;
+		letter-spacing: 0 !important;
+	}
+
+	#here .w,
+	#here a {
+		font-size: 14px !important;
+		line-height: 1.45 !important;
+		letter-spacing: 0 !important;
+	}
+
+	#here a {
+		white-space: nowrap;
+	}
+
+	.new_conter,
+	.new_conter_p,
+	.new_conter_p.probody,
+	.probody {
+		min-height: 0 !important;
+		padding: 4px 16px 16px !important;
+		text-align: left !important;
+		letter-spacing: 0 !important;
+		word-spacing: normal !important;
+	}
+
+	.new_conter_p p,
+	.new_conter_p span,
+	.probody p,
+	.probody span {
+		text-align: left !important;
+		letter-spacing: 0 !important;
+		word-spacing: normal !important;
+		line-height: 1.7 !important;
+		font-size: 16px !important;
+	}
+
+	.new_conter_p img,
+	.probody img {
+		display: block !important;
+		float: none !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		margin: 14px 0 !important;
+		object-fit: contain;
+	}
+
+	.new_conter .p,
+	.new_conter .previous,
+	.new_conter .next {
+		float: none !important;
+		clear: both;
+		width: 100% !important;
+		height: auto !important;
+		margin: 0 0 10px !important;
+		line-height: 1.45 !important;
+		font-size: 15px !important;
+		letter-spacing: 0 !important;
+	}
+
+	.new_conter .return {
+		float: none !important;
+		display: inline-block;
+		margin-top: 4px !important;
+		line-height: 1.4 !important;
+		letter-spacing: 0 !important;
+	}
+}
+
+/* 电脑分页：数字和箭头圆圈共用同一高度，垂直居中 */
+@media (min-width: 1200px) {
+	.pagebar .pagination {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.pagebar .pagination a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 36px;
+		margin: 0 8px;
+		padding: 0;
+		line-height: 1;
+		box-sizing: border-box;
+	}
+
+	.pagebar .pagination a.page-num,
+	.pagebar .pagination a.page-num-current {
+		min-width: 24px;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	.pagebar .pagination a.st span {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		margin: 0;
+		font-size: 20px;
+		line-height: 1;
+	}
+}
+
+/* 电脑顶栏：栏目、搜索、语言按钮同一条垂直中线，当前项不再靠加粗上移 */
+@media (min-width: 1200px) {
+	.header-main .head_icon {
+		display: flex;
+		align-items: center;
+		height: 80px;
+		top: 0;
+	}
+
+	.header-main .top_search,
+	.header-main .header_top_lan {
+		top: 0;
+		float: none;
+	}
+
+	.header-main .header_top_lan {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		line-height: 1;
+	}
+
+	.header-main .header,
+	.header-main .header > ul {
+		height: 80px;
+	}
+
+	.header-main .header > ul {
+		align-items: center;
+	}
+
+	.header-main .header > ul > li {
+		display: flex;
+		align-items: center;
+		float: none;
+		height: 80px;
+	}
+
+	.header-main .header > ul > li > a,
+	.header-main .header > ul > li > a:hover,
+	.header-main .header > ul > li.actives > a,
+	.header-main01 .header > ul > li > a,
+	.header-main01 .header > ul > li > a:hover {
+		display: inline-flex;
+		align-items: center;
+		height: 80px;
+		line-height: normal;
+		font-weight: 400;
+	}
+
+	.header-main .header > ul > li.is-current > a,
+	.header-main .header > ul > li.is-current > a:hover,
+	.header-main .header .actives > a {
+		font-weight: 400;
+	}
+
+	.header-nav .nav-lv1 > li > a::after {
+		bottom: 24px;
+	}
+}
+
+/* 新闻列表：没有摘要时，日期在标题和图片之间上下居中 */
+.service_list1 > ul > li > a h3 {
+	margin-bottom: 0 !important;
+}
+
+.service_list1 > ul > li > a .date {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: center;
+	box-sizing: border-box;
+	min-height: 52px;
+	padding: 10px 3%;
+}
+
+.service_list1 > ul > li > a .date p {
+	flex: 1 0 100%;
+	width: 100%;
+	margin: 0 0 6px;
+	line-height: 22px;
+}
+
+.service_list1 > ul > li > a .date p:empty {
+	display: none;
+	margin: 0;
+}
+
+.service_list1 > ul > li > a .date .fl,
+.service_list1 > ul > li > a .date .fr {
+	float: none;
+	line-height: 22px;
+}
+
+.service_list1 > ul > li > a .date .fr {
+	margin-left: auto;
+}
+
+/* 标题胶囊：去掉白色扫光（圆角上会留一条边），文字在胶囊里上下居中 */
+body .title > .h1::after,
+body .title > .h1:hover::after,
+body .title > .h2::after,
+body .title > .h2:hover::after,
+body .title > .h3::after,
+body .title > .h3:hover::after,
+body .title1 > .h3::after,
+body .title1 > .h3:hover::after {
+	content: none !important;
+	display: none !important;
+	transform: none !important;
+	background: none !important;
+}
+
+body .title > .h1,
+body .title > .h2,
+body .title > .h3,
+body .title1 > .h3,
+body .title > .h1:hover,
+body .title > .h2:hover,
+body .title > .h3:hover,
+body .title1 > .h3:hover {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	line-height: 1;
+	overflow: visible;
+}
+
+body .title > .h1 > span,
+body .title > .h2 > span,
+body .title > .h3 > span,
+body .title1 > .h3 > span {
+	line-height: 1;
+}
+
+body #w7 .cona a.morec,
+body #w7 .cona a.morec1,
+body #w7 .cona a.morec:hover,
+body #w7 .cona a.morec1:hover {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	line-height: 1;
+	letter-spacing: 0;
+	border-radius: 999px;
+	background-clip: border-box;
+	-webkit-background-clip: border-box;
+	overflow: visible;
+	transform: none;
+}
+
+@media (min-width: 1200px) {
+	body .title > .h1,
+	body .title > .h2,
+	body .title > .h3,
+	body .title1 > .h3 {
+		min-height: 64px;
+		padding: 0 36px;
+	}
+
+	body #w7 .cona a.morec,
+	body #w7 .cona a.morec1 {
+		height: 70px;
+		padding: 0 40px;
+	}
+}
+
+@media (max-width: 1199px) {
+	/* 面包屑放在图和标题按钮之间的灰条里，文字垂直居中 */
+	.banner_n .box .curbar,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box .curbar,
+	.banner_n2:not(:has(.box1)):not(:has(.nbox)) .box span.curbar {
+		display: flex !important;
+		align-items: center;
+		box-sizing: border-box;
+		height: 44px;
+		min-height: 44px;
+		margin: 0 !important;
+		padding: 0 16px !important;
+		background: #e5e5e5 !important;
+		line-height: 1.4 !important;
+	}
+
+	.about1 {
+		padding-top: 0 !important;
+	}
+
+	.about1 .title1,
+	.abvod .title1 {
+		padding-top: 12px !important;
+	}
+
+	body .title > .h1,
+	body .title > .h2,
+	body .title > .h3,
+	body .title1 > .h3,
+	body .title > .h1:hover,
+	body .title > .h2:hover,
+	body .title > .h3:hover,
+	body .title1 > .h3:hover {
+		min-height: 40px;
+		height: auto !important;
+		margin-top: 0;
+		margin-bottom: 8px;
+		padding: 0 24px !important;
+		line-height: 1 !important;
+	}
+
+	/* 手机悬停：实心青底白字。避免深色字叠在青底上，也避免白遮罩切圆角 */
+	body .title > .h1:hover,
+	body .title > .h2:hover,
+	body .title > .h3:hover,
+	body .title1 > .h3:hover {
+		background-color: #5dc2d0 !important;
+		background-image: none !important;
+		color: #fff !important;
+		border-color: #5dc2d0 !important;
+		box-shadow: none !important;
+		transform: none !important;
+	}
+
+	body #w7 .cona a.morec,
+	body #w7 .cona a.morec1,
+	body #w7 .cona a.morec:hover,
+	body #w7 .cona a.morec1:hover {
+		display: flex;
+		width: 100%;
+		height: 48px;
+		min-height: 48px;
+		margin: 0 0 14px !important;
+		padding: 0 24px;
+		border: 2px solid #fff !important;
+		border-radius: 24px !important;
+		box-shadow: none !important;
+		transform: none !important;
+	}
+
+	body #w7 .cona a.morec1 {
+		margin-bottom: 0 !important;
+		background-color: transparent !important;
+		color: #fff !important;
+	}
+
+	body #w7 .cona a.morec1:hover {
+		margin-bottom: 0 !important;
+		background-color: #fff !important;
+		color: #5dc2d0 !important;
+		border-color: #fff !important;
+	}
+}
+
+/* 首页方案卡：拉出内容栏，四张图铺满屏幕宽度，高度仍按宽度百分比 */
+#case_banner {
+	align-items: stretch;
+	flex-wrap: nowrap;
+	gap: 30px;
+	width: 100vw;
+	max-width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+	padding-left: clamp(24px, 2.4vw, 40px);
+	padding-right: clamp(24px, 2.4vw, 40px);
+	box-sizing: border-box;
+}
+
+#case_banner dl {
+	width: auto !important;
+	flex: 1 1 0 !important;
+	max-width: none !important;
+	min-width: 0 !important;
+}
+
+#case_banner dl a {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+}
+
+#case_banner dl dt {
+	height: auto !important;
+	/* 对应参考站 padding-top: 98%，高度是宽度的 98% */
+	aspect-ratio: 100 / 98 !important;
+	overflow: hidden;
+	background: #e8eef0;
+}
+
+#case_banner dl dt img {
+	position: absolute !important;
+	inset: 0;
+	display: block !important;
+	width: 100% !important;
+	height: 100% !important;
+	max-width: none !important;
+	object-fit: cover !important;
+	object-position: center center !important;
+	transform: scale(1) !important;
+	transition: transform .65s cubic-bezier(.22, .61, .36, 1) !important;
+	animation: none !important;
+}
+
+#case_banner dl dt::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	height: 42%;
+	background: linear-gradient(to top, rgba(6, 22, 30, .62), rgba(6, 22, 30, 0));
+	pointer-events: none;
+}
+
+#case_banner .ha1,
+#case_banner dl:hover .ha1 {
+	z-index: 2;
+	color: #fff !important;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+}
+
+#case_banner dl {
+	transition: transform .45s cubic-bezier(.22, .61, .36, 1) !important;
+	animation: none !important;
+}
+
+#case_banner dl:hover {
+	transform: translateY(-8px) !important;
+	z-index: 2;
+}
+
+#case_banner dl:hover dt {
+	box-shadow: 0 18px 36px rgba(18, 36, 43, .18);
+}
+
+#case_banner dl:hover dt img,
+#case_banner dl a:hover dt img {
+	transform: scale(1.06) !important;
+}
+
+@media (max-width: 1024px) {
+	/* 平板仍一行，比例改为参考站的 117.46% */
+	#case_banner {
+		flex-wrap: nowrap;
+		gap: 0.8rem;
+	}
+
+	#case_banner dl dt {
+		aspect-ratio: 100 / 117.46 !important;
+	}
+}
+
+@media (max-width: 767px) {
+	/* 手机两列换行，比例 116.667% */
+	#case_banner {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.8rem;
+	}
+
+	#case_banner dl {
+		flex: 0 1 auto !important;
+		width: calc(50% - 0.4rem) !important;
+		max-width: calc(50% - 0.4rem) !important;
+	}
+
+	#case_banner dl dt {
+		aspect-ratio: 100 / 116.667 !important;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#case_banner dl,
+	#case_banner dl:hover,
+	#case_banner dl dt img,
+	#case_banner dl:hover dt img,
+	#case_banner dl a:hover dt img {
+		transform: none !important;
+		transition: none !important;
 	}
 }
