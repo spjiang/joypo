@@ -4,6 +4,7 @@ services:
     image: joypo-cms:local
     container_name: joypo-cms
     ports:
+      - "80:80"
       - "8088:80"
     volumes:
       - .:/var/www/html
