@@ -2165,10 +2165,12 @@
 	}
 
 	#case_banner.swiper .ha1 {
-		left: 16px;
-		right: auto;
-		bottom: 16px;
-		font-size: 28px;
+		display: none;
+	}
+
+	#case_banner.swiper {
+		position: relative;
+		border-radius: 18px;
 	}
 
 	.jp-case-tabs {
@@ -2177,13 +2179,20 @@
 		justify-content: space-between;
 		gap: 8px;
 		width: 100%;
-		margin: 14px 0 6px;
-		padding: 14px 10px 10px;
+		margin: 0;
+		padding: 12px 12px 10px;
 		box-sizing: border-box;
-		border-radius: 12px;
-		background: rgba(7, 18, 24, .78);
-		-webkit-backdrop-filter: blur(10px);
-		backdrop-filter: blur(10px);
+		border-radius: 0;
+		background: rgba(72, 76, 82, .94);
+		color: rgba(255, 255, 255, .72);
+	}
+
+	#case_banner.swiper .jp-case-tabs {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 3;
 	}
 
 	.jp-case-tabs[hidden] {
@@ -3321,10 +3330,13 @@
 		background: #5dc2d0 !important;
 	}
 
-	/* 首页方案：去掉图与序号条白缝；收紧到新闻间距 */
+	/* 首页方案：灰色序号条叠在图片底部上方 */
 	#case_banner.jp-case-swiper,
 	#case_banner.swiper {
+		position: relative !important;
 		margin-bottom: 0 !important;
+		border-radius: 18px !important;
+		overflow: hidden !important;
 	}
 
 	#case_banner.swiper .swiper-slide,
@@ -3334,17 +3346,22 @@
 
 	#case_banner.swiper .swiper-slide dt,
 	#case_banner.swiper .swiper-slide img {
-		border-radius: 18px 18px 0 0 !important;
+		border-radius: 18px !important;
 	}
 
+	#case_banner.swiper .jp-case-tabs,
 	.jp-case-tabs {
-		margin: 0 0 4px !important;
-		border-radius: 0 0 12px 12px !important;
+		margin: 0 !important;
+		border-radius: 0 !important;
+		background: rgba(72, 76, 82, .94) !important;
 	}
 
-	#case_banner + .jp-case-tabs,
-	.w > .jp-case-tabs {
-		margin-top: 0 !important;
+	#case_banner.swiper .jp-case-tabs {
+		position: absolute !important;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		z-index: 3 !important;
 	}
 
 	.w > #case_banner + .jp-case-tabs + .cl.blank2,
@@ -4310,5 +4327,134 @@
 		white-space: nowrap !important;
 		background: none !important;
 		float: none !important;
+	}
+}
+
+
+/* 手机首页方案：单张横滑，灰色序号条叠在图片底部上方。盖过两列四宫格。 */
+@media (max-width: 767px) {
+	#case_banner {
+		display: flex !important;
+		flex-direction: row !important;
+		flex-wrap: nowrap !important;
+		justify-content: flex-start !important;
+		align-items: stretch !important;
+		gap: 0 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+		overflow-x: auto !important;
+		overflow-y: hidden !important;
+		scroll-snap-type: x mandatory;
+		scroll-behavior: smooth;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
+
+	#case_banner::-webkit-scrollbar {
+		display: none;
+	}
+
+	#case_banner > dl {
+		flex: 0 0 100% !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		min-width: 100% !important;
+		margin: 0 !important;
+		scroll-snap-align: start;
+		scroll-snap-stop: always;
+		transform: none !important;
+	}
+
+	#case_banner dl dt {
+		border-radius: 18px !important;
+	}
+
+	#case_banner .ha1,
+	#case_banner dl:hover .ha1 {
+		display: none !important;
+	}
+
+	#case_banner dl dt::after {
+		display: none !important;
+	}
+
+	.w:has(> #case_banner) {
+		position: relative;
+	}
+
+	.w > .jp-case-tabs {
+		position: absolute !important;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		z-index: 5 !important;
+		display: flex !important;
+		align-items: flex-end;
+		gap: 8px;
+		width: auto !important;
+		margin: 0 !important;
+		padding: 12px 12px 10px !important;
+		box-sizing: border-box;
+		border-radius: 0 0 18px 18px !important;
+		background: rgba(62, 66, 72, .94) !important;
+		color: rgba(255, 255, 255, .72);
+	}
+
+	.w > .jp-case-tabs[hidden] {
+		display: none !important;
+	}
+}
+
+/* 新闻中心标题属于下面的新闻区：离上面方案图远一点，贴紧下面的新闻 */
+@media (max-width: 1199px) {
+	.jp-news-head {
+		margin-top: 28px !important;
+		margin-bottom: 0 !important;
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+	}
+
+	.jp-news-head .h2 {
+		margin-bottom: 4px !important;
+	}
+
+	#inews_banner {
+		padding-top: 0 !important;
+		margin-top: 0 !important;
+	}
+
+	#inews_banner .swiper-slide,
+	#inews_banner.mySwiper1 .swiper-slide {
+		padding-top: 0 !important;
+	}
+}
+
+/* 关于页企业文化卡：关掉原生横滑，交给轮播，避免停在最后一张、左右滑时页面上下晃 */
+@media (max-width: 1199px) {
+	#w1:not(.jp-home-w1) .inabout.swiper {
+		display: block !important;
+		overflow: hidden !important;
+		scroll-snap-type: none !important;
+		-webkit-overflow-scrolling: auto;
+		touch-action: pan-y;
+		width: auto !important;
+		max-width: none !important;
+	}
+
+	#w1:not(.jp-home-w1) .inabout.swiper .swiper-wrapper {
+		align-items: stretch;
+	}
+
+	#w1:not(.jp-home-w1) .inabout.swiper .swiper-slide,
+	#w1:not(.jp-home-w1) .inabout.swiper dl,
+	#w1:not(.jp-home-w1) .inabout.swiper dl:nth-child(3) {
+		flex: none !important;
+		width: 100% !important;
+		max-width: none !important;
+		scroll-snap-align: none !important;
 	}
 }

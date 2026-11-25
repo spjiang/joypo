@@ -985,8 +985,13 @@ video.jp-img {
 		min-width: 0;
 	}
 
-	#case_banner dl dt img {
+	#case_banner dl dt {
 		height: 500px;
+	}
+
+	#case_banner dl dt img {
+		width: 100%;
+		height: 500px !important;
 		object-fit: cover;
 		object-position: center;
 	}
@@ -1276,6 +1281,137 @@ video.jp-img {
 		font-size: inherit;
 		line-height: 30px;
 		white-space: nowrap;
+	}
+}
+
+/* 右侧悬浮电话：整块青底；三列号码左对齐 */
+.full li a label.jp-full-tel {
+	display: block;
+	width: max-content !important;
+	min-width: 280px;
+	max-width: none !important;
+	height: auto !important;
+	padding: 14px 20px !important;
+	line-height: 1.7 !important;
+	white-space: nowrap !important;
+	text-align: left !important;
+	font-size: 14px;
+	box-sizing: border-box !important;
+	background: #5dc2d0 !important;
+	color: #fff !important;
+	z-index: 0;
+}
+.full li a label.jp-full-tel table {
+	border-collapse: collapse;
+	border: 0;
+	margin: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+}
+.full li a label.jp-full-tel td {
+	padding: 0;
+	border: 0;
+	vertical-align: top;
+	white-space: nowrap;
+	background: transparent !important;
+	color: inherit;
+	font: inherit;
+	line-height: 1.7;
+}
+.full li a label.jp-full-tel tr.jp-ft-gap td {
+	padding-top: 12px;
+}
+.full li a:hover label.jp-full-tel,
+.full li a:focus label.jp-full-tel {
+	left: auto !important;
+	right: 52px !important;
+	z-index: 101;
+	width: max-content !important;
+	max-width: none !important;
+	white-space: nowrap !important;
+	background-color: #5dc2d0 !important;
+}
+
+/* 联系页业务热线：双号码行距 */
+.contus .jp-contact-tels {
+	line-height: 1.7;
+}
+
+/*
+ * PC 研发优势：左右独立堆叠（高度随文字自动撑开，互不影响行高）。
+ * 手机（≤1199）仍走原有 swiper；JS 会先拆掉 .inyfzz-col。
+ */
+@media (min-width: 1200px) {
+	#w2 {
+		/* 去掉实底色，避免背景图下方多出一条色块 */
+		background-color: transparent;
+		min-height: 0 !important;
+		padding-bottom: 0;
+		box-sizing: border-box;
+	}
+	#w2 .inyfzz {
+		display: grid !important;
+		grid-template-columns: minmax(0, 1fr) minmax(260px, 32%) minmax(0, 1fr);
+		column-gap: clamp(24px, 2.5vw, 48px);
+		align-items: start;
+		width: 100% !important;
+		max-width: 1400px;
+		min-width: 0 !important;
+		min-height: 480px !important;
+		height: auto !important;
+		overflow: visible !important;
+		padding: 28px 2% 24px;
+		box-sizing: border-box;
+		background-position: center center;
+		background-size: min(420px, 30%) auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#w2 .inyfzz-col {
+		display: flex;
+		flex-direction: column;
+		gap: 28px;
+		min-width: 0;
+	}
+	#w2 .inyfzz-col--l {
+		grid-column: 1;
+		text-align: right;
+	}
+	#w2 .inyfzz-col--r {
+		grid-column: 3;
+		text-align: left;
+	}
+	#w2 .inyfzz dl,
+	#w2 .inyfzz dl:nth-child(n) {
+		position: relative !important;
+		left: auto !important;
+		right: auto !important;
+		top: auto !important;
+		bottom: auto !important;
+		float: none !important;
+		width: auto !important;
+		max-width: none !important;
+		margin: 0 !important;
+		height: auto !important;
+	}
+	#w2 .inyfzz-col--l dl {
+		text-align: right !important;
+	}
+	#w2 .inyfzz-col--r dl {
+		text-align: left !important;
+	}
+	#w2 .inyfzz dl dt {
+		line-height: 1.35 !important;
+	}
+	#w2 .inyfzz dl dd {
+		line-height: 1.55 !important;
+	}
+	html[lang="en"] #w2 .inyfzz dl dt {
+		font-size: 18px;
+	}
+	html[lang="en"] #w2 .inyfzz dl dd {
+		font-size: 14px;
 	}
 }
 

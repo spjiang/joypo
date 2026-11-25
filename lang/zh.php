@@ -19,6 +19,7 @@ return array(
     'search.placeholder' => '请输入产品关键词',
     'search.required' => '请填写搜索关键字!',
     'foot.hotline' => '服务热线',
+    'float.hire' => '招聘电话',
     'contact.way' => '联系方式',
     'contact.talk' => '聊聊您的电池项目',
     'contact.talk_p' => '告诉我们您的应用场景、技术规格与目标数量。我们的团队将在 12 小时内回复定制化方案。',

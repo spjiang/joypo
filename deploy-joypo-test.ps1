@@ -39,7 +39,7 @@ $remote = @'
 rm -f /home/spjiangl/joypo/runtime/complile/*.php /home/spjiangl/joypo/runtime/compile/*.php
 echo RM_DONE
 echo '---GREP---'
-grep -n 20261112a /home/spjiangl/joypo/template/default/head.html
+grep -n 20261112c /home/spjiangl/joypo/template/default/head.html
 echo GREP_EXIT:$?
 echo '---REMOTE---'
 wc -c /home/spjiangl/joypo/skin/css/joypo-mobile.css /home/spjiangl/joypo/skin/js/joypo-home-m.js /home/spjiangl/joypo/skin/js/joypo-anim.js /home/spjiangl/joypo/template/default/head.html /home/spjiangl/joypo/template/default/index.html /home/spjiangl/joypo/template/default/about.html

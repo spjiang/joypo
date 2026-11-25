@@ -1,6 +1,6 @@
 /*!
  * 手机端首页 / 研发页：
- * - 首页方案区单卡横滑 + 底部序号
+ * - 首页方案区：单张横滑，灰色序号条叠在图片底部上方
  * - 首页关于卡只左右滑、默认第一张、循环
  * - 研发页 #w9 三卡 / .inyfzz 改为左右滑，带小点指示
  * 宽屏不执行，避免影响 PC。
@@ -53,39 +53,46 @@
 
     function initCaseBanner() {
         var box = document.getElementById('case_banner');
-        if (!box) return;
+        if (!box || box.getAttribute('data-case-ready')) return;
 
         var tabsHost = box.parentNode
             ? box.parentNode.querySelector('.jp-case-tabs')
             : null;
-        var labels = Array.prototype.map.call(box.querySelectorAll('dl'), function (dl) {
+        var slides = Array.prototype.filter.call(box.children, function (el) {
+            return el.tagName === 'DL';
+        });
+        if (slides.length < 2 || !tabsHost) return;
+
+        var labels = slides.map(function (dl) {
             return (dl.getAttribute('data-tab') || '').trim()
                 || ((dl.querySelector('.ha1') || {}).textContent || '').trim()
                 || '方案';
         });
 
-        var swiper = toSwiper(box, {
-            slidesPerView: 1,
-            spaceBetween: 14,
-            centeredSlides: false,
-            loop: true,
-            initialSlide: 0,
-            speed: 420,
-            watchOverflow: true,
-            resistanceRatio: 0.65,
-            on: {
-                init: function () {
-                    equalizeHeights(box);
-                },
-                resize: function () {
-                    equalizeHeights(box);
-                }
-            }
-        });
-        if (!swiper || !tabsHost) return;
-
+        box.setAttribute('data-case-ready', '1');
         tabsHost.hidden = false;
         tabsHost.innerHTML = '';
+
+        function syncTabs(idx) {
+            Array.prototype.forEach.call(tabsHost.children, function (btn, i) {
+                btn.classList.toggle('is-on', i === idx);
+            });
+        }
+
+        function nearest() {
+            var x = box.scrollLeft;
+            var best = 0;
+            var bestD = Infinity;
+            slides.forEach(function (slide, i) {
+                var d = Math.abs(slide.offsetLeft - x);
+                if (d < bestD) {
+                    bestD = d;
+                    best = i;
+                }
+            });
+            return best;
+        }
+
         labels.forEach(function (label, i) {
             var btn = document.createElement('button');
             btn.type = 'button';
@@ -94,25 +101,29 @@
             btn.innerHTML = '<span class="jp-case-num">' + pad(i + 1) + '</span>'
                 + '<span class="jp-case-label">' + label + '</span>';
             btn.addEventListener('click', function () {
-                swiper.slideToLoop(i);
+                var left = slides[i].getBoundingClientRect().left
+                    - box.getBoundingClientRect().left
+                    + box.scrollLeft;
+                box.scrollTo({ left: left, behavior: 'smooth' });
+                syncTabs(i);
             });
             tabsHost.appendChild(btn);
         });
 
-        function syncTabs() {
-            var idx = swiper.realIndex || 0;
-            Array.prototype.forEach.call(tabsHost.children, function (btn, i) {
-                btn.classList.toggle('is-on', i === idx);
+        var ticking = false;
+        box.addEventListener('scroll', function () {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(function () {
+                ticking = false;
+                syncTabs(nearest());
             });
-        }
-        swiper.on('slideChange', syncTabs);
-        syncTabs();
+        }, { passive: true });
+        syncTabs(0);
     }
 
-    function initAboutCards() {
-        /* 只改首页关于区，内页企业文化卡不动 */
-        var box = document.querySelector('.jp-home-w1 .inabout');
-        if (!box) return;
+    function mountAboutSwiper(box) {
+        if (!box) return null;
 
         var pager = document.createElement('div');
         pager.className = 'jp-about-dots swiper-pagination';
@@ -130,6 +141,8 @@
             autoHeight: false,
             watchOverflow: true,
             resistanceRatio: 0.65,
+            touchAngle: 30,
+            threshold: 8,
             pagination: {
                 el: pager,
                 clickable: true
@@ -137,8 +150,6 @@
             on: {
                 init: function () {
                     equalizeHeights(box);
-                    /* 强制回到第一张，避免残留横向滚动停在最后一张 */
-                    this.slideToLoop(0, 0);
                 },
                 resize: function () {
                     equalizeHeights(box);
@@ -147,7 +158,33 @@
         });
         if (swiper) {
             box.classList.add('jp-about-swiper');
+            box.scrollLeft = 0;
+            /* Swiper 4 循环时第 0 位是最后一张的副本，init 里跳转无效，创建完成后再回到第一张 */
+            function goFirst() {
+                var slides = swiper.slides || [];
+                var target = -1;
+                for (var i = 0; i < slides.length; i++) {
+                    if (slides[i].getAttribute('data-swiper-slide-index') === '0') {
+                        target = i;
+                        break;
+                    }
+                }
+                if (target >= 0 && typeof swiper.slideTo === 'function') {
+                    swiper.slideTo(target, 0, false);
+                } else if (typeof swiper.slideToLoop === 'function') {
+                    swiper.slideToLoop(0, 0, false);
+                }
+            }
+            goFirst();
+            setTimeout(goFirst, 80);
         }
+        return swiper;
+    }
+
+    function initAboutCards() {
+        mountAboutSwiper(document.querySelector('.jp-home-w1 .inabout'));
+        /* 关于页企业文化卡：同样单张横滑，从第一张开始，左右滑时不带动页面上下 */
+        mountAboutSwiper(document.querySelector('#w1:not(.jp-home-w1) .inabout'));
     }
 
     function initHxcen() {
@@ -190,6 +227,14 @@
     function initInyfzz() {
         var box = document.querySelector('#w2 .inyfzz');
         if (!box) return;
+
+        /* PC 左右分栏在手机端拆平，保证 swiper 仍吃到直接子 dl */
+        Array.prototype.slice.call(box.querySelectorAll(':scope > .inyfzz-col')).forEach(function (col) {
+            while (col.firstChild) {
+                box.insertBefore(col.firstChild, col);
+            }
+            box.removeChild(col);
+        });
 
         var pager = document.createElement('div');
         pager.className = 'jp-inyfzz-dots swiper-pagination';

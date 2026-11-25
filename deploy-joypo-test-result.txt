@@ -1,0 +1,31 @@
+﻿START 2026-11-12 14:22:34
+KEY_EXISTS True
+SCP C:\Windows\System32\OpenSSH\scp.exe
+SSH C:\Windows\System32\OpenSSH\ssh.exe
+COPY OK exit=0 bytes=69443 /home/spjiangl/joypo/skin/css/joypo-mobile.css
+COPY OK exit=0 bytes=7714 /home/spjiangl/joypo/skin/js/joypo-home-m.js
+COPY OK exit=0 bytes=28233 /home/spjiangl/joypo/skin/js/joypo-anim.js
+COPY OK exit=0 bytes=8927 /home/spjiangl/joypo/template/default/head.html
+COPY OK exit=0 bytes=9769 /home/spjiangl/joypo/template/default/index.html
+COPY OK exit=0 bytes=9802 /home/spjiangl/joypo/template/default/about.html
+SSH_EXIT 0
+RM_DONE
+---GREP---
+ssh.exe : grep: /home/spjiangl/joypo/template/default/head.html
+At E:\joypo\deploy-joypo-test.ps1:47 char:11
++ $sshOut = & ssh @opts $target $remote 2>&1 | Out-String
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (grep: /home/spj...fault/head.html:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+: No such file or directory
+GREP_EXIT:2
+---REMOTE---
+ 69443 /home/spjiangl/joypo/skin/css/joypo-mobile.css
+  7714 /home/spjiangl/joypo/skin/js/joypo-home-m.js
+ 28233 /home/spjiangl/joypo/skin/js/joypo-anim.js
+  8927 /home/spjiangl/joypo/template/default/head.html
+  9769 /home/spjiangl/joypo/template/default/index.html
+  9802 /home/spjiangl/joypo/template/default/about.html
+133888 total
+END 2026-11-12 14:22:43

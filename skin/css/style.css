@@ -1381,7 +1381,8 @@ background: #e5e5e5;
 	background: rgba(0,0,0,0.3);
 	z-index: 1;
 }
-.full li a:hover span, .full li a:hover label {
+.full li a:hover > span,
+.full li a:hover > label {
 	background-color: #5dc2d0 !important;
 }
 .full li:last-child a {
