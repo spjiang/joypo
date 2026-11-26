@@ -5,9 +5,14 @@ services:
     container_name: joypo-cms
     ports:
       - "80:80"
+      - "443:443"
       - "8088:80"
     volumes:
       - .:/var/www/html
+      - ./docker/apache.conf:/etc/apache2/sites-available/000-default.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    # 有证书时才打开 SSL，避免本机没有证书时启动失败
+    command: ["sh", "-c", "if [ -f /etc/letsencrypt/live/www.joypoenergy.com/fullchain.pem ]; then a2enmod ssl; fi; exec apache2-foreground"]
     environment:
       JOYPO_DB_TYPE: mysqli
       JOYPO_DB_HOST: db
