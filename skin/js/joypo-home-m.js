@@ -9,7 +9,6 @@
     'use strict';
 
     if (!window.matchMedia || !window.matchMedia('(max-width: 1199px)').matches) return;
-    if (typeof Swiper === 'undefined') return;
 
     function pad(n) {
         return n < 10 ? '0' + n : String(n);
@@ -314,6 +313,9 @@
 
     function boot() {
         try {
+            /* 方案区横滑+灰色序号条不依赖 Swiper；合并时曾漏调导致条消失 */
+            initCaseBanner();
+            if (typeof Swiper === 'undefined') return;
             initAboutCards();
             initHxcen();
             initInyfzz();

@@ -5165,6 +5165,7 @@ body #w7 .cona a.morec1:hover {
 		z-index: 5 !important;
 		display: flex !important;
 		align-items: flex-end;
+		justify-content: space-between;
 		gap: 8px;
 		width: auto !important;
 		margin: 0 !important;
@@ -5177,6 +5178,47 @@ body #w7 .cona a.morec1:hover {
 
 	.w > .jp-case-tabs[hidden] {
 		display: none !important;
+	}
+
+	.w > .jp-case-tabs .jp-case-tab {
+		flex: 1 1 0;
+		min-width: 0;
+		margin: 0;
+		padding: 0 4px 8px;
+		border: 0;
+		border-bottom: 2px solid rgba(255, 255, 255, .28);
+		background: none;
+		color: rgba(255, 255, 255, .72);
+		text-align: left;
+		cursor: pointer;
+		appearance: none;
+		-webkit-appearance: none;
+	}
+
+	.w > .jp-case-tabs .jp-case-tab .jp-case-num {
+		display: block;
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 1.1;
+		letter-spacing: .04em;
+		font-style: italic;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.w > .jp-case-tabs .jp-case-tab .jp-case-label {
+		display: block;
+		margin-top: 4px;
+		font-size: 12px;
+		line-height: 1.25;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.w > .jp-case-tabs .jp-case-tab.is-on {
+		color: #fff;
+		border-bottom-color: #fff;
+		border-bottom-width: 3px;
 	}
 }
 
